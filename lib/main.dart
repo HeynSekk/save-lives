@@ -122,7 +122,7 @@ class MyApp extends StatelessWidget {
           [['https://youtu.be/NupCeGFUuoo','img',
           'How to put a baby in recovery position- Youtube','St John Ambulance']],
 
-          [['assets/images/recPosBa.png','Recovery Position for Baby','www.sja.org.uk','/recPosBaW']],
+          [['assets/images/recPosBa.png','First aid - Recovery Position for Baby','www.sja.org.uk','/recPosBaW']],
 
           'NO data'
         ),
