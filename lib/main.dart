@@ -11,7 +11,7 @@ import 'package:save_lives/screens/purpose.dart';
 import 'package:save_lives/screens/catalog.dart';
 import 'package:save_lives/common/webViewer.dart';
 import 'package:save_lives/screens/refContent.dart';
-//test change in master
+//to make pr
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
