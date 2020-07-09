@@ -10,7 +10,8 @@ class catalog extends StatelessWidget {
     double sHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       drawer: drawerUI(),
-      body: Row(
+      body: SafeArea(
+        child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           sideStick(),
@@ -62,6 +63,9 @@ class catalog extends StatelessWidget {
           ),
         ],
       ),
+
+      ), 
+      
     );
   }
 }

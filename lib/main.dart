@@ -13,10 +13,10 @@ import 'package:save_lives/common/webViewer.dart';
 import 'package:save_lives/screens/refContent.dart';
 //normal
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  /*WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.greenAccent),
-  );
+  );*/
   //WRAP IT
   runApp(
     ChangeNotifierProvider(

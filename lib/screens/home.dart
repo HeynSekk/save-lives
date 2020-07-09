@@ -8,13 +8,14 @@ class home extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: drawerUI(), //from common.dart
-      body: Row(
+      body: SafeArea(
+        child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           sideStick(), 
           Padding(
             padding: EdgeInsets.only(
-              top: sh * 0.11,
+              top: sh * 0.11*(1 / 5),
               bottom: sh * 0.11 * (1 / 5),
               left: sh * 0.11 * (1 / 5),
               right: sh * 0.11 * (1 / 5),
@@ -75,6 +76,8 @@ class home extends StatelessWidget {
           
         ],
       ),
+      ),
+      
     );
   }
 }
