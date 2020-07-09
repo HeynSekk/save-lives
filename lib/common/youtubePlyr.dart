@@ -42,9 +42,9 @@ class _ytPlyrState extends State<ytPlyr> {
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 3,
-              blurRadius: 5,
-              offset: Offset(3, 3), // changes position of shadow
+              spreadRadius: 4,
+              blurRadius: 3,
+              offset: Offset(0, 0), // changes position of shadow
             ),
           ],
         ),

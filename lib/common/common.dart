@@ -26,13 +26,14 @@ class contLink extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 3,
-              blurRadius: 5,
-              offset: Offset(0, 3), // changes position of shadow
+              spreadRadius: 4,
+              blurRadius: 3,
+              offset: Offset(0, 0), // changes position of shadow
             ),
           ],
         ),
         padding: EdgeInsets.all(normalFontSize * 0.80),
+        margin: EdgeInsets.only(left: 5),
         child: Column(children: <Widget>[
           Row(
             children: <Widget>[
