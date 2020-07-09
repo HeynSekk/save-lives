@@ -30,7 +30,7 @@ class catalog extends StatelessWidget {
                 children: <Widget>[
                   //TITLE
                   SizedBox(
-                    height: sHeight*0.07
+                    height: sHeight*0.03
                   ),
                   catalogTitle('Learn First Aids to Save Lives'),
                   SizedBox(

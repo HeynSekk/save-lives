@@ -20,6 +20,7 @@ class refContent extends StatelessWidget {
     var wLst = new List<Widget>();
     int countWidget = 0;
     //title
+    wLst.add(SizedBox(height: sHeight * 0.07,));
     wLst.add(SizedBox(
         width: sw * 0.70,
         child: Text(
@@ -101,8 +102,8 @@ class refContent extends StatelessWidget {
             sideStick(),
             Padding(
               padding: EdgeInsets.only(
-                top: sHeight * 0.07,
-                left: sHeight * 0.11 * (1 / 5),
+                //top: sHeight * 0.07,
+                left: sHeight * 0.11 * 0.20,
               ),
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
