@@ -15,10 +15,10 @@ class home extends StatelessWidget {
           sideStick(), 
           Padding(
             padding: EdgeInsets.only(
-              top: sh * 0.11*(1 / 5),
-              bottom: sh * 0.11 * (1 / 5),
-              left: sh * 0.11 * (1 / 5),
-              right: sh * 0.11 * (1 / 5),
+              top: sh * 0.11*0.90,
+              bottom: sh * 0.11 * 0.20,
+              left: sh * 0.11 * 0.20,
+              right: sh * 0.11 * 0.20,
             ),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,

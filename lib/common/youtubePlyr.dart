@@ -35,7 +35,7 @@ class _ytPlyrState extends State<ytPlyr> {
     return InkWell(
       onTap: playYoutubeVideo,
       child: Container(
-        width: sw * 0.80,
+        width: sw * 0.76,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(normalFontSize*0.50),
@@ -52,9 +52,9 @@ class _ytPlyrState extends State<ytPlyr> {
         child: Column(children: <Widget>[
           Row(
             children: <Widget>[
-              imgs(sw * 0.80 * 0.28, sw * 0.80 * 0.28 * 1.3, 0,
+              imgs(sw * 0.80 * 0.25, sw * 0.80 * 0.28 * 1.10, 0,
                   'assets/images/ytLogo.png'),  
-              SizedBox(width: normalFontSize * 0.80),
+              SizedBox(width: normalFontSize * 0.77),
               SizedBox(
                 width: sw * 0.80 * 0.50,
                 child: Text(

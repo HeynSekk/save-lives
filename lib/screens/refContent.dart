@@ -4,7 +4,7 @@ import 'package:save_lives/common/youtubePlyr.dart';
 
 class refContent extends StatelessWidget {
   String contentTitle;
-  List<List<String>> ytVids,webPages;
+  List<List<String>> ytVids, webPages;
   String remember;
 
   refContent(this.contentTitle, this.ytVids, this.webPages, this.remember);
@@ -20,12 +20,14 @@ class refContent extends StatelessWidget {
     var wLst = new List<Widget>();
     int countWidget = 0;
     //title
-    wLst.add(Text(
-      this.contentTitle,
-      style: TextStyle(
-        fontSize: normalFontSize * 2,
-      ),
-    ));
+    wLst.add(SizedBox(
+        width: sw * 0.70,
+        child: Text(
+          this.contentTitle,
+          style: TextStyle(
+            fontSize: normalFontSize * 2,
+          ),
+        )));
     wLst.add(SizedBox(height: normalFontSize * 2));
 
     //video
@@ -40,10 +42,8 @@ class refContent extends StatelessWidget {
 
     countWidget = this.ytVids.length;
     for (int i = 0; i < countWidget; i++) {
-      wLst.add(
-        ytPlyr(this.ytVids[i][0], this.ytVids[i][1], this.ytVids[i][2], this.ytVids[i][3])
-        
-      );
+      wLst.add(ytPlyr(this.ytVids[i][0], this.ytVids[i][1], this.ytVids[i][2],
+          this.ytVids[i][3]));
       wLst.add(SizedBox(height: normalFontSize * 2));
     }
     //webpages
@@ -95,21 +95,24 @@ class refContent extends StatelessWidget {
 
     return Scaffold(
       drawer: drawerUI(),
-      body: Row(
-        children: <Widget>[
-          sideStick(),
-          Padding(
-            padding: EdgeInsets.only(
-              top: sHeight * 0.07,
-              left: sHeight * 0.11 * (1 / 5),
+      body: SafeArea(
+        child: Row(
+          children: <Widget>[
+            sideStick(),
+            Padding(
+              padding: EdgeInsets.only(
+                top: sHeight * 0.07,
+                left: sHeight * 0.11 * (1 / 5),
+              ),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: wLst),
+              ),
             ),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start, children: wLst),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -19,15 +19,15 @@ class contLink extends StatelessWidget {
     return InkWell(
       onTap: () => Navigator.pushNamed(context, this.dest),
       child: Container(
-        width: sw * 0.80,
+        width: sw * 0.76,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(normalFontSize*0.25),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 7,
+              spreadRadius: 3,
+              blurRadius: 5,
               offset: Offset(0, 3), // changes position of shadow
             ),
           ],
@@ -36,8 +36,8 @@ class contLink extends StatelessWidget {
         child: Column(children: <Widget>[
           Row(
             children: <Widget>[
-              imgs(sw * 0.80 * 0.33, sw * 0.80 * 0.33,normalFontSize*0.50, this.img),
-              SizedBox(width: normalFontSize * 0.80),
+              imgs(sw * 0.80 * 0.30, sw * 0.80 * 0.30,normalFontSize*0.50, this.img),
+              SizedBox(width: normalFontSize * 0.77),
               SizedBox(
                 width: sw * 0.80 * 0.50,
                 child: Text(this.txt,
@@ -169,13 +169,11 @@ class sideStick extends StatelessWidget {
               //height: 4,
               width: sw * (1 / 20) * 2, //40
               child: Center(
-                child: SizedBox(
-                    width: sw * (2 / 29) * 0.82, //33
-                    height: sw * (2 / 29) * 0.82,
-                    child: Icon(
+                child: Icon(
                       Icons.menu,
                       color: Colors.white,
-                    )),
+                      //size: sw * (2 / 29) * 0.75,
+                    )
               ),
               decoration: BoxDecoration(
                 color: Colors.green,

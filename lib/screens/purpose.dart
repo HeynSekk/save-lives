@@ -15,15 +15,17 @@ class purpose extends StatelessWidget {
   Widget build(BuildContext context) {
     //double sw = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: FutureBuilder<List<String>>(
-        future: loadData(this.addr),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
+      body: SafeArea(
+        child: FutureBuilder<List<String>>(
+          future: loadData(this.addr),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) print(snapshot.error);
 
-          return snapshot.hasData
-              ? actualUI(snapshot.data)
-              : Center(child: CircularProgressIndicator());
-        },
+            return snapshot.hasData
+                ? actualUI(snapshot.data)
+                : Center(child: CircularProgressIndicator());
+          },
+        ),
       ),
     );
   }
@@ -60,7 +62,6 @@ class actualUI extends StatelessWidget {
   actualUI(this.dl);
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

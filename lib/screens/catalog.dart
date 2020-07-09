@@ -17,7 +17,7 @@ class catalog extends StatelessWidget {
           sideStick(),
           Padding(
             padding: EdgeInsets.only(
-              top: sHeight * 0.07,
+              //top: sHeight * 0.07,
               bottom: sHeight * 0.11 * (1 / 5),
               left: 0, //sHeight * 0.11 * (1 / 5),
               right: sHeight * 0.11 * (1 / 5),
@@ -29,9 +29,12 @@ class catalog extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   //TITLE
-                  catalogTitle('First Aids'),
                   SizedBox(
-                    height: wRow * 0.15 * 0.50,
+                    height: sHeight*0.07
+                  ),
+                  catalogTitle('Learn First Aids to Save Lives'),
+                  SizedBox(
+                    height: wRow * 0.15 * 0.43,
                   ),
                   subTitle('The fundamentals'),
                   menuItemNormal('assets/images/priSurAd.png', 'Primry Survey', '/priSurAd'),
@@ -44,19 +47,19 @@ class catalog extends StatelessWidget {
                   menuItemFirst('assets/images/chokAd.png', 'Choking (adult)','/chokAd', 'C'),
                   menuItemNormal('assets/images/chokBaby.png', 'Choking (baby)','/chokBaby'),
                   menuItemNormal('assets/images/chokChi.png', 'Choking (child)','/chokChi'),
-                  menuItemNormal('assets/images/cprAd.png', 'CPR for adult', '/adCpr'),
+                  //menuItemNormal('assets/images/cprAd.png', 'CPR for adult', '/adCpr'),
                   menuItemNormal('assets/images/cprBaby.png', 'CPR for baby', '/babyCpr'),
                   menuItemNormal('assets/images/cprChild.png', 'CPR for child','/childCpr'),
 
-                  menuItemFirst('assets/images/heaAtt.png', 'Heart attack','/heaAtt','H'),
+                  //menuItemFirst('assets/images/heaAtt.png', 'Heart attack','/heaAtt','H'),
                   menuItemNormal('assets/images/heaInj.png', 'Head injuries in children, babies','/heaInj'),
                   menuItemFirst('assets/images/seiAd.png', 'Seizure (adult)','/seiAd','S'),
-                  menuItemNormal('assets/images/seiBa.png', 'Seizure (baby)','/seiBa'),
+                  /*menuItemNormal('assets/images/seiBa.png', 'Seizure (baby)','/seiBa'),
                   menuItemNormal('assets/images/seiChi.png', 'Seizure (children)','/seiChi'),
                   menuItemNormal('assets/images/sevBl.png', 'Severe bleeding','/sevBl'),
                   menuItemNormal('assets/images/sevBlBa.png', 'Severe bleeding (baby)','/sevBlBa'),
                   menuItemNormal('assets/images/sho.png', 'Shock','/sho'),
-                  menuItemNormal('assets/images/snak.png', 'Snake Bite','/snak'),
+                  menuItemNormal('assets/images/snak.png', 'Snake Bite','/snak'),*/
                 ],
               ),
             ),
@@ -116,11 +119,15 @@ class subTitle extends StatelessWidget {
     double normalFontSize = wRow * 0.07 * 1.5 * 0.50;
     //double hTitle=mwid*0.32;
     return Padding(
-      padding: EdgeInsets.only(bottom: normalFontSize),
-      child: Text(
+      padding: EdgeInsets.only(bottom: normalFontSize, top: normalFontSize),
+      child: SizedBox(
+        width: screenWidth*0.75,
+        child: Text(
         this.title,
         style: TextStyle(color: Color(0xff6BCF63), fontSize: normalFontSize),
       ),
+      ), 
+      
     );
   }
 }
