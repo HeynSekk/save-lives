@@ -37,6 +37,7 @@ class refContent extends StatelessWidget {
       'Learn from videos:',
       style: TextStyle(
         fontSize: normalFontSize,
+        color: Color(0xff6BCF63),
       ),
     ));
     wLst.add(SizedBox(height: normalFontSize * 2));
@@ -53,6 +54,7 @@ class refContent extends StatelessWidget {
       'Learn from websites:',
       style: TextStyle(
         fontSize: normalFontSize,
+        color: Color(0xff6BCF63),
       ),
     ));
     wLst.add(SizedBox(height: normalFontSize * 2));
@@ -72,6 +74,7 @@ class refContent extends StatelessWidget {
       'Brief memorizing:',
       style: TextStyle(
         fontSize: normalFontSize,
+        color: Color(0xff6BCF63),
       ),
     ));
     wLst.add(SizedBox(height: normalFontSize * 2));

@@ -186,7 +186,7 @@ class MyApp extends StatelessWidget {
             ],
             [
               [
-                'assets/images/cprAd.png',
+                'assets/images/cprAd.jpg',
                 'How to do CPR on an adult - Webpage',
                 'www.sja.org.uk',
                 '/adCprW'
@@ -361,7 +361,7 @@ class MyApp extends StatelessWidget {
           [['https://youtu.be/5k8nDlfaA9E','img',
           'First aids for snake bites - Youtube','St John Ambulance']],
 
-          [['assets/images/snak.png','Snake bite - First aids','www.paradisefirstaid.com.au','/snakW']],
+          [['assets/images/snak.jpg','Snake bite - First aids','www.paradisefirstaid.com.au','/snakW']],
 
           'NO data'
         ),
