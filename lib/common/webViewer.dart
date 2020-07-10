@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'dart:math';
 
 class webViewer extends StatefulWidget {
   String myUrl;
@@ -12,20 +13,24 @@ class webViewer extends StatefulWidget {
 
 class _webViewerState extends State<webViewer> {
   String myUrl;
-  int _stackToShow=1;
+  int _stackToShow = 1;
   _webViewerState(this.myUrl);
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
-      void _handleLoad(String value)
-      {
-        setState(() {
-          _stackToShow=0;
-        });
-      }
+  void _handleLoad(String value) {
+    setState(() {
+      _stackToShow = 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    double sw=MediaQuery.of(context).size.width;
+    double sw = MediaQuery.of(context).size.width;
+    var rdm = new Random();
+    List<String> quotes=['Someone once told me growth and confort do not coexist. And I think it is a really good thing to remember\nGinni Rometty, IBM CEO',
+    'The way to get started is to quit talking and begin doing.\nWalt Disney',
+    'The greatest glory in living lies not in never falling, but in rising every time we fall.\nNelson Mandela',
+    'If life were predictable it would cease to be life, and be without flavor.\nEleanor Roosevelt'];
     return Scaffold(
       /*appBar: AppBar(
         title: const Text('Flutter WebView example'),
@@ -37,72 +42,79 @@ class _webViewerState extends State<webViewer> {
       ),*/
       // We're using a Builder here so we have a context that is below the Scaffold
       // to allow calling Scaffold.of(context) so we can show a snackbar.
-      body: IndexedStack(
-        index: _stackToShow,
-        children: <Widget>[
-          Padding(
-        padding: EdgeInsets.only(top: 20),
-        child: Builder(builder: (BuildContext context) {
-          return WebView(
-            initialUrl: this.myUrl,
-            javascriptMode: JavascriptMode.unrestricted,
-            onWebViewCreated: (WebViewController webViewController) {
-              _controller.complete(webViewController);
-            },
-            // TODO(iskakaushik): Remove this when collection literals makes it to stable.
-            // ignore: prefer_collection_literals
-            javascriptChannels: <JavascriptChannel>[
-              _toasterJavascriptChannel(context),
-            ].toSet(),
-            navigationDelegate: (NavigationRequest request) {
-              /*if (request.url.startsWith('https://www.youtube.com/')) {
+      body: SafeArea(
+        child: IndexedStack(
+          index: _stackToShow,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Builder(builder: (BuildContext context) {
+                return WebView(
+                  initialUrl: this.myUrl,
+                  javascriptMode: JavascriptMode.unrestricted,
+                  onWebViewCreated: (WebViewController webViewController) {
+                    _controller.complete(webViewController);
+                  },
+                  // TODO(iskakaushik): Remove this when collection literals makes it to stable.
+                  // ignore: prefer_collection_literals
+                  javascriptChannels: <JavascriptChannel>[
+                    _toasterJavascriptChannel(context),
+                  ].toSet(),
+                  navigationDelegate: (NavigationRequest request) {
+                    /*if (request.url.startsWith('https://www.youtube.com/')) {
                 print('blocking navigation to $request}');
                 return NavigationDecision.prevent;
               }*/
-              print('allowing navigation to $request');
-              return NavigationDecision.navigate;
-            },
-            onPageStarted: (String url) {
-              print('Page started loading: $url');
-            },
-            onPageFinished: _handleLoad,
-            gestureNavigationEnabled: true,
-          );
-        }),
-      ),
-      //progress bar
-      Center(
-        child: Column(
-          children: <Widget>[
-            CircularProgressIndicator(backgroundColor: Colors.green,),
-            SizedBox(height: 17,),
-            Text('Loading webpage',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color:Color(0xffE5E5E5),
-              fontSize: 20,
-            ),),
-            SizedBox(height: 20,),
-            SizedBox(
-              width: sw*0.75,
-              child: Text('Someone once told me growth and confort do not coexist. And I think it is a really good thing to remember\nGinni Rometty, IBM CEO',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color:Colors.green,
-              fontSize: 25,
-            ),),
+                    print('allowing navigation to $request');
+                    return NavigationDecision.navigate;
+                  },
+                  onPageStarted: (String url) {
+                    print('Page started loading: $url');
+                  },
+                  onPageFinished: _handleLoad,
+                  gestureNavigationEnabled: true,
+                );
+              }),
             ),
-            
-
+            //progress bar
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  CircularProgressIndicator(
+                    backgroundColor: Colors.green,
+                  ),
+                  SizedBox(
+                    height: 17,
+                  ),
+                  Text(
+                    'Loading webpage',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xffE5E5E5),
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: sw * 0.75,
+                    child: Text(
+                      quotes[rdm.nextInt(3)],
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
-        
       ),
-
-        ],
-      ),
-      
-      
     );
   }
 
@@ -115,8 +127,6 @@ class _webViewerState extends State<webViewer> {
           );
         });
   }
-
-  
 }
 
 enum MenuOptions {
