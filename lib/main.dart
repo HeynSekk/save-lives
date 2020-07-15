@@ -11,6 +11,7 @@ import 'package:save_lives/screens/purpose.dart';
 import 'package:save_lives/screens/catalog.dart';
 import 'package:save_lives/common/webViewer.dart';
 import 'package:save_lives/screens/refContent.dart';
+
 //normal
 void main() {
   /*WidgetsFlutterBinding.ensureInitialized();
@@ -88,93 +89,146 @@ class MyApp extends StatelessWidget {
         '/recPosAdW':(context)=>webViewer(''),
         */
         //PRI SUR BABY
-        '/priSurBa':(context)=>
-        refContent(
-          'Primary Survey (Baby)',
-
-          [['https://youtu.be/uZYptqxfZ1E','img',
-          'How to do primary survey on a baby','St John Ambulance']],
-
-          [['assets/images/priSurBa.png','Baby primary survey','www.sja.org.uk','/priSurBaW']],
-
-          'NO data'
-        ),
-        '/priSurBaW':(context)=>webViewer('https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/baby-primary-survey/'),
+        '/priSurBa': (context) => refContent(
+            'Primary Survey (Baby)',
+            [
+              [
+                'https://youtu.be/uZYptqxfZ1E',
+                'img',
+                'How to do primary survey on a baby',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/priSurBa.png',
+                'Baby primary survey',
+                'www.sja.org.uk',
+                '/priSurBaW'
+              ]
+            ],
+            'NO data'),
+        '/priSurBaW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/baby-primary-survey/'),
         //REC POS ADULT
-        '/recPosAd':(context)=>
-        refContent(
-          'Recovery position (adult)',
-
-          [['https://youtu.be/GmqXqwSV3bo','img',
-          'How to put someone in recovery position - Youtube','St John Ambulance']],
-
-          [['assets/images/recPosAd.png','Recovery position (adult)','www.sja.org.uk','/recPosAdW']],
-
-          'NO data'
-        ),
-        '/recPosAdW':(context)=>webViewer('https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/how-to-do-the-recovery-position/'),
+        '/recPosAd': (context) => refContent(
+            'Recovery position (adult)',
+            [
+              [
+                'https://youtu.be/GmqXqwSV3bo',
+                'img',
+                'How to put someone in recovery position - Youtube',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/recPosAd.png',
+                'Recovery position (adult)',
+                'www.sja.org.uk',
+                '/recPosAdW'
+              ]
+            ],
+            'NO data'),
+        '/recPosAdW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/how-to-do-the-recovery-position/'),
 
         //REC POS BABY
-        '/recPosBa':(context)=>
-        refContent(
-          'Recovery Position (Baby)',
+        '/recPosBa': (context) => refContent(
+            'Recovery Position (Baby)',
+            [
+              [
+                'https://youtu.be/NupCeGFUuoo',
+                'img',
+                'How to put a baby in recovery position- Youtube',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/recPosBa.png',
+                'First aid - Recovery Position for Baby',
+                'www.sja.org.uk',
+                '/recPosBaW'
+              ]
+            ],
+            'NO data'),
+        '/recPosBaW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-the-recovery-position-baby/'),
 
-          [['https://youtu.be/NupCeGFUuoo','img',
-          'How to put a baby in recovery position- Youtube','St John Ambulance']],
-
-          [['assets/images/recPosBa.png','First aid - Recovery Position for Baby','www.sja.org.uk','/recPosBaW']],
-
-          'NO data'
-        ),
-        '/recPosBaW':(context)=>webViewer('https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-the-recovery-position-baby/'),
-        
         //# COMMON MFA #
 
         //CHOKING ADULT
-        '/chokAd':(context)=>
-        refContent(
-          'Choking(Adult)',
-
-          [['https://youtu.be/PA9hpOnvtCk','img',
-          'What To Do When Someone Is Choking','St John Ambulance']],
-
-          [['assets/images/chokAd.png','What To Do When Someone Is Choking','www.sja.org.uk','/chokAdW']],
-
-          'NO data'
-        ),
-        '/chokAdW':(context)=>webViewer('https://www.sja.org.uk/get-advice/first-aid-advice/choking/adult-choking/'),
+        '/chokAd': (context) => refContent(
+            'Choking(Adult)',
+            [
+              [
+                'https://youtu.be/PA9hpOnvtCk',
+                'img',
+                'What To Do When Someone Is Choking',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/chokAd.png',
+                'What To Do When Someone Is Choking',
+                'www.sja.org.uk',
+                '/chokAdW'
+              ]
+            ],
+            'NO data'),
+        '/chokAdW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/choking/adult-choking/'),
 
         //CHOKING BABY
-        '/chokBaby':(context)=>
-        refContent(
-          'Choking(Baby)',
-
-          [['https://youtu.be/oswDpwzbAV8','img',
-          'What To Do When A Baby Is Choking','St John Ambulance']],
-
-          [['assets/images/chokBaby.png','First aid advices for Choking (Baby)','www.sja.org.uk','/chokBabyW']],
-
-          'NO data'
-        ),
-        '/chokBabyW':(context)=>webViewer('https://www.sja.org.uk/get-advice/first-aid-advice/choking/baby-choking/'),
+        '/chokBaby': (context) => refContent(
+            'Choking(Baby)',
+            [
+              [
+                'https://youtu.be/oswDpwzbAV8',
+                'img',
+                'What To Do When A Baby Is Choking',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/chokBaby.png',
+                'First aid advices for Choking (Baby)',
+                'www.sja.org.uk',
+                '/chokBabyW'
+              ]
+            ],
+            'NO data'),
+        '/chokBabyW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/choking/baby-choking/'),
 
         //CHOKING CHILD
-        '/chokChi':(context)=>
-        refContent(
-          'Choking(Child)',
-
-          [['https://youtu.be/PA9hpOnvtCk','img',
-          'What To Do When A Child Is Choking','St John Ambulance']],
-
-          [['assets/images/chokChi.png','First aid advices for Choking (Child)','www.sja.org.uk','/chokChiW']],
-
-          'NO data'
-        ),
-        '/chokChiW':(context)=>webViewer('https://www.sja.org.uk/get-advice/first-aid-advice/choking/child-choking/'),
+        '/chokChi': (context) => refContent(
+            'Choking(Child)',
+            [
+              [
+                'https://youtu.be/PA9hpOnvtCk',
+                'img',
+                'What To Do When A Child Is Choking',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/chokChi.png',
+                'First aid advices for Choking (Child)',
+                'www.sja.org.uk',
+                '/chokChiW'
+              ]
+            ],
+            'NO data'),
+        '/chokChiW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/choking/child-choking/'),
 
         //CPR ADULT
-        '/adCpr': (context) => 
-        refContent(
+        '/adCpr': (context) => refContent(
             'CPR for adult',
             [
               [
@@ -192,14 +246,12 @@ class MyApp extends StatelessWidget {
                 '/adCprW'
               ]
             ],
-            '-30 chest compression\n-2 resuce breathe'
-        ),
+            '-30 chest compression\n-2 resuce breathe'),
         '/adCprW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/how-to-do-cpr-on-an-adult/'),
 
         //CPR BABY
-        '/babyCpr': (context) => 
-        refContent(
+        '/babyCpr': (context) => refContent(
             'CPR for baby',
             [
               [
@@ -217,157 +269,231 @@ class MyApp extends StatelessWidget {
                 '/babyCprW'
               ]
             ],
-            '-30 chest compression\n-2 resuce breathe'
-          ),
+            '-30 chest compression\n-2 resuce breathe'),
         '/babyCprW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-cpr-on-a-baby/'),
 
         //CPR CHILD
-        '/childCpr': (context) => refContent(
-            'CPR for child',
-            [
+        '/childCpr': (context) => refContent('CPR for child', [
               [
                 'https://youtu.be/0aV9NS0ogiM',
                 'assets/images/cpr.png',
                 'How to do CPR on a child - YouTube',
                 'St John Ambulance'
               ]
-            ],
-            [
+            ], [
               [
                 'assets/images/cprChild.png',
                 'How to do CPR on children',
                 'www.sja.org.uk',
                 '/cprChildW'
               ],
-            ],
-            '''-30 chest compression
+            ], '''-30 chest compression
 -2 resuce breathe '''),
         '/cprChildW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-cpr-on-a-child/'),
 
-      //HEART ATTACK
-        '/heaAtt':(context)=>
-        refContent(
-          'Heart Attack',
-
-          [['https://youtu.be/gDwt7dD3awc','img',
-          'Heart Attack Symptoms & How to Treat a Heart Attack','St John Ambulance']],
-
-          [['assets/images/heaAtt.png','Heart Attack Symptoms & How to Treat a Heart Attack','www.sja.org.uk','/heaAttW']],
-
-          'NO data'
-        ),
-        '/heaAttW':(context)=>webViewer('https://www.sja.org.uk/get-advice/first-aid-advice/heart-conditions/heart-attack/'),
-      //HEAD INJURIES
-        '/heaInj':(context)=>
-        refContent(
-          'Head injuries in children and babies',
-
-          [['https://youtu.be/Yps5NGkCPEk','img',
-          'Head injuries in children, babies - Youtube','St John Ambulance']],
-
-          [['assets/images/heaInj.png','First aids - Head injuries in children, baby','www.sja.org.uk','/heaInjW']],
-
-          'NO data'
-        ),
-        '/heaInjW':(context)=>webViewer('https://www.sja.org.uk/get-advice/first-aid-advice/head-injuries/baby-and-child-head-injury/'),
-      //SEIZURE ADULT
-        '/seiAd':(context)=>
-        refContent(
-          'Seizure (adults)',
-
-          [['https://youtu.be/Ovsw7tdneqE','img',
-          'Seizure in adults - Youtube','St John Ambulance']],
-
-          [['assets/images/seiAd.png','Seizure in Adult - First aid','www.sja.org.uk','/seiAdW']],
-
-          'NO data'
-        ),
-        '/seiAdW':(context)=>webViewer('https://www.sja.org.uk/get-advice/first-aid-advice/seizures/seizures-in-adults/'),//https://www.sja.org.uk/get-advice/first-aid-advice/seizures/seizures-in-adults/
+        //HEART ATTACK
+        '/heaAtt': (context) => refContent(
+            'Heart Attack',
+            [
+              [
+                'https://youtu.be/gDwt7dD3awc',
+                'img',
+                'Heart Attack Symptoms & How to Treat a Heart Attack',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/heaAtt.png',
+                'Heart Attack Symptoms & How to Treat a Heart Attack',
+                'www.sja.org.uk',
+                '/heaAttW'
+              ]
+            ],
+            'NO data'),
+        '/heaAttW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/heart-conditions/heart-attack/'),
+        //HEAD INJURIES
+        '/heaInj': (context) => refContent(
+            'Head injuries in children and babies',
+            [
+              [
+                'https://youtu.be/Yps5NGkCPEk',
+                'img',
+                'Head injuries in children, babies - Youtube',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/heaInj.png',
+                'First aids - Head injuries in children, baby',
+                'www.sja.org.uk',
+                '/heaInjW'
+              ]
+            ],
+            'NO data'),
+        '/heaInjW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/head-injuries/baby-and-child-head-injury/'),
+        //SEIZURE ADULT
+        '/seiAd': (context) => refContent(
+            'Seizure (adults)',
+            [
+              [
+                'https://youtu.be/Ovsw7tdneqE',
+                'img',
+                'Seizure in adults - Youtube',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/seiAd.png',
+                'Seizure in Adult - First aid',
+                'www.sja.org.uk',
+                '/seiAdW'
+              ]
+            ],
+            'NO data'),
+        '/seiAdW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/seizures/seizures-in-adults/'), //https://www.sja.org.uk/get-advice/first-aid-advice/seizures/seizures-in-adults/
 
         //SEIZURE BABY
-        '/seiBa':(context)=>
-        refContent(
-          'Seizure (babies)',
-
-          [['https://youtu.be/CcQZRDcGZpE','img',
-          'Seizure in babies- Youtube','St John Ambulance']],
-
-          [['assets/images/seiBa.png','Seizure in babies - First aid','www.sja.org.uk','/seiBaW']],
-
-          'NO data'
-        ),
-        '/seiBaW':(context)=>webViewer('https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/febrile-convulsion-seizures/'),
+        '/seiBa': (context) => refContent(
+            'Seizure (babies)',
+            [
+              [
+                'https://youtu.be/CcQZRDcGZpE',
+                'img',
+                'Seizure in babies- Youtube',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/seiBa.png',
+                'Seizure in babies - First aid',
+                'www.sja.org.uk',
+                '/seiBaW'
+              ]
+            ],
+            'NO data'),
+        '/seiBaW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/febrile-convulsion-seizures/'),
 
         //SEIZURE CHILDREN
-        '/seiChi':(context)=>
-        refContent(
-          'Seizure (children)',
-
-          [['https://youtu.be/yQgih6KAwLU','img',
-          'Seizure in children - Youtube','St John Ambulance']],
-
-          [['assets/images/seiChi.png','Seizure in children - First aid','www.sja.org.uk','/seiChiW']],
-
-          'NO data'
-        ),
-        '/seiChiW':(context)=>webViewer('https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/seizures-in-children/'),
+        '/seiChi': (context) => refContent(
+            'Seizure (children)',
+            [
+              [
+                'https://youtu.be/yQgih6KAwLU',
+                'img',
+                'Seizure in children - Youtube',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/seiChi.png',
+                'Seizure in children - First aid',
+                'www.sja.org.uk',
+                '/seiChiW'
+              ]
+            ],
+            'NO data'),
+        '/seiChiW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/seizures-in-children/'),
 
         //SEVERE BLEEDING
-        '/sevBl':(context)=>
-        refContent(
-          'Severe bleeding',
-
-          [['https://youtu.be/NxO5LvgqZe0','img',
-          'Severe bleeding - Youtube','St John Ambulance']],
-
-          [['assets/images/sevBl.png','Severe bleeding - First aids','www.sja.org.uk','/sevBlW']],
-
-          'NO data'
-        ),
-        '/sevBlW':(context)=>webViewer('https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/severe-bleeding/'),
+        '/sevBl': (context) => refContent(
+            'Severe bleeding',
+            [
+              [
+                'https://youtu.be/NxO5LvgqZe0',
+                'img',
+                'Severe bleeding - Youtube',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/sevBl.png',
+                'Severe bleeding - First aids',
+                'www.sja.org.uk',
+                '/sevBlW'
+              ]
+            ],
+            'NO data'),
+        '/sevBlW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/severe-bleeding/'),
         //SEVERE BLEEDING BABY
-        '/sevBlBa':(context)=>
-        refContent(
-          'Severe bleeding (baby)',
-
-          [['https://youtu.be/RZ6hBvAulpE','img',
-          'Severe bleeding for babies - Youtube','St John Ambulance']],
-
-          [['assets/images/sevBlBa.png','Severe bleeding in babies - First aids','www.sja.org.uk','/sevBlBaW']],
-
-          'NO data'
-        ),
-        '/sevBlBaW':(context)=>webViewer('https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/baby-bleeding/'),
+        '/sevBlBa': (context) => refContent(
+            'Severe bleeding (baby)',
+            [
+              [
+                'https://youtu.be/RZ6hBvAulpE',
+                'img',
+                'Severe bleeding for babies - Youtube',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/sevBlBa.png',
+                'Severe bleeding in babies - First aids',
+                'www.sja.org.uk',
+                '/sevBlBaW'
+              ]
+            ],
+            'NO data'),
+        '/sevBlBaW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/baby-bleeding/'),
         //SHOCK
-        '/sho':(context)=>
-        refContent(
-          'Shock',
-
-          [['https://youtu.be/61urGQrmeNM','img',
-          'First aids for Shock - Youtube','St John Ambulance']],
-
-          [['assets/images/sho.png','Shock - First aids','www.sja.org.uk','/shoW']],
-
-          'NO data'
-        ),
-        '/shoW':(context)=>webViewer('https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/shock/'),
+        '/sho': (context) => refContent(
+            'Shock',
+            [
+              [
+                'https://youtu.be/61urGQrmeNM',
+                'img',
+                'First aids for Shock - Youtube',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/sho.png',
+                'Shock - First aids',
+                'www.sja.org.uk',
+                '/shoW'
+              ]
+            ],
+            'NO data'),
+        '/shoW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/shock/'),
         //SNAKE BITE
-        '/snak':(context)=>
-        refContent(
-          'Snake bite',
-
-          [['https://youtu.be/5k8nDlfaA9E','img',
-          'First aids for snake bites - Youtube','St John Ambulance']],
-
-          [['assets/images/snak.jpg','Snake bite - First aids','www.paradisefirstaid.com.au','/snakW']],
-
-          'NO data'
-        ),
-        '/snakW':(context)=>webViewer('https://www.paradisefirstaid.com.au/snake-bite-first-aid/'),
-        
-        
+        '/snak': (context) => refContent(
+            'Snake bite',
+            [
+              [
+                'https://youtu.be/5k8nDlfaA9E',
+                'img',
+                'First aids for snake bites - Youtube',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/snak.png',
+                'Snake bite - First aids',
+                'www.paradisefirstaid.com.au',
+                '/snakW'
+              ]
+            ],
+            'NO data'),
+        '/snakW': (context) => webViewer(
+            'https://www.paradisefirstaid.com.au/snake-bite-first-aid/'),
       },
     );
   }

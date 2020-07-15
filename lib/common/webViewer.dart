@@ -27,10 +27,12 @@ class _webViewerState extends State<webViewer> {
   Widget build(BuildContext context) {
     double sw = MediaQuery.of(context).size.width;
     var rdm = new Random();
-    List<String> quotes=['Someone once told me growth and confort do not coexist. And I think it is a really good thing to remember\nGinni Rometty, IBM CEO',
-    'The way to get started is to quit talking and begin doing.\nWalt Disney',
-    'The greatest glory in living lies not in never falling, but in rising every time we fall.\nNelson Mandela',
-    'If life were predictable it would cease to be life, and be without flavor.\nEleanor Roosevelt'];
+    List<String> quotes = [
+      'Someone once told me growth and confort do not coexist. And I think it is a really good thing to remember\n\t\tGinni Rometty, IBM CEO',
+      'The way to get started is to quit talking and begin doing.\n\t\tWalt Disney',
+      'The greatest glory in living lies not in never falling, but in rising every time we fall.\n\t\tNelson Mandela',
+      'If life were predictable it would cease to be life, and be without flavor.\n\t\tEleanor Roosevelt'
+    ];
     return Scaffold(
       /*appBar: AppBar(
         title: const Text('Flutter WebView example'),
