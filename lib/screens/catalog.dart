@@ -34,7 +34,7 @@ class catalog extends StatelessWidget {
                     SizedBox(
                       height: wRow * 0.15 * 0.43,
                     ),
-                    subTitle('The fundamentals'),
+                    subTitle('Common first aids'),
                     menuItemNormal('assets/images/priSurAd.png',
                         'Primary Survey', '/priSurAd'),
                     menuItemNormal('assets/images/priSurBa.png',
@@ -45,7 +45,7 @@ class catalog extends StatelessWidget {
                         'Recovery position (baby)', '/recPosBa'),
 
                     //LIST
-                    subTitle('Common first aids'),
+                    subTitle('How to save lives in case of:'),
                     menuItemFirst('assets/images/chokAd.png', 'Choking (adult)',
                         '/chokAd', 'C'),
                     menuItemNormal('assets/images/chokBaby.png',
@@ -156,7 +156,7 @@ class menuItemFirst extends StatelessWidget {
     double wRow = screenWidth * 0.75;
     double hRow = wRow * 0.47;
     return Padding(
-      padding: EdgeInsets.only(bottom: screenWidth * 0.70 * 0.32 * 0.05),
+      padding: EdgeInsets.only(bottom: screenWidth * 0.70 * 0.32 * 0.15),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -185,7 +185,7 @@ class menuItemNormal extends StatelessWidget {
     double wRow = screenWidth * 0.70;
     double hRow = wRow * 0.32;
     return Padding(
-      padding: EdgeInsets.only(bottom: screenWidth * 0.70 * 0.32 * 0.05),
+      padding: EdgeInsets.only(bottom: screenWidth * 0.70 * 0.32 * 0.15),
       child: menuCtnr(iconPicPath, eName, destination),
     );
   }

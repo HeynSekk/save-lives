@@ -447,7 +447,7 @@ class MyApp extends StatelessWidget {
                 '/sevBlBaW'
               ]
             ],
-            'NO data'),
+            'no'),
         '/sevBlBaW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/baby-bleeding/'),
         //SHOCK
@@ -469,7 +469,7 @@ class MyApp extends StatelessWidget {
                 '/shoW'
               ]
             ],
-            'NO data'),
+            'no'),
         '/shoW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/shock/'),
         //SNAKE BITE
@@ -494,6 +494,117 @@ class MyApp extends StatelessWidget {
             'NO data'),
         '/snakW': (context) => webViewer(
             'https://www.paradisefirstaid.com.au/snake-bite-first-aid/'),
+
+        //DISASTERS
+
+        //DROWNING
+        '/dro': (context) => refContent(
+            'Drowning [For those who can\'t swim]',
+            [
+              [
+                'https://youtu.be/yt8M6qFBT5Y',
+                'img',
+                '2 ways to save yourself from drowning ',
+                'Bright Side'
+              ],
+              [
+                'https://youtu.be/_radmCM_HDg',
+                'img',
+                'How to save yourself from drowning',
+                'Super Tony'
+              ]
+            ],
+            [
+              [
+                'no'
+              ]
+            ],
+            'no'),
+        
+        //NATURAL DISASTERS
+        '/natdis': (context) => refContent(
+            'How to survive natural disasters',
+            [
+              [
+                'https://youtu.be/OCjl6tp8dnw',
+                'img',
+                'How to survive natural disasters',
+                'Bright Side'
+              ]
+            ],
+            [
+              [
+                'no'
+              ]
+            ],
+            'no'),
+        
+        //SHIPWRECK
+        '/shi': (context) => refContent(
+            'Survival at sea',
+            [
+              [
+                'https://youtu.be/W4AOdOhERY0',
+                'img',
+                '8 great tips for survival at sea',
+                'Bright Side'
+              ]
+            ],
+            [
+              [
+                'assets/images/snak.png',
+                'Save yourself from drowning in a shipwreck',
+                'www.wikihow.com',
+                '/shiW'
+              ]
+            ],
+            'no'),
+        '/shiW': (context) => webViewer(
+            'https://www.wikihow.com/Save-Yourself-from-Drowning-in-a-Shipwreck'),
+        //TORNADO
+        '/tor': (context) => refContent(
+            'How to survive tornado',
+            [
+              [
+                'https://youtu.be/OCjl6tp8dnw',
+                'img',
+                'Ways to survive natural disasters',
+                'Bright Side'
+              ]
+            ],
+            [
+              [
+                'assets/images/snak.png',
+                'How to survive tornado',
+                'www.wikihow.com',
+                '/torW'
+              ]
+            ],
+            'no'),
+        '/torW': (context) => webViewer(
+            'https://www.wikihow.com/Survive-a-Tornado'),
+        //WILD ANIMAL ATTACKS
+        '/wild': (context) => refContent(
+            'How to survive wild animal attacks',
+            [
+              [
+                'https://youtu.be/kkFFq11j6dQ',
+                'img',
+                '13 tips on how to survive wild animal attacks',
+                'Bright Side'
+              ]
+            ],
+            [
+              [
+                'assets/images/snak.png',
+                '12 Techniques That Will Help You Survive a Deadly Battle With an Animal',
+                'www.brightside.me',
+                '/wildW'
+              ]
+            ],
+            'no'),
+        '/wildW': (context) => webViewer(
+            'https://brightside.me/inspiration-tips-and-tricks/12-techniques-that-will-help-you-survive-a-deadly-battle-with-an-animal-387910/'),
       },
     );
   }

@@ -20,7 +20,9 @@ class refContent extends StatelessWidget {
     var wLst = new List<Widget>();
     int countWidget = 0;
     //title
-    wLst.add(SizedBox(height: sHeight * 0.07,));
+    wLst.add(SizedBox(
+      height: sHeight * 0.07,
+    ));
     wLst.add(SizedBox(
         width: sw * 0.70,
         child: Text(
@@ -49,64 +51,71 @@ class refContent extends StatelessWidget {
       wLst.add(SizedBox(height: normalFontSize * 2));
     }
     //webpages
-    //intro txt
-    wLst.add(Text(
-      'Learn from websites:',
-      style: TextStyle(
-        fontSize: normalFontSize,
-        color: Color(0xff6BCF63),
-      ),
-    ));
-    wLst.add(SizedBox(height: normalFontSize * 2));
-
-    countWidget = this.webPages.length;
-    for (int i = 0; i < countWidget; i++) {
-      wLst.add(contLink(
-        this.webPages[i][0],
-        this.webPages[i][1],
-        this.webPages[i][2],
-        this.webPages[i][3],
+    if (this.webPages[0][0].compareTo('no') != 0) {
+      //intro txt
+      wLst.add(Text(
+        'Learn from websites:',
+        style: TextStyle(
+          fontSize: normalFontSize,
+          color: Color(0xff6BCF63),
+        ),
       ));
       wLst.add(SizedBox(height: normalFontSize * 2));
+
+      countWidget = this.webPages.length;
+      for (int i = 0; i < countWidget; i++) {
+        wLst.add(contLink(
+          this.webPages[i][0],
+          this.webPages[i][1],
+          this.webPages[i][2],
+          this.webPages[i][3],
+        ));
+        wLst.add(SizedBox(height: normalFontSize * 2));
+      }
     }
+
     //remember
-    wLst.add(Text(
-      'Brief memorizing:',
-      style: TextStyle(
-        fontSize: normalFontSize,
-        color: Color(0xff6BCF63),
-      ),
-    ));
-    wLst.add(SizedBox(height: normalFontSize * 2));
-    wLst.add(Container(
-      width: sw * 0.80,
-      padding: EdgeInsets.all(normalFontSize),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(normalFontSize),
-        color: Color(0xff5EBE73),
-      ),
-      child: SizedBox(
-          width: sw * 0.70,
-          child: Text(
-            this.remember,
-            style: TextStyle(
-                color: Colors.white, fontSize: normalFontSize, height: 1.9),
-          )),
-    ));
-    wLst.add(SizedBox(height: normalFontSize));
-    //mark learned
-    //wLst.add(markLearned());
+    if (this.remember.compareTo('no')!=0) { //not equal to no
+      wLst.add(Text(
+        'Brief memorizing:',
+        style: TextStyle(
+          fontSize: normalFontSize,
+          color: Color(0xff6BCF63),
+        ),
+      ));
+      wLst.add(SizedBox(height: normalFontSize * 2));
+      wLst.add(Container(
+        width: sw * 0.80,
+        padding: EdgeInsets.all(normalFontSize),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(normalFontSize),
+          color: Color(0xff5EBE73),
+        ),
+        child: SizedBox(
+            width: sw * 0.70,
+            child: Text(
+              this.remember,
+              style: TextStyle(
+                  color: Colors.white, fontSize: normalFontSize, height: 1.9),
+            )),
+      ));
+      wLst.add(SizedBox(height: normalFontSize));
+    }
+
+    wLst.add(appQuote());
 
     return Scaffold(
       drawer: drawerUI(),
       body: SafeArea(
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             sideStick(),
             Padding(
               padding: EdgeInsets.only(
-                //top: sHeight * 0.07,
+                //top: sHeight * 0.07*0.10,
                 left: sHeight * 0.11 * 0.20,
+                right:0,
               ),
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
@@ -121,7 +130,38 @@ class refContent extends StatelessWidget {
     );
   }
 }
+class appQuote extends StatelessWidget {
+  //attri
+  
 
+  @override
+  Widget build(BuildContext context) {
+    double sw = MediaQuery.of(context).size.width;
+    double wRow = sw * 0.8;
+    double normalFontSize = wRow * 0.07 * 1.5 * 0.60;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Icon(Icons.favorite,
+        color: Color(0xff6BCF63),
+        size: normalFontSize*2,
+        
+        ),
+        SizedBox(height: normalFontSize,),
+        Text(
+          'Learn how to save lives.\nAnd share the knowledge to others',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color:Color(0xff1BC163),
+            fontSize: normalFontSize,
+          ),
+        ),
+        SizedBox(height: normalFontSize,),
+      ],
+    );
+    
+  }
+}
 /*class markLearned extends StatelessWidget {
   
 

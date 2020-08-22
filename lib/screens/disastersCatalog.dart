@@ -12,40 +12,47 @@ class disastersCatalog extends StatelessWidget {
       drawer: drawerUI(),
       body: SafeArea(
         child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          sideStick(),
-          Padding(
-            padding: EdgeInsets.only(
-              top: sHeight * 0.07,
-              bottom: sHeight * 0.11 * (1 / 5),
-              left: 0, //sHeight * 0.11 * (1 / 5),
-              right: sHeight * 0.11 * (1 / 5),
-            ),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  //TITLE
-                  catalogTitle('First Aids'),
-                  SizedBox(
-                    height: wRow * 0.15 * 0.50,
-                  ),
-                  subTitle('The fundamentals'),
-                  menuItemNormal('assets/images/priSurAd.png', 'Primry Survey', '/priSurAd'),
-                  menuItemNormal('assets/images/priSurBa.png','Primary Survey (Baby)', '/priSurBa'),
-                  
-                ],
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            sideStick(),
+            Padding(
+              padding: EdgeInsets.only(
+                //top: sHeight * 0.07,
+                bottom: sHeight * 0.11 * (1 / 5),
+                left: 0, //sHeight * 0.11 * (1 / 5),
+                right: sHeight * 0.11 * (1 / 5),
+              ),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    //TITLE
+                    SizedBox(height: sHeight * 0.03),
+                    catalogTitle('Ways to survive natural disasters'),
+                    SizedBox(
+                      height: wRow * 0.15 * 0.43,
+                    ),
+                    subTitle('How to survive:'),
+                    menuItemFirst('assets/images/chokAd.png', 'Drowning [For those who can\'t swim]',
+                        '/dro', 'D'),
+                    menuItemFirst('assets/images/chokAd.png', 'Natural disasters',
+                        '/natdis', 'N'),
+                    menuItemFirst('assets/images/chokAd.png', 'Shipwreck at sea',
+                        '/shi', 'S'),
+                    menuItemFirst('assets/images/chokAd.png', 'Tornado',
+                        '/tor', 'T'),
+                    menuItemFirst('assets/images/chokAd.png', 'Wild animal attacks',
+                        '/wild', 'W'),
+
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-
-      ), 
-      
     );
   }
 }
@@ -96,10 +103,13 @@ class subTitle extends StatelessWidget {
     double normalFontSize = wRow * 0.07 * 1.5 * 0.50;
     //double hTitle=mwid*0.32;
     return Padding(
-      padding: EdgeInsets.only(bottom: normalFontSize),
-      child: Text(
-        this.title,
-        style: TextStyle(color: Color(0xff6BCF63), fontSize: normalFontSize),
+      padding: EdgeInsets.only(bottom: normalFontSize, top: normalFontSize),
+      child: SizedBox(
+        width: screenWidth * 0.75,
+        child: Text(
+          this.title,
+          style: TextStyle(color: Color(0xff6BCF63), fontSize: normalFontSize),
+        ),
       ),
     );
   }
@@ -118,7 +128,7 @@ class menuItemFirst extends StatelessWidget {
     double wRow = screenWidth * 0.75;
     double hRow = wRow * 0.47;
     return Padding(
-      padding: EdgeInsets.only(bottom: screenWidth * 0.70 * 0.32 * 0.05),
+      padding: EdgeInsets.only(bottom: screenWidth * 0.70 * 0.32 * 0.15),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -147,7 +157,7 @@ class menuItemNormal extends StatelessWidget {
     double wRow = screenWidth * 0.70;
     double hRow = wRow * 0.32;
     return Padding(
-      padding: EdgeInsets.only(bottom: screenWidth * 0.70 * 0.32 * 0.05),
+      padding: EdgeInsets.only(bottom: screenWidth * 0.70 * 0.32 * 0.15),
       child: menuCtnr(iconPicPath, eName, destination),
     );
   }

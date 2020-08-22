@@ -213,7 +213,7 @@ class drawerUI extends StatelessWidget {
     } else {
       sw = media.size.height;
     }
-    double drWid = sw * 0.85;
+    double drWid = sw * 0.95;
     return SizedBox(
       width: drWid,
       child: Drawer(
@@ -320,7 +320,7 @@ class drMenuWithIcon extends StatelessWidget {
             this.menuName,
             style: TextStyle(
               color: Colors.black,
-              fontSize: drWid * 0.064,
+              fontSize: drWid * 0.06,
             ),
           ),
           
@@ -359,7 +359,7 @@ class drMenu extends StatelessWidget {
             this.menuName,
             style: TextStyle(
               color: Colors.black,
-              fontSize: drWid * 0.064,
+              fontSize: drWid * 0.06,
             ),
           ),
         ],

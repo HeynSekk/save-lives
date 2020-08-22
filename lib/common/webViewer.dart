@@ -28,9 +28,9 @@ class _webViewerState extends State<webViewer> {
     double sw = MediaQuery.of(context).size.width;
     var rdm = new Random();
     List<String> quotes = [
-      'Someone once told me growth and confort do not coexist. And I think it is a really good thing to remember\n\t\tGinni Rometty, IBM CEO',
-      'The way to get started is to quit talking and begin doing.\n\t\tWalt Disney',
-      'The greatest glory in living lies not in never falling, but in rising every time we fall.\n\t\tNelson Mandela',
+      'Someone once told me growth and confort do not coexist. And I think it is a really good thing to remember. \n\n[Ginni Rometty, IBM CEO]',
+      'The way to get started is to quit talking and begin doing. \n\n[Walt Disney]',
+      'The greatest glory in living lies not in never falling, but in rising every time we fall. \n\n[Nelson Mandela]',
       'If life were predictable it would cease to be life, and be without flavor.\n\t\tEleanor Roosevelt'
     ];
     return Scaffold(
@@ -105,6 +105,7 @@ class _webViewerState extends State<webViewer> {
                     width: sw * 0.75,
                     child: Text(
                       quotes[rdm.nextInt(3)],
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.green,
                         fontSize: 12,
