@@ -3,6 +3,45 @@ import 'package:provider/provider.dart';
 //import 'package:url_launcher/url_launcher.dart';
 
 import '../main.dart';
+
+class appQuote extends StatelessWidget {
+  //attri
+
+  @override
+  Widget build(BuildContext context) {
+    double sw = MediaQuery.of(context).size.width;
+    double wRow = sw * 0.8;
+    double normalFontSize = wRow * 0.07 * 1.5 * 0.48;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        SizedBox(height: normalFontSize),
+        Icon(
+          Icons.favorite,
+          color: Color(0xff6BCF63),
+          size: normalFontSize * 2,
+        ),
+        SizedBox(
+          height: normalFontSize * 0.50,
+        ),
+        SizedBox(
+          width: wRow,
+          child: Text(
+            'Learn how to save lives.\nAnd share the knowledge to others',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Color(0xff1BC163),
+              fontSize: normalFontSize,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: normalFontSize * 1.1,
+        ),
+      ],
+    );
+  }
+}
 //content link
 
 class contLink extends StatelessWidget {
@@ -22,7 +61,7 @@ class contLink extends StatelessWidget {
         width: sw * 0.76,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(normalFontSize*0.90),
+          borderRadius: BorderRadius.circular(normalFontSize * 0.90),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
@@ -37,15 +76,17 @@ class contLink extends StatelessWidget {
         child: Column(children: <Widget>[
           Row(
             children: <Widget>[
-              imgs(sw * 0.80 * 0.30, sw * 0.80 * 0.30,normalFontSize*0.50, this.img),
+              imgs(sw * 0.80 * 0.30, sw * 0.80 * 0.30, normalFontSize * 0.50,
+                  this.img),
               SizedBox(width: normalFontSize * 0.77),
               SizedBox(
                 width: sw * 0.80 * 0.50,
-                child: Text(this.txt,
-                style: TextStyle(
-                
-                fontSize: normalFontSize ,
-              ),),
+                child: Text(
+                  this.txt,
+                  style: TextStyle(
+                    fontSize: normalFontSize,
+                  ),
+                ),
               ),
             ],
           ),
@@ -99,7 +140,7 @@ class imgs extends StatelessWidget {
   double height, width, bRadi;
   String path;
   //constructor
-  imgs(this.height, this.width,this.bRadi, this.path);
+  imgs(this.height, this.width, this.bRadi, this.path);
 
   @override
   Widget build(BuildContext context) {
@@ -170,12 +211,11 @@ class sideStick extends StatelessWidget {
               //height: 4,
               width: sw * (1 / 20) * 2, //40
               child: Center(
-                child: Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                      //size: sw * (2 / 29) * 0.75,
-                    )
-              ),
+                  child: Icon(
+                Icons.menu,
+                color: Colors.white,
+                //size: sw * (2 / 29) * 0.75,
+              )),
               decoration: BoxDecoration(
                 color: Colors.green,
                 borderRadius: BorderRadius.only(
@@ -303,7 +343,7 @@ class drMenuWithIcon extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
-            height: drWid*0.08,
+            height: drWid * 0.08,
             width: drWid * 0.08,
             decoration: BoxDecoration(
                 shape: BoxShape.circle, color: Color(this.iconBgColor)),
@@ -323,8 +363,6 @@ class drMenuWithIcon extends StatelessWidget {
               fontSize: drWid * 0.06,
             ),
           ),
-          
-          
         ],
       ),
     );
@@ -367,6 +405,7 @@ class drMenu extends StatelessWidget {
     );
   }
 }
+
 class drHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -395,7 +434,6 @@ class drHeader extends StatelessWidget {
     );
   }
 }
-
 
 class menuItem1 extends StatelessWidget {
   @override

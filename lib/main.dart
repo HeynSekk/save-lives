@@ -88,6 +88,179 @@ class MyApp extends StatelessWidget {
         ),
         '/recPosAdW':(context)=>webViewer(''),
         */
+        /*
+                    fainting
+                    eye injuries
+                    burn
+                    hea att
+                    sei bb
+
+                    */
+
+        //BURN AND SCALDS
+        '/burn': (context) => refContent(
+            'CPR',
+            [
+              [
+                'https://youtu.be/EaJmzB8YgS0',
+                'assets/images/cpr.png',
+                'How',
+                'St John Ambulance'
+              ],
+            ],
+            [
+              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/burnW1'],
+              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/burnW2']
+            ],
+            '-30 chest compression\n-2 resuce breathe'),
+        '/burnW1': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/burns-and-scalds/'),
+        '/burnW2': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/chemical-burns/'),
+        //EYE INJURIES
+        '/eye': (context) => refContent(
+            'CPR',
+            [
+              [
+                'https://youtu.be/PHrrxe3p8vw',
+                'assets/images/cpr.png',
+                'How',
+                'Ambulance'
+              ],
+            ],
+            [
+              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/eyew1'],
+              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/eyew2'],
+              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/eyew3']
+            ],
+            '-30 chest compression\n-2 resuce breathe'),
+        '/eyew1': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/minor-illnesses-and-injuries/eye-injuries/'),
+        '/eyew2': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/minor-illnesses-and-injuries/eye-injuries---eye-wounds/'),
+        '/eyew3': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/eye-injuries---chemical-burns/'),
+        //FAINTING
+        '/fai': (context) => refContent(
+            'CPR',
+            [
+              [
+                'https://youtu.be/ddHKwkMwNyI',
+                'assets/images/cpr.png',
+                'How',
+                'Ambulance'
+              ],
+            ],
+            [
+              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/faiw1'],
+              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/faiw2']
+            ],
+            '-30 chest compression\n-2 resuce breathe'),
+        '/faiw1': (context) => webViewer(
+            'https://www.mayoclinic.org/first-aid/first-aid-fainting/basics/art-20056606'),
+        '/faiw2': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/fainting/'),
+        //HEART ATTACK
+        '/heaAtt': (context) => refContent(
+            'CPR',
+            [
+              [
+                'https://youtu.be/gDwt7dD3awc',
+                'assets/images/cpr.png',
+                'How',
+                'Ambulance'
+              ],
+            ],
+            [
+              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/heaAttW']
+            ],
+            '-30 chest compression\n-2 resuce breathe'),
+        '/heaAttW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/heart-conditions/heart-attack/'),
+        //SEIZURE BABY
+        '/seibb': (context) => refContent(
+            'CPR',
+            [
+              [
+                'https://youtu.be/CcQZRDcGZpE',
+                'assets/images/cpr.png',
+                'How',
+                'Ambulance'
+              ],
+            ],
+            [
+              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/seibbw']
+            ],
+            '-30 chest compression\n-2 resuce breathe'),
+        '/seibbw': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/febrile-convulsion-seizures/'),
+
+        //CPR ADULT
+        '/adCpr': (context) => refContent(
+            'CPR for adult',
+            [
+              [
+                'https://youtu.be/f4ZI1PAsmks',
+                'assets/images/cpr.png',
+                'How to do CPR on an adult - YouTube',
+                'St John Ambulance'
+              ],
+            ],
+            [
+              [
+                'assets/images/cprAd.jpg',
+                'How to do CPR on an adult - Webpage',
+                'www.sja.org.uk',
+                '/adCprW'
+              ]
+            ],
+            '-30 chest compression\n-2 resuce breathe'),
+        '/adCprW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/how-to-do-cpr-on-an-adult/'),
+
+        //CPR BABY
+        '/babyCpr': (context) => refContent(
+            'CPR for baby',
+            [
+              [
+                'https://youtu.be/avYRvVHAvfM',
+                'assets/images/cpr.png',
+                'How to do CPR on a baby - YouTube',
+                'St John Ambulance'
+              ],
+            ],
+            [
+              [
+                'assets/images/cprBaby.png',
+                'How to do CPR on a baby - Webpage',
+                'www.sja.org.uk',
+                '/babyCprW'
+              ]
+            ],
+            '-30 chest compression\n-2 resuce breathe'),
+        '/babyCprW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-cpr-on-a-baby/'),
+
+        //CPR CHILD
+        '/childCpr': (context) => refContent('CPR for child', [
+              [
+                'https://youtu.be/0aV9NS0ogiM',
+                'assets/images/cpr.png',
+                'How to do CPR on a child - YouTube',
+                'St John Ambulance'
+              ]
+            ], [
+              [
+                'assets/images/cprChild.png',
+                'How to do CPR on children',
+                'www.sja.org.uk',
+                '/cprChildW'
+              ],
+            ], '''-30 chest compression
+-2 resuce breathe '''),
+        '/cprChildW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-cpr-on-a-child/'),
+
         //PRI SUR BABY
         '/priSurBa': (context) => refContent(
             'Primary Survey (Baby)',
@@ -226,72 +399,6 @@ class MyApp extends StatelessWidget {
             'NO data'),
         '/chokChiW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/choking/child-choking/'),
-
-        //CPR ADULT
-        '/adCpr': (context) => refContent(
-            'CPR for adult',
-            [
-              [
-                'https://youtu.be/f4ZI1PAsmks',
-                'assets/images/cpr.png',
-                'How to do CPR on an adult - YouTube',
-                'St John Ambulance'
-              ],
-            ],
-            [
-              [
-                'assets/images/cprAd.jpg',
-                'How to do CPR on an adult - Webpage',
-                'www.sja.org.uk',
-                '/adCprW'
-              ]
-            ],
-            '-30 chest compression\n-2 resuce breathe'),
-        '/adCprW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/how-to-do-cpr-on-an-adult/'),
-
-        //CPR BABY
-        '/babyCpr': (context) => refContent(
-            'CPR for baby',
-            [
-              [
-                'https://youtu.be/avYRvVHAvfM',
-                'assets/images/cpr.png',
-                'How to do CPR on a baby - YouTube',
-                'St John Ambulance'
-              ],
-            ],
-            [
-              [
-                'assets/images/cprBaby.png',
-                'How to do CPR on a baby - Webpage',
-                'www.sja.org.uk',
-                '/babyCprW'
-              ]
-            ],
-            '-30 chest compression\n-2 resuce breathe'),
-        '/babyCprW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-cpr-on-a-baby/'),
-
-        //CPR CHILD
-        '/childCpr': (context) => refContent('CPR for child', [
-              [
-                'https://youtu.be/0aV9NS0ogiM',
-                'assets/images/cpr.png',
-                'How to do CPR on a child - YouTube',
-                'St John Ambulance'
-              ]
-            ], [
-              [
-                'assets/images/cprChild.png',
-                'How to do CPR on children',
-                'www.sja.org.uk',
-                '/cprChildW'
-              ],
-            ], '''-30 chest compression
--2 resuce breathe '''),
-        '/cprChildW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-cpr-on-a-child/'),
 
         //HEART ATTACK
         '/heaAtt': (context) => refContent(
@@ -515,12 +622,10 @@ class MyApp extends StatelessWidget {
               ]
             ],
             [
-              [
-                'no'
-              ]
+              ['no']
             ],
             'no'),
-        
+
         //NATURAL DISASTERS
         '/natdis': (context) => refContent(
             'How to survive natural disasters',
@@ -533,12 +638,10 @@ class MyApp extends StatelessWidget {
               ]
             ],
             [
-              [
-                'no'
-              ]
+              ['no']
             ],
             'no'),
-        
+
         //SHIPWRECK
         '/shi': (context) => refContent(
             'Survival at sea',
@@ -581,8 +684,8 @@ class MyApp extends StatelessWidget {
               ]
             ],
             'no'),
-        '/torW': (context) => webViewer(
-            'https://www.wikihow.com/Survive-a-Tornado'),
+        '/torW': (context) =>
+            webViewer('https://www.wikihow.com/Survive-a-Tornado'),
         //WILD ANIMAL ATTACKS
         '/wild': (context) => refContent(
             'How to survive wild animal attacks',

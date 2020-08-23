@@ -34,7 +34,13 @@ class catalog extends StatelessWidget {
                     SizedBox(
                       height: wRow * 0.15 * 0.43,
                     ),
-                    subTitle('Common first aids'),
+                    subTitle('Basic first aids'),
+                    menuItemNormal(
+                        'assets/images/cprAd.jpg', 'CPR for adult', '/adCpr'),
+                    menuItemNormal('assets/images/cprBaby.png', 'CPR for baby',
+                        '/babyCpr'),
+                    menuItemNormal('assets/images/cprChild.png',
+                        'CPR for child', '/childCpr'),
                     menuItemNormal('assets/images/priSurAd.png',
                         'Primary Survey', '/priSurAd'),
                     menuItemNormal('assets/images/priSurBa.png',
@@ -45,25 +51,30 @@ class catalog extends StatelessWidget {
                         'Recovery position (baby)', '/recPosBa'),
 
                     //LIST
-                    subTitle('How to save lives in case of:'),
+                    subTitle('Common health emergency conditions:'),
+                    menuItemFirst('assets/images/chokAd.png', 'Burn and scalds',
+                        '/burn', 'B'),
                     menuItemFirst('assets/images/chokAd.png', 'Choking (adult)',
                         '/chokAd', 'C'),
                     menuItemNormal('assets/images/chokBaby.png',
                         'Choking (baby)', '/chokBaby'),
                     menuItemNormal('assets/images/chokChi.png',
                         'Choking (child)', '/chokChi'),
-                    menuItemNormal(
-                        'assets/images/cprAd.jpg', 'CPR for adult', '/adCpr'),
-                    menuItemNormal('assets/images/cprBaby.png', 'CPR for baby',
-                        '/babyCpr'),
-                    menuItemNormal('assets/images/cprChild.png',
-                        'CPR for child', '/childCpr'),
+                    menuItemFirst('assets/images/chokAd.png', 'Eye injuries',
+                        '/eye', 'E'),
+                    menuItemFirst(
+                        'assets/images/chokAd.png', 'Fainting', '/fai', 'F'),
 
                     //menuItemFirst('assets/images/heaAtt.png', 'Heart attack','/heaAtt','H'),
                     menuItemNormal('assets/images/heaInj.png',
                         'Head injuries in children, babies', '/heaInj'),
+                    menuItemNormal(
+                        'assets/images/chokAd.png', 'Heart attack', '/heaAtt'),
                     menuItemFirst('assets/images/seiAd.png', 'Seizure (adult)',
                         '/seiAd', 'S'),
+                    menuItemNormal(
+                        'assets/images/chokAd.png', 'Choking (baby)', '/seibb'),
+
                     //menuItemNormal('assets/images/seiBa.png', 'Seizure (baby)','/seiBa'),
                     menuItemNormal('assets/images/seiChi.png',
                         'Seizure (children)', '/seiChi'),

@@ -130,38 +130,7 @@ class refContent extends StatelessWidget {
     );
   }
 }
-class appQuote extends StatelessWidget {
-  //attri
-  
 
-  @override
-  Widget build(BuildContext context) {
-    double sw = MediaQuery.of(context).size.width;
-    double wRow = sw * 0.8;
-    double normalFontSize = wRow * 0.07 * 1.5 * 0.60;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Icon(Icons.favorite,
-        color: Color(0xff6BCF63),
-        size: normalFontSize*2,
-        
-        ),
-        SizedBox(height: normalFontSize,),
-        Text(
-          'Learn how to save lives.\nAnd share the knowledge to others',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color:Color(0xff1BC163),
-            fontSize: normalFontSize,
-          ),
-        ),
-        SizedBox(height: normalFontSize,),
-      ],
-    );
-    
-  }
-}
 /*class markLearned extends StatelessWidget {
   
 

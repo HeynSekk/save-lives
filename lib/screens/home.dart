@@ -16,7 +16,7 @@ class home extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(
               top: sh * 0.11*0.90,
-              bottom: sh * 0.11 * 0.20,
+              bottom: sh * 0.11 * 0.10,
               left: sh * 0.11 * 0.20,
               right: sh * 0.11 * 0.20,
             ),
@@ -66,8 +66,7 @@ class home extends StatelessWidget {
                       height: 10,
                     ),
                   ),
-                  //benefits
-                  //benefits(),
+                  appQuote(),
                 ],
               ),
             
