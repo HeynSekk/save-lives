@@ -98,102 +98,6 @@ class MyApp extends StatelessWidget {
                     */
 
         //BURN AND SCALDS
-        '/burn': (context) => refContent(
-            'CPR',
-            [
-              [
-                'https://youtu.be/EaJmzB8YgS0',
-                'assets/images/cpr.png',
-                'How',
-                'St John Ambulance'
-              ],
-            ],
-            [
-              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/burnW1'],
-              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/burnW2']
-            ],
-            '-30 chest compression\n-2 resuce breathe'),
-        '/burnW1': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/burns-and-scalds/'),
-        '/burnW2': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/chemical-burns/'),
-        //EYE INJURIES
-        '/eye': (context) => refContent(
-            'CPR',
-            [
-              [
-                'https://youtu.be/PHrrxe3p8vw',
-                'assets/images/cpr.png',
-                'How',
-                'Ambulance'
-              ],
-            ],
-            [
-              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/eyew1'],
-              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/eyew2'],
-              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/eyew3']
-            ],
-            '-30 chest compression\n-2 resuce breathe'),
-        '/eyew1': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/minor-illnesses-and-injuries/eye-injuries/'),
-        '/eyew2': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/minor-illnesses-and-injuries/eye-injuries---eye-wounds/'),
-        '/eyew3': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/eye-injuries---chemical-burns/'),
-        //FAINTING
-        '/fai': (context) => refContent(
-            'CPR',
-            [
-              [
-                'https://youtu.be/ddHKwkMwNyI',
-                'assets/images/cpr.png',
-                'How',
-                'Ambulance'
-              ],
-            ],
-            [
-              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/faiw1'],
-              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/faiw2']
-            ],
-            '-30 chest compression\n-2 resuce breathe'),
-        '/faiw1': (context) => webViewer(
-            'https://www.mayoclinic.org/first-aid/first-aid-fainting/basics/art-20056606'),
-        '/faiw2': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/fainting/'),
-        //HEART ATTACK
-        '/heaAtt': (context) => refContent(
-            'CPR',
-            [
-              [
-                'https://youtu.be/gDwt7dD3awc',
-                'assets/images/cpr.png',
-                'How',
-                'Ambulance'
-              ],
-            ],
-            [
-              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/heaAttW']
-            ],
-            '-30 chest compression\n-2 resuce breathe'),
-        '/heaAttW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/heart-conditions/heart-attack/'),
-        //SEIZURE BABY
-        '/seibb': (context) => refContent(
-            'CPR',
-            [
-              [
-                'https://youtu.be/CcQZRDcGZpE',
-                'assets/images/cpr.png',
-                'How',
-                'Ambulance'
-              ],
-            ],
-            [
-              ['assets/images/cprAd.jpg', 'Webpage', 'www', '/seibbw']
-            ],
-            '-30 chest compression\n-2 resuce breathe'),
-        '/seibbw': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/febrile-convulsion-seizures/'),
 
         //CPR ADULT
         '/adCpr': (context) => refContent(
@@ -330,7 +234,35 @@ class MyApp extends StatelessWidget {
             'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-the-recovery-position-baby/'),
 
         //# COMMON MFA #
-
+        '/burn': (context) => refContent(
+            'How to treat burn and scalds',
+            [
+              [
+                'https://youtu.be/EaJmzB8YgS0',
+                'assets/images/cpr.png',
+                'How to treat burn and scalds - First aid training',
+                'St John Ambulance'
+              ],
+            ],
+            [
+              [
+                'assets/images/cprAd.jpg',
+                'Burn and scalds - signs and first aid',
+                'www.sja.org.uk',
+                '/burnW1'
+              ],
+              [
+                'assets/images/cprAd.jpg',
+                'First aids for chemical burns',
+                'www.sja.org.uk',
+                '/burnW2'
+              ]
+            ],
+            'no'),
+        '/burnW1': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/burns-and-scalds/'),
+        '/burnW2': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/chemical-burns/'),
         //CHOKING ADULT
         '/chokAd': (context) => refContent(
             'Choking(Adult)',
@@ -399,27 +331,94 @@ class MyApp extends StatelessWidget {
             'NO data'),
         '/chokChiW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/choking/child-choking/'),
-
-        //HEART ATTACK
-        '/heaAtt': (context) => refContent(
-            'Heart Attack',
+        //EYE INJURIES
+        '/eye': (context) => refContent(
+            'Eye injuries',
             [
               [
-                'https://youtu.be/gDwt7dD3awc',
-                'img',
-                'Heart Attack Symptoms & How to Treat a Heart Attack',
+                'https://youtu.be/PHrrxe3p8vw',
+                'assets/images/cpr.png',
+                'How to treat an eye injuried by foreign objects',
                 'St John Ambulance'
-              ]
+              ],
             ],
             [
               [
-                'assets/images/heaAtt.png',
+                'assets/images/cprAd.jpg',
+                'First aid for eye injuried by foreign objects',
+                'www.sja.org.uk',
+                '/eyew1'
+              ],
+              [
+                'assets/images/cprAd.jpg',
+                'First aid for eye wound and injuries',
+                'www.sja.org.uk',
+                '/eyew2'
+              ],
+              [
+                'assets/images/cprAd.jpg',
+                'First aids for eye injuried by chemicals',
+                'www.sja.org.uk',
+                '/eyew3'
+              ]
+            ],
+            'no'),
+        '/eyew1': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/minor-illnesses-and-injuries/eye-injuries/'),
+        '/eyew2': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/minor-illnesses-and-injuries/eye-injuries---eye-wounds/'),
+        '/eyew3': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/eye-injuries---chemical-burns/'),
+        //FAINTING
+        '/fai': (context) => refContent(
+            'First aid for fainting',
+            [
+              [
+                'https://youtu.be/ddHKwkMwNyI',
+                'assets/images/cpr.png',
+                'Fainting Causes & Treatment - First Aid Training - St John Ambulance',
+                'St John Ambulance'
+              ],
+            ],
+            [
+              [
+                'assets/images/cprAd.jpg',
+                'First aid for fainting',
+                'www.mayoclinic.org',
+                '/faiw1'
+              ],
+              [
+                'assets/images/cprAd.jpg',
+                'First aid for fainting - St John Ambulance',
+                'www.sja.org.uk',
+                '/faiw2'
+              ]
+            ],
+            'no'),
+        '/faiw1': (context) => webViewer(
+            'https://www.mayoclinic.org/first-aid/first-aid-fainting/basics/art-20056606'),
+        '/faiw2': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/fainting/'),
+        //HEART ATTACK
+        '/heaAtt': (context) => refContent(
+            'Heart attack',
+            [
+              [
+                'https://youtu.be/gDwt7dD3awc',
+                'assets/images/cpr.png',
                 'Heart Attack Symptoms & How to Treat a Heart Attack',
+                'St John Ambulance'
+              ],
+            ],
+            [
+              [
+                'assets/images/cprAd.jpg',
+                'First aid for heart attack - St John Ambulance',
                 'www.sja.org.uk',
                 '/heaAttW'
               ]
             ],
-            'NO data'),
+            'no'),
         '/heaAttW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/heart-conditions/heart-attack/'),
         //HEAD INJURIES
@@ -488,6 +487,29 @@ class MyApp extends StatelessWidget {
             ],
             'NO data'),
         '/seiBaW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/febrile-convulsion-seizures/'),
+
+        //SEIZURE BABY
+        '/seibb': (context) => refContent(
+            'Seizure (baby)',
+            [
+              [
+                'https://youtu.be/CcQZRDcGZpE',
+                'assets/images/cpr.png',
+                'If Your Baby has a Seizure - First Aid Training - St John Ambulance',
+                'St John Ambulance'
+              ],
+            ],
+            [
+              [
+                'assets/images/cprAd.jpg',
+                'First aid for seizure in baby',
+                'www.sja.org.uk',
+                '/seibbw'
+              ]
+            ],
+            'no'),
+        '/seibbw': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/febrile-convulsion-seizures/'),
 
         //SEIZURE CHILDREN

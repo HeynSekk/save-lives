@@ -205,7 +205,7 @@ class sideStick extends StatelessWidget {
         //second
         Flexible(
           fit: FlexFit.tight,
-          flex: 2,
+          flex: 3,
           child: InkWell(
             child: Container(
               //height: 4,

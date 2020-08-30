@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:save_lives/common/common.dart';
+
 //test
 class home extends StatelessWidget {
   @override
@@ -10,17 +11,17 @@ class home extends StatelessWidget {
       drawer: drawerUI(), //from common.dart
       body: SafeArea(
         child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          sideStick(), 
-          Padding(
-            padding: EdgeInsets.only(
-              top: sh * 0.11*0.90,
-              bottom: sh * 0.11 * 0.10,
-              left: sh * 0.11 * 0.20,
-              right: sh * 0.11 * 0.20,
-            ),
-            child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            sideStick(),
+            Padding(
+              padding: EdgeInsets.only(
+                top: sh * 0.11 * 0.90,
+                bottom: sh * 0.11 * 0.10,
+                left: sh * 0.11 * 0.20,
+                right: sh * 0.11 * 0.20,
+              ),
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -29,35 +30,35 @@ class home extends StatelessWidget {
                     height: sh * 0.09,
                   ),
                   homeMenu(
-                        Icon(
-                          Icons.add_box,
+                      Icon(
+                        Icons.add_box,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        'Health Emergencies',
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.75 * (1 / 4) * 0.28,
                           color: Colors.white,
                         ),
-                        Text(
-                          'Health Emergencies',
-                          style: TextStyle(
-                            fontSize: screenWidth * 0.75 * (1 / 4) * 0.28,
-                            color: Colors.white,
-                          ),
-                        ),
-                        '/emergencies'),
-                  
+                      ),
+                      '/emergencies'),
+
                   SizedBox(
                     height: screenWidth * 0.75 * (1 / 4) * 0.35,
                   ),
                   homeMenu(
-                        Icon(
-                          Icons.nature_people,
+                      Icon(
+                        Icons.nature_people,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        'Disasters',
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.75 * (1 / 4) * 0.28,
                           color: Colors.white,
                         ),
-                        Text(
-                          'Disasters',
-                          style: TextStyle(
-                            fontSize: screenWidth * 0.75 * (1 / 4) * 0.28,
-                            color: Colors.white,
-                          ),
-                        ),
-                        '/disasters'),
+                      ),
+                      '/disasters'),
                   //blank
                   Flexible(
                     fit: FlexFit.tight,
@@ -69,14 +70,10 @@ class home extends StatelessWidget {
                   appQuote(),
                 ],
               ),
-            
-          ),
-          
-          
-        ],
+            ),
+          ],
+        ),
       ),
-      ),
-      
     );
   }
 }
@@ -162,18 +159,19 @@ class homeMenu extends StatelessWidget {
 class benefits extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final String benefitTitle='ဒီ App ရဲ့ရည်ရွယ်ချက်ကဘာလဲ?';
-    final String benefitContent='ကျန်းမာရေးအရေးပေါ်အခြေနေတွေ၊ သဘာ၀ဘေးအန္တရာယ်တွေကြုံတွေ့လာရင်အသက်ရှင်နိုင်ဖို့ဘာလုပ်ရမယ်မှန်းသိမယ်။\n\nတကယ်ကြုံတွေ့လာရင် အသက်ကယ်နိုင်မယ်။ အသက်ရှင်နိုင်မယ်။\n\nရှေးဉီးသူနာပြုစုနည်း လေ့လာချင်သူတွေအတွက် ပြန့်ကြဲပီးလျှောက်ရှာစရာမလိုပဲ တစ်နေရာတည်းမှာ တစ်စုတစ်စည်းတည်းလေ့လာနိုင်မယ်။\n\nမေ့သွားခဲ့ရင်လည်း internet connection မလိုပဲ ပြန်ကြည့်နိုင်မယ်။ စာအုပ်တစ်အုပ်သဖွယ် ဖုန်းထဲမှာသိမ်းထားတော့ နေရာမရွေး internet မလိုပဲသွား‌လေရာထုတ်ဖတ်လို့ရမယ်။\n\nဒီအကျိုးကျေးဇူးတွေပေးနိုင်ဖို့ကဒီappရဲ့ရည်ရွယ်ချက်ပါပဲ။';
-    double sw=MediaQuery.of(context).size.width;
-    double fontSizeBenefit=sw * 0.80 * 0.055;
+    final String benefitTitle = 'ဒီ App ရဲ့ရည်ရွယ်ချက်ကဘာလဲ?';
+    final String benefitContent =
+        'ကျန်းမာရေးအရေးပေါ်အခြေနေတွေ၊ သဘာ၀ဘေးအန္တရာယ်တွေကြုံတွေ့လာရင်အသက်ရှင်နိုင်ဖို့ဘာလုပ်ရမယ်မှန်းသိမယ်။\n\nတကယ်ကြုံတွေ့လာရင် အသက်ကယ်နိုင်မယ်။ အသက်ရှင်နိုင်မယ်။\n\nရှေးဉီးသူနာပြုစုနည်း လေ့လာချင်သူတွေအတွက် ပြန့်ကြဲပီးလျှောက်ရှာစရာမလိုပဲ တစ်နေရာတည်းမှာ တစ်စုတစ်စည်းတည်းလေ့လာနိုင်မယ်။\n\nမေ့သွားခဲ့ရင်လည်း internet connection မလိုပဲ ပြန်ကြည့်နိုင်မယ်။ စာအုပ်တစ်အုပ်သဖွယ် ဖုန်းထဲမှာသိမ်းထားတော့ နေရာမရွေး internet မလိုပဲသွား‌လေရာထုတ်ဖတ်လို့ရမယ်။\n\nဒီအကျိုးကျေးဇူးတွေပေးနိုင်ဖို့ကဒီappရဲ့ရည်ရွယ်ချက်ပါပဲ။';
+    double sw = MediaQuery.of(context).size.width;
+    double fontSizeBenefit = sw * 0.80 * 0.055;
     return Container(
       //DL container
-      height: sw*0.80*0.70,
-      width: sw*0.79,
+      height: sw * 0.80 * 0.70,
+      width: sw * 0.79,
       decoration: BoxDecoration(
         color: Color(0xffE5E5E5),
         //bord5r: Border.all(),
-        borderRadius: BorderRadius.circular(fontSizeBenefit*0.80),
+        borderRadius: BorderRadius.circular(fontSizeBenefit * 0.80),
       ),
       padding: EdgeInsets.all(fontSizeBenefit),
       child: SingleChildScrollView(
@@ -188,9 +186,10 @@ class benefits extends StatelessWidget {
                 //color:Colors.black,
                 fontSize: fontSizeBenefit,
               ),
-              
             ),
-            SizedBox(height: fontSizeBenefit,),
+            SizedBox(
+              height: fontSizeBenefit,
+            ),
             //content
             Text(
               benefitContent,
@@ -200,48 +199,44 @@ class benefits extends StatelessWidget {
                 height: 1.9,
               ),
             ),
-            SizedBox(height: fontSizeBenefit,),
+            SizedBox(
+              height: fontSizeBenefit,
+            ),
             //more button
             moreButton(),
           ],
         ),
       ),
-      
-      
     );
   }
 }
 
-
 class moreButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double sw=MediaQuery.of(context).size.width;
-    double fontSizeBenefit=sw * 0.85 * 0.055;
+    double sw = MediaQuery.of(context).size.width;
+    double fontSizeBenefit = sw * 0.85 * 0.055;
     return InkWell(
       onTap: () {
-        
         Navigator.pushNamed(context, '/purpose');
       },
       child: Container(
-      width: sw*0.80,
-      height: sw*0.80*(1/6),
-      decoration: BoxDecoration(
-        color: Color(0xff6BCF63),
-        borderRadius: BorderRadius.circular(fontSizeBenefit*0.70),
-      ),
-      child: Center(
-        child: Text(
-          'အပြည့်အစုံဖတ်ရန်',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: fontSizeBenefit*0.80,
+        width: sw * 0.80,
+        height: sw * 0.80 * (1 / 6),
+        decoration: BoxDecoration(
+          color: Color(0xff6BCF63),
+          borderRadius: BorderRadius.circular(fontSizeBenefit * 0.70),
+        ),
+        child: Center(
+          child: Text(
+            'အပြည့်အစုံဖတ်ရန်',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: fontSizeBenefit * 0.80,
+            ),
           ),
         ),
       ),
-    ),
     );
-    
-    
   }
 }
