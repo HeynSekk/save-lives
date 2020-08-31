@@ -259,7 +259,7 @@ class drawerUI extends StatelessWidget {
       child: Drawer(
         child: Padding(
           padding: EdgeInsets.only(
-            top: drWid * 0.25,
+            top: drWid * 0.20,
             left: drWid * 0.10,
             right: drWid * 0.10,
           ),
@@ -421,7 +421,11 @@ class drHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        ImageInApp(drWid * 0.11, drWid * 0.11, 'assets/images/heartIcon.png'),
+        Icon(
+          Icons.favorite,
+          size: sw * 0.75 * 0.11,
+          color: Colors.green,
+        ),
         SizedBox(width: drWid * (1 / 6) * 0.20),
         Text(
           'Save Lives',

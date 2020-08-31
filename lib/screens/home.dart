@@ -89,7 +89,11 @@ class home_title extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         //heart
-        ImageInApp(wRow * 0.15, wRow * 0.15, 'assets/images/heartIcon.png'),
+        Icon(
+          Icons.favorite,
+          size: wRow * 0.15,
+          color: Colors.green,
+        ),
         SizedBox(
           width: wRow * 0.04,
         ),

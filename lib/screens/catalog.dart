@@ -228,7 +228,7 @@ class menuCtnr extends StatelessWidget {
           right: hRow * 0.08,
         ),
         decoration: BoxDecoration(
-          color: Color(0xffE5E5E5),
+          color: Color(0xffa3bfa9),
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Row(
