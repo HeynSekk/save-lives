@@ -107,7 +107,8 @@ class subTitle extends StatelessWidget {
         width: screenWidth * 0.75,
         child: Text(
           this.title,
-          style: TextStyle(color: Color(0xff6BCF63), fontSize: normalFontSize),
+          style:
+              TextStyle(color: Color(0xff6BCF63), fontSize: normalFontSize * 2),
         ),
       ),
     );

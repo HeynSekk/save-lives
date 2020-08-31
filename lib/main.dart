@@ -64,13 +64,13 @@ class MyApp extends StatelessWidget {
             [
               [
                 'assets/images/priSurAd.png',
-                'How to do the primary survey on an adult',
+                'How to do the primary survey on an adult - first aid',
                 'www.sja.org.uk',
                 '/priSurAdW'
               ],
             ],
             //remember
-            '-30 chest compression\n-2 resuce breathe'),
+            'no'),
         '/priSurAdW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/how-to/how-to-do-the-primary-survey/'),
         /*
@@ -88,16 +88,6 @@ class MyApp extends StatelessWidget {
         ),
         '/recPosAdW':(context)=>webViewer(''),
         */
-        /*
-                    fainting
-                    eye injuries
-                    burn
-                    hea att
-                    sei bb
-
-                    */
-
-        //BURN AND SCALDS
 
         //CPR ADULT
         '/adCpr': (context) => refContent(
@@ -113,7 +103,7 @@ class MyApp extends StatelessWidget {
             [
               [
                 'assets/images/cprAd.jpg',
-                'How to do CPR on an adult - Webpage',
+                'How to do CPR on an adult - first aid',
                 'www.sja.org.uk',
                 '/adCprW'
               ]
@@ -136,32 +126,35 @@ class MyApp extends StatelessWidget {
             [
               [
                 'assets/images/cprBaby.png',
-                'How to do CPR on a baby - Webpage',
+                'How to do CPR on a baby - first aid',
                 'www.sja.org.uk',
                 '/babyCprW'
               ]
             ],
-            '-30 chest compression\n-2 resuce breathe'),
+            'no'),
         '/babyCprW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-cpr-on-a-baby/'),
 
         //CPR CHILD
-        '/childCpr': (context) => refContent('CPR for child', [
+        '/childCpr': (context) => refContent(
+            'CPR for child',
+            [
               [
                 'https://youtu.be/0aV9NS0ogiM',
                 'assets/images/cpr.png',
                 'How to do CPR on a child - YouTube',
                 'St John Ambulance'
               ]
-            ], [
+            ],
+            [
               [
                 'assets/images/cprChild.png',
-                'How to do CPR on children',
+                'How to do CPR on children - first aid',
                 'www.sja.org.uk',
                 '/cprChildW'
               ],
-            ], '''-30 chest compression
--2 resuce breathe '''),
+            ],
+            'no'),
         '/cprChildW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-cpr-on-a-child/'),
 
@@ -179,12 +172,12 @@ class MyApp extends StatelessWidget {
             [
               [
                 'assets/images/priSurBa.png',
-                'Baby primary survey',
+                'Baby primary survey - first aid',
                 'www.sja.org.uk',
                 '/priSurBaW'
               ]
             ],
-            'NO data'),
+            'no'),
         '/priSurBaW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/baby-primary-survey/'),
         //REC POS ADULT
@@ -201,12 +194,12 @@ class MyApp extends StatelessWidget {
             [
               [
                 'assets/images/recPosAd.png',
-                'Recovery position (adult)',
+                'Recovery position (adults) - first aid',
                 'www.sja.org.uk',
                 '/recPosAdW'
               ]
             ],
-            'NO data'),
+            'no'),
         '/recPosAdW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/how-to-do-the-recovery-position/'),
 
@@ -224,16 +217,17 @@ class MyApp extends StatelessWidget {
             [
               [
                 'assets/images/recPosBa.png',
-                'First aid - Recovery Position for Baby',
+                'First aid - Recovery Position for babies',
                 'www.sja.org.uk',
                 '/recPosBaW'
               ]
             ],
-            'NO data'),
+            'no'),
         '/recPosBaW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-the-recovery-position-baby/'),
 
         //# COMMON MFA #
+        //BURN AND SCALDS
         '/burn': (context) => refContent(
             'How to treat burn and scalds',
             [
@@ -246,13 +240,13 @@ class MyApp extends StatelessWidget {
             ],
             [
               [
-                'assets/images/cprAd.jpg',
+                'assets/images/burn.png',
                 'Burn and scalds - signs and first aid',
                 'www.sja.org.uk',
                 '/burnW1'
               ],
               [
-                'assets/images/cprAd.jpg',
+                'assets/images/burn.png',
                 'First aids for chemical burns',
                 'www.sja.org.uk',
                 '/burnW2'
@@ -277,12 +271,12 @@ class MyApp extends StatelessWidget {
             [
               [
                 'assets/images/chokAd.png',
-                'What To Do When Someone Is Choking',
+                'What To Do When Someone Is Choking - first aid',
                 'www.sja.org.uk',
                 '/chokAdW'
               ]
             ],
-            'NO data'),
+            'no'),
         '/chokAdW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/choking/adult-choking/'),
 
@@ -300,12 +294,12 @@ class MyApp extends StatelessWidget {
             [
               [
                 'assets/images/chokBaby.png',
-                'First aid advices for Choking (Baby)',
+                'First aid advices for Choking (babies)',
                 'www.sja.org.uk',
                 '/chokBabyW'
               ]
             ],
-            'NO data'),
+            'no'),
         '/chokBabyW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/choking/baby-choking/'),
 
@@ -323,12 +317,12 @@ class MyApp extends StatelessWidget {
             [
               [
                 'assets/images/chokChi.png',
-                'First aid advices for Choking (Child)',
+                'First aid advices for Choking (children)',
                 'www.sja.org.uk',
                 '/chokChiW'
               ]
             ],
-            'NO data'),
+            'no'),
         '/chokChiW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/choking/child-choking/'),
         //EYE INJURIES
@@ -344,20 +338,20 @@ class MyApp extends StatelessWidget {
             ],
             [
               [
-                'assets/images/cprAd.jpg',
-                'First aid for eye injuried by foreign objects',
+                'assets/images/eye.jpg',
+                'Eye injuried by foreign objects - First aid',
                 'www.sja.org.uk',
                 '/eyew1'
               ],
               [
-                'assets/images/cprAd.jpg',
-                'First aid for eye wound and injuries',
+                'assets/images/eye.jpg',
+                'Eye wound and injuries - First aid',
                 'www.sja.org.uk',
                 '/eyew2'
               ],
               [
-                'assets/images/cprAd.jpg',
-                'First aids for eye injuried by chemicals',
+                'assets/images/eye.jpg',
+                'Eye injuried by chemicals - First aid',
                 'www.sja.org.uk',
                 '/eyew3'
               ]
@@ -382,13 +376,13 @@ class MyApp extends StatelessWidget {
             ],
             [
               [
-                'assets/images/cprAd.jpg',
+                'assets/images/faint.png',
                 'First aid for fainting',
                 'www.mayoclinic.org',
                 '/faiw1'
               ],
               [
-                'assets/images/cprAd.jpg',
+                'assets/images/faint.png',
                 'First aid for fainting - St John Ambulance',
                 'www.sja.org.uk',
                 '/faiw2'
@@ -412,7 +406,7 @@ class MyApp extends StatelessWidget {
             ],
             [
               [
-                'assets/images/cprAd.jpg',
+                'assets/images/heaAtt.png',
                 'First aid for heart attack - St John Ambulance',
                 'www.sja.org.uk',
                 '/heaAttW'
@@ -440,7 +434,7 @@ class MyApp extends StatelessWidget {
                 '/heaInjW'
               ]
             ],
-            'NO data'),
+            'no'),
         '/heaInjW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/head-injuries/baby-and-child-head-injury/'),
         //SEIZURE ADULT
@@ -457,41 +451,18 @@ class MyApp extends StatelessWidget {
             [
               [
                 'assets/images/seiAd.png',
-                'Seizure in Adult - First aid',
+                'Seizure in adults - First aid',
                 'www.sja.org.uk',
                 '/seiAdW'
               ]
             ],
-            'NO data'),
+            'no'),
         '/seiAdW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/seizures/seizures-in-adults/'), //https://www.sja.org.uk/get-advice/first-aid-advice/seizures/seizures-in-adults/
 
         //SEIZURE BABY
-        '/seiBa': (context) => refContent(
-            'Seizure (babies)',
-            [
-              [
-                'https://youtu.be/CcQZRDcGZpE',
-                'img',
-                'Seizure in babies- Youtube',
-                'St John Ambulance'
-              ]
-            ],
-            [
-              [
-                'assets/images/seiBa.png',
-                'Seizure in babies - First aid',
-                'www.sja.org.uk',
-                '/seiBaW'
-              ]
-            ],
-            'NO data'),
-        '/seiBaW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/febrile-convulsion-seizures/'),
-
-        //SEIZURE BABY
         '/seibb': (context) => refContent(
-            'Seizure (baby)',
+            'Seizure (babies)',
             [
               [
                 'https://youtu.be/CcQZRDcGZpE',
@@ -502,8 +473,8 @@ class MyApp extends StatelessWidget {
             ],
             [
               [
-                'assets/images/cprAd.jpg',
-                'First aid for seizure in baby',
+                'assets/images/seiBa.png',
+                'First aid for seizure in babies',
                 'www.sja.org.uk',
                 '/seibbw'
               ]
@@ -531,7 +502,7 @@ class MyApp extends StatelessWidget {
                 '/seiChiW'
               ]
             ],
-            'NO data'),
+            'no'),
         '/seiChiW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/seizures-in-children/'),
 
@@ -554,7 +525,7 @@ class MyApp extends StatelessWidget {
                 '/sevBlW'
               ]
             ],
-            'NO data'),
+            'no'),
         '/sevBlW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/severe-bleeding/'),
         //SEVERE BLEEDING BABY
@@ -620,7 +591,7 @@ class MyApp extends StatelessWidget {
                 '/snakW'
               ]
             ],
-            'NO data'),
+            'no'),
         '/snakW': (context) => webViewer(
             'https://www.paradisefirstaid.com.au/snake-bite-first-aid/'),
 
@@ -666,7 +637,7 @@ class MyApp extends StatelessWidget {
 
         //SHIPWRECK
         '/shi': (context) => refContent(
-            'Survival at sea',
+            'Shipwreck at sea',
             [
               [
                 'https://youtu.be/W4AOdOhERY0',
@@ -677,7 +648,7 @@ class MyApp extends StatelessWidget {
             ],
             [
               [
-                'assets/images/snak.png',
+                'assets/images/ship.png',
                 'Save yourself from drowning in a shipwreck',
                 'www.wikihow.com',
                 '/shiW'
@@ -699,7 +670,7 @@ class MyApp extends StatelessWidget {
             ],
             [
               [
-                'assets/images/snak.png',
+                'assets/images/tornado.jpg',
                 'How to survive tornado',
                 'www.wikihow.com',
                 '/torW'
@@ -721,7 +692,7 @@ class MyApp extends StatelessWidget {
             ],
             [
               [
-                'assets/images/snak.png',
+                'assets/images/wild.jpg',
                 '12 Techniques That Will Help You Survive a Deadly Battle With an Animal',
                 'www.brightside.me',
                 '/wildW'

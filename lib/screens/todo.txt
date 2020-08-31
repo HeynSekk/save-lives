@@ -1,0 +1,5 @@
+/increase sub title size
+/burn picture
+/collect picture and edit title for web link
+url launcher
+credit screen

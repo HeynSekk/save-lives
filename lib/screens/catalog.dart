@@ -52,7 +52,7 @@ class catalog extends StatelessWidget {
 
                     //LIST
                     subTitle('Common health emergency conditions:'),
-                    menuItemFirst('assets/images/burn.jpg', 'Burn and scalds',
+                    menuItemFirst('assets/images/burn.png', 'Burn and scalds',
                         '/burn', 'B'),
                     menuItemFirst('assets/images/chokAd.png',
                         'Choking (adults)', '/chokAd', 'C'),
@@ -147,7 +147,8 @@ class subTitle extends StatelessWidget {
         width: screenWidth * 0.75,
         child: Text(
           this.title,
-          style: TextStyle(color: Color(0xff6BCF63), fontSize: normalFontSize),
+          style:
+              TextStyle(color: Color(0xff6BCF63), fontSize: normalFontSize * 2),
         ),
       ),
     );
