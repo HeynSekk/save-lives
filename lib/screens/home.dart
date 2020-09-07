@@ -1,8 +1,101 @@
+import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:save_lives/common/common.dart';
+import 'package:save_lives/main.dart';
 
 //test
-class home extends StatelessWidget {
+class home extends StatefulWidget {
+  @override
+  _homeState createState() => _homeState();
+}
+
+class _homeState extends State<home> {
+  final MethodChannel platform =
+      MethodChannel('crossingthestreams.io/resourceResolver');
+  Future<void> _showNotification() async {
+    var rdm = new Random();
+    int screenId = rdm.nextInt(3);
+    List<String> routeList = ['/priSurAd', '/adCpr', '/babyCpr'];
+    List<String> titleList = ['priSurAd', 'adCpr', 'babyCpr'];
+    List<String> bodyList = ['How to do it', 'How to do it', 'How to do it'];
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'your channel id', 'your channel name', 'your channel description',
+        importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+        0, titleList[screenId], bodyList[screenId], platformChannelSpecifics,
+        payload: routeList[screenId]);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _requestIOSPermissions();
+    _configureDidReceiveLocalNotificationSubject();
+    _configureSelectNotificationSubject();
+    _showDailyAtTime();
+  }
+
+  void _requestIOSPermissions() {
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+  }
+
+  void _configureDidReceiveLocalNotificationSubject() {
+    didReceiveLocalNotificationSubject.stream
+        .listen((ReceivedNotification receivedNotification) async {
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: receivedNotification.title != null
+              ? Text(receivedNotification.title)
+              : null,
+          content: receivedNotification.body != null
+              ? Text(receivedNotification.body)
+              : null,
+          actions: [
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: Text('Ok'),
+              onPressed: () async {
+                //Navigator.of(context, rootNavigator: true).pop();
+                await Navigator.pushNamed(
+                    context, receivedNotification.payload);
+                debugPrint('navigated to string receivedNotification.payload');
+              },
+            )
+          ],
+        ),
+      );
+    });
+  }
+
+  void _configureSelectNotificationSubject() {
+    selectNotificationSubject.stream.listen((String payload) async {
+      debugPrint('detected payload added');
+      await Navigator.pushNamed(context, payload);
+      debugPrint('navigated to the string ' + payload);
+    });
+  }
+
+  @override
+  void dispose() {
+    didReceiveLocalNotificationSubject.close();
+    selectNotificationSubject.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double sh = MediaQuery.of(context).size.height;
@@ -23,7 +116,7 @@ class home extends StatelessWidget {
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   home_title(),
                   SizedBox(
@@ -59,6 +152,20 @@ class home extends StatelessWidget {
                         ),
                       ),
                       '/disasters'),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      await _showNotification();
+                    },
+                    child: Text(
+                      'Show noti',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
                   //blank
                   Flexible(
                     fit: FlexFit.tight,
@@ -76,6 +183,56 @@ class home extends StatelessWidget {
       ),
     );
   }
+
+  Future<void> _showDailyAtTime() async {
+    var rdm = new Random();
+    int screenId = rdm.nextInt(3);
+    List<String> routeList = [
+      '/emergencies',
+      '/priSurAd',
+      '/adCpr',
+      '/babyCpr'
+    ];
+    List<String> titleList = [
+      'Medical first aids',
+      'How to perform primary survey on adults',
+      'Performing CPR on adults',
+      'Performing CPR on babies',
+    ];
+    List<String> bodyList = [
+      'Many death can be avoided if people had First Aids knowledge',
+      'Performing primary survey before approaching a casuality can prevent you from the dangers',
+      'Many death can be avoided if people knew how to perform the CPR',
+      'Knowing how to perform CPR can save the lives of babies in cases of life threatening conditions',
+    ];
+    var morningTime = Time(8, 1, 0), eveningTime = Time(20, 1, 0);
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'repeatDailyAtTime channel id',
+        'repeatDailyAtTime channel name',
+        'repeatDailyAtTime description');
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    //morning
+    await flutterLocalNotificationsPlugin.showDailyAtTime(
+      0,
+      titleList[screenId],
+      bodyList[screenId],
+      morningTime,
+      platformChannelSpecifics,
+      payload: routeList[screenId],
+    );
+    //evening
+    screenId = rdm.nextInt(3);
+    await flutterLocalNotificationsPlugin.showDailyAtTime(
+      1,
+      titleList[screenId],
+      bodyList[screenId],
+      eveningTime,
+      platformChannelSpecifics,
+      payload: routeList[screenId],
+    );
+  }
 }
 
 //HOME SCREEN
@@ -91,17 +248,17 @@ class home_title extends StatelessWidget {
         //heart
         Icon(
           Icons.favorite,
-          size: wRow * 0.15,
+          size: wRow * 0.20,
           color: Colors.green,
         ),
         SizedBox(
-          width: wRow * 0.04,
+          width: wRow * 0.02,
         ),
         Text(
           'Save Lives',
           style: TextStyle(
             color: Colors.black,
-            fontSize: wRow * 0.07 * 1.9,
+            fontSize: wRow * 0.07 * 2.5,
           ),
         ),
       ],

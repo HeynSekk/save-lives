@@ -1,8 +1,11 @@
+import 'dart:async';
+import 'dart:ui';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:flutter/foundation.dart' show SynchronousFuture;
-//import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
 import 'package:save_lives/common/theme.dart';
 import 'package:save_lives/screens/disastersCatalog.dart';
 import 'package:save_lives/screens/home.dart';
@@ -12,12 +15,65 @@ import 'package:save_lives/screens/catalog.dart';
 import 'package:save_lives/common/webViewer.dart';
 import 'package:save_lives/screens/refContent.dart';
 
-//normal
-void main() {
-  /*WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(statusBarColor: Colors.greenAccent),
-  );*/
+//***INITIALIZE***
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+// Streams are created so that app can respond to notification-related events since the plugin is initialised in the `main` function
+final BehaviorSubject<ReceivedNotification> didReceiveLocalNotificationSubject =
+    BehaviorSubject<ReceivedNotification>();
+
+final BehaviorSubject<String> selectNotificationSubject =
+    BehaviorSubject<String>();
+
+NotificationAppLaunchDetails notificationAppLaunchDetails;
+
+class ReceivedNotification {
+  final int id;
+  final String title;
+  final String body;
+  final String payload;
+
+  ReceivedNotification({
+    @required this.id,
+    @required this.title,
+    @required this.body,
+    @required this.payload,
+  });
+}
+
+// *** MAIN ***
+Future<void> main() async {
+  // *** VARIABLE CREATING ***
+  WidgetsFlutterBinding.ensureInitialized();
+
+  notificationAppLaunchDetails =
+      await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+
+  var initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
+  var initializationSettingsIOS = IOSInitializationSettings(
+      requestAlertPermission: false,
+      requestBadgePermission: false,
+      requestSoundPermission: false,
+      onDidReceiveLocalNotification:
+          (int id, String title, String body, String payload) async {
+        didReceiveLocalNotificationSubject.add(ReceivedNotification(
+            id: id, title: title, body: body, payload: payload));
+      });
+  var initializationSettings = InitializationSettings(
+      initializationSettingsAndroid, initializationSettingsIOS);
+
+  // *** ACTUAL INITIALIZE ***
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onSelectNotification: (String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload);
+    }
+    selectNotificationSubject.add(payload);
+    debugPrint('payload added to selectNotificationSubject');
+  });
+
   //WRAP IT
   runApp(
     ChangeNotifierProvider(
@@ -36,59 +92,14 @@ class MyApp extends StatelessWidget {
       theme: appTheme,
       initialRoute: '/',
       routes: {
-        //screens
+        //SCREENS
         '/': (context) => home(),
         '/emergencies': (context) => catalog(),
         '/disasters': (context) => disastersCatalog(),
         '/purpose': (context) => purpose('assets/texts/purpose.json'),
         '/contact': (context) => contact(),
 
-        //contents
-        //# THE FUNDAMENTAL
-
-        //PRI SUR ADULT
-        '/priSurAd': (context) => refContent(
-            //title
-            'Primary survey (Adult)',
-            //vid
-            [
-              [
-                //url, img, titleText, channelName
-                'https://youtu.be/ea1RJUOiNfQ',
-                'assets/images/priSurAd.png',
-                'How to do the primary survey on an adult - YouTube',
-                'St John Ambulance'
-              ],
-            ],
-            //web pages
-            [
-              [
-                'assets/images/priSurAd.png',
-                'How to do the primary survey on an adult - first aid',
-                'www.sja.org.uk',
-                '/priSurAdW'
-              ],
-            ],
-            //remember
-            'no'),
-        '/priSurAdW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/how-to/how-to-do-the-primary-survey/'),
-        /*
-        //
-        '/recPosAd':(context)=>
-        refContent(
-          'Recovery',
-
-          [['https://youtu.be/GmqXqwSV3bo','img',
-          '- Youtube','St John Ambulance']],
-
-          [['assets/images/recPosAd.png','Recovery','www.sja.org.uk','/recPosAdW']],
-
-          'NO data'
-        ),
-        '/recPosAdW':(context)=>webViewer(''),
-        */
-
+        // ***CONTENTS***
         //CPR ADULT
         '/adCpr': (context) => refContent(
             'CPR for adult',
@@ -157,6 +168,34 @@ class MyApp extends StatelessWidget {
             'no'),
         '/cprChildW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-cpr-on-a-child/'),
+
+        //PRI SUR ADULT
+        '/priSurAd': (context) => refContent(
+            //title
+            'Primary survey (Adult)',
+            //vid
+            [
+              [
+                //url, img, titleText, channelName
+                'https://youtu.be/ea1RJUOiNfQ',
+                'assets/images/priSurAd.png',
+                'How to do the primary survey on an adult - YouTube',
+                'St John Ambulance'
+              ],
+            ],
+            //web pages
+            [
+              [
+                'assets/images/priSurAd.png',
+                'How to do the primary survey on an adult - first aid',
+                'www.sja.org.uk',
+                '/priSurAdW'
+              ],
+            ],
+            //remember
+            'no'),
+        '/priSurAdW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/how-to/how-to-do-the-primary-survey/'),
 
         //PRI SUR BABY
         '/priSurBa': (context) => refContent(

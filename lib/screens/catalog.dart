@@ -147,8 +147,8 @@ class subTitle extends StatelessWidget {
         width: screenWidth * 0.75,
         child: Text(
           this.title,
-          style:
-              TextStyle(color: Color(0xff6BCF63), fontSize: normalFontSize * 2),
+          style: TextStyle(
+              color: Color(0xff6BCF63), fontSize: normalFontSize * 1.5),
         ),
       ),
     );
@@ -228,8 +228,8 @@ class menuCtnr extends StatelessWidget {
           right: hRow * 0.08,
         ),
         decoration: BoxDecoration(
-          color: Color(0xffa3bfa9),
-          borderRadius: BorderRadius.circular(20.0),
+          color: Colors.green, //Color(0xff6BCF63),
+          borderRadius: BorderRadius.circular(16.0),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -248,7 +248,7 @@ class menuCtnr extends StatelessWidget {
                 this.eName,
                 style: TextStyle(
                   fontSize: wRow * 0.075, //screenWidth * 0.75 * 0.055
-                  color: Colors.black,
+                  color: Colors.white,
                   height: 1.5,
                 ),
               ),
