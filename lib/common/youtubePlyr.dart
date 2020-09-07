@@ -38,7 +38,7 @@ class _ytPlyrState extends State<ytPlyr> {
         width: sw * 0.77,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(normalFontSize*0.90),
+          borderRadius: BorderRadius.circular(normalFontSize * 0.90),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
@@ -54,7 +54,7 @@ class _ytPlyrState extends State<ytPlyr> {
           Row(
             children: <Widget>[
               imgs(sw * 0.80 * 0.25, sw * 0.80 * 0.28 * 1.10, 0,
-                  'assets/images/ytLogo.png'),  
+                  'assets/images/ytLogo.png'),
               SizedBox(width: normalFontSize * 0.77),
               SizedBox(
                 width: sw * 0.80 * 0.50,

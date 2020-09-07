@@ -127,7 +127,7 @@ class homeMenu extends StatelessWidget {
       onTap: () => Navigator.pushNamed(context, this.onTapDest),
       child: Container(
         //height: screenWidth * 0.75 * 0.30,
-        width: screenWidth * 0.75,
+        width: screenWidth * 0.68,
         decoration: BoxDecoration(
           color: Color(0xff6BCF63),
           //border: Border.all(),

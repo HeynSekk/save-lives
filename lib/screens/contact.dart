@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../main.dart';
 import 'package:save_lives/common/common.dart';
 //import 'package:url_launcher/url_launcher.dart';
 
@@ -81,88 +79,15 @@ class body_content extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double sw = MediaQuery.of(context).size.width;
-    return Consumer<LanguageChanger>(
-        builder: (context, LanguageChanger, child) => SizedBox(
-              width: sw * 0.80,
-              child: Text(
-                LanguageChanger.contactBody,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: sw * 0.80 * 0.07,
-                ),
-              ),
-            ));
-  }
-}
-
-//STICK
-class sideStick extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        //comp1(),
-        //tight, flex 1/15
-        //flex 2/15
-        //12/15
-        //first
-        Flexible(
-          fit: FlexFit.tight,
-          flex: 7,
-          child: Container(
-            //height: 4,
-            width: 15,
-            color: Colors.green,
-          ),
+    return SizedBox(
+      width: sw * 0.80,
+      child: Text(
+        'loren',
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: sw * 0.80 * 0.07,
         ),
-        //second
-        Flexible(
-          fit: FlexFit.tight,
-          flex: 8,
-          child: Container(
-            //height: 4,
-            width: 35,
-            child: Center(
-              child: InkWell(
-                splashColor: Colors.red, // inkwell color
-                child: SizedBox(
-                    width: 33,
-                    height: 33,
-                    child: Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                    )),
-                onTap: () => Scaffold.of(context).openDrawer(),
-              ),
-              //child: Icon(Icons.menu),
-            ),
-            //color: Colors.green,
-            decoration: BoxDecoration(
-              color: Colors.green,
-              //border: Border.all(),
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              ),
-            ),
-          ),
-        ),
-        //third
-        Flexible(
-          fit: FlexFit.tight,
-          flex: 7,
-          child: Container(
-            //height: 4,
-            width: 15,
-            color: Colors.green,
-          ),
-        ),
-
-        //comp2(),
-        //comp3(),
-      ],
+      ),
     );
   }
 }
