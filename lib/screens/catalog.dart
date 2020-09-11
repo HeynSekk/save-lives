@@ -228,7 +228,7 @@ class menuCtnr extends StatelessWidget {
           right: hRow * 0.08,
         ),
         decoration: BoxDecoration(
-          color: Colors.green, //Color(0xff6BCF63),
+          color: Color(0xffe3e8e4),
           borderRadius: BorderRadius.circular(16.0),
         ),
         child: Row(
@@ -248,7 +248,7 @@ class menuCtnr extends StatelessWidget {
                 this.eName,
                 style: TextStyle(
                   fontSize: wRow * 0.075, //screenWidth * 0.75 * 0.055
-                  color: Colors.white,
+                  color: Colors.black,
                   height: 1.5,
                 ),
               ),
