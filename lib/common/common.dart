@@ -4,6 +4,55 @@ import 'package:provider/provider.dart';
 
 import '../main.dart';
 
+class vspace extends StatelessWidget {
+  double quant;
+  vspace(this.quant);
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: this.quant,
+    );
+  }
+}
+
+class hspace extends StatelessWidget {
+  double quant;
+  hspace(this.quant);
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: this.quant,
+    );
+  }
+}
+
+class drawerButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    double sw = MediaQuery.of(context).size.width;
+    double wRow = sw * 0.8;
+    double normalFontSize = wRow * 0.07 * 1.5 * 0.48;
+    return InkWell(
+      onTap: () => Scaffold.of(context).openDrawer(),
+      child: Container(
+        height: normalFontSize * 2,
+        width: normalFontSize * 2,
+        decoration: BoxDecoration(
+          color: Color(0xffC4C4C4),
+          borderRadius: BorderRadius.circular(normalFontSize * 0.80),
+        ),
+        child: Center(
+          child: Icon(
+            Icons.menu,
+            color: Colors.white,
+            size: normalFontSize * 1.5,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class appQuote extends StatelessWidget {
   //attri
 
@@ -305,7 +354,8 @@ class drawerUI extends StatelessWidget {
 
                 SizedBox(height: drWid * 0.07),
                 //contact
-                drMenu('assets/images/feedback.png', 'Contact', '/contact'),
+                drMenu('assets/images/feedback.png', 'Contact & Credits',
+                    '/contact'),
               ],
             ),
           ),
