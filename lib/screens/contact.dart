@@ -9,7 +9,6 @@ class contact extends StatefulWidget {
 
 class _contactState extends State<contact> {
   Future<void> _launched;
-  String _phone = '09256832552';
 
   Future<void> _launchInBrowser(String url) async {
     if (await canLaunch(url)) {
@@ -40,23 +39,18 @@ class _contactState extends State<contact> {
     }
   }
 
-  Widget actionBtn(BuildContext context, String txt, Future<void> func) {
+  Widget actionBtn(BuildContext context, String txt) {
     double sw = MediaQuery.of(context).size.width;
     double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
-    return InkWell(
-      onTap: () => setState(() {
-        _launched = func;
-      }),
-      child: Container(
-        padding: EdgeInsets.all(normalFontSize * 0.35),
-        decoration: BoxDecoration(
-          color: Color(0xff6BCF63),
-          borderRadius: BorderRadius.circular(normalFontSize * 0.20),
-        ),
-        child: Text(
-          txt,
-          style: TextStyle(color: Colors.white, fontSize: normalFontSize),
-        ),
+    return Container(
+      padding: EdgeInsets.all(normalFontSize * 0.50),
+      decoration: BoxDecoration(
+        color: Color(0xff6BCF63),
+        borderRadius: BorderRadius.circular(normalFontSize * 0.20),
+      ),
+      child: Text(
+        txt,
+        style: TextStyle(color: Colors.white, fontSize: normalFontSize),
       ),
     );
   }
@@ -98,64 +92,122 @@ class _contactState extends State<contact> {
     //github link, email
     //https://www.facebook.com/HeynSekk
     const String toLaunch = 'https://www.cylog.org/headers/';
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(sw * 0.05),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              //drawer
-              drawerButton(),
-              vspace(normalFontSize),
-              //title
-              secTitle(context, 'Contact'),
-              vspace(normalFontSize * 0.70),
-              //actions
-              Wrap(
-                spacing: normalFontSize,
-                children: <Widget>[
-                  //https://github.com/HeynSekk
-                  //https://github.com/HeynSekk/save-lives
-                  actionBtn(context, 'Email',
-                      _launchInBrowser('https://github.com/HeynSekk')),
-                  actionBtn(
-                      context, 'Phone call', _makePhoneCall('tel:09256832552')),
-                  actionBtn(context, 'Facebook',
-                      _launchInBrowser('https://www.facebook.com/HeynSekk')),
-                  actionBtn(context, 'GitHub Link',
-                      _launchInBrowser('https://github.com/HeynSekk')),
-                ],
-              ),
-              vspace(normalFontSize * 0.70),
-              //description
-              description(context,
-                  'You can\nSuggest improvements\nReport bugs\nRequest new features\nDiscuss new project ideas to work with me'),
-              vspace(normalFontSize * 0.70),
-              //section 2
-              secTitle(context, 'Contribution'),
-              vspace(normalFontSize * 0.70),
-              //actions
-              actionBtn(context, 'Contribute this project',
-                  _launchInBrowser('https://github.com/HeynSekk/save-lives')),
-              vspace(normalFontSize * 0.70),
-              //description
-              description(context,
-                  'You can also contribute this project by\n\nMaking UI improvements, code refactoring, technical improvements, if you are a Flutter developer, and\n\nDrawing illustrations for first aids items and survival tips, if you are an artist\n\nEvery PR is warmly appreciated.'),
-              vspace(normalFontSize * 0.70),
-              //section 3
-              secTitle(context, 'Credits'),
-              vspace(normalFontSize * 0.70),
-              //desc
-              description(context,
-                  'Images used in this app and its owners. Click the image to go to its source'),
-              vspace(normalFontSize * 0.70),
-              //actions
-              Wrap(
-                spacing: sw * 0.05,
-                children: <Widget>[
-                  imgLink(context, 'assets/images/cprBaby.png',
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: EdgeInsets.all(sw * 0.05),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                //drawer
+                drawerButton(),
+                vspace(normalFontSize),
+                //title
+                secTitle(context, 'Contact'),
+                vspace(normalFontSize * 0.70),
+                //actions
+                Wrap(
+                  spacing: normalFontSize,
+                  children: <Widget>[
+                    //https://github.com/HeynSekk
+                    //https://github.com/HeynSekk/save-lives
+                    InkWell(
+                      onTap: () => setState(() {
+                        _launched = _makePhoneCall('tel:09256832552');
+                      }),
+                      child: actionBtn(context, 'Email'),
+                    ),
+                    InkWell(
+                      onTap: () => setState(() {
+                        _launched = _makePhoneCall('tel:09256832552');
+                      }),
+                      child: actionBtn(context, 'Phone call'),
+                    ),
+                    InkWell(
+                      onTap: () => setState(() {
+                        _launched = _launchInBrowser(
+                            'https://www.facebook.com/HeynSekk');
+                      }),
+                      child: actionBtn(context, 'Facebook'),
+                    ),
+                    InkWell(
+                      onTap: () => setState(() {
+                        _launched =
+                            _launchInBrowser('https://github.com/HeynSekk');
+                      }),
+                      child: actionBtn(context, 'GitHub link'),
+                    ),
+                  ],
+                ),
+                vspace(normalFontSize * 0.70),
+                //description
+                description(context,
+                    'You can\nSuggest improvements\nReport bugs\nRequest new features\nDiscuss new project ideas to work with me'),
+                vspace(normalFontSize * 0.70),
+                //section 2
+                secTitle(context, 'Contribution'),
+                vspace(normalFontSize * 0.70),
+                //actions
+                InkWell(
+                  onTap: () => setState(() {
+                    _launched = _launchInBrowser(
+                        'https://github.com/HeynSekk/save-lives');
+                  }),
+                  child: actionBtn(context, 'Contribute this project'),
+                ),
+
+                vspace(normalFontSize * 0.70),
+                //description
+                description(context,
+                    'You can also contribute this project by\n\nMaking UI improvements, code refactoring, technical improvements, if you are a Flutter developer, and\n\nDrawing illustrations for first aids items and survival tips, if you are an artist\n\nEvery PR is warmly appreciated.'),
+                vspace(normalFontSize * 0.70),
+                //section 3
+                secTitle(context, 'Credits'),
+                vspace(normalFontSize * 0.70),
+                //desc
+                description(context,
+                    'Images used in this app and its owners. Click the image to go to its source'),
+                vspace(normalFontSize * 0.70),
+                //actions
+                Wrap(
+                  spacing: sw * 0.05,
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () => setState(() {
+                        _launched = _launchInBrowser(
+                            'https://www.facebook.com/HeynSekk');
+                      }),
+                      child: imgs(sw * 0.25, sw * 0.25, normalFontSize * 0.10,
+                          'assets/images/cprBaby.png'),
+                    ),
+                    InkWell(
+                      onTap: () => setState(() {
+                        _launched = _launchInBrowser(
+                            'https://www.facebook.com/HeynSekk');
+                      }),
+                      child: imgs(sw * 0.25, sw * 0.25, normalFontSize * 0.10,
+                          'assets/images/cprBaby.png'),
+                    ),
+                    InkWell(
+                      onTap: () => setState(() {
+                        _launched = _launchInBrowser(
+                            'https://www.facebook.com/HeynSekk');
+                      }),
+                      child: imgs(sw * 0.25, sw * 0.25, normalFontSize * 0.10,
+                          'assets/images/cprBaby.png'),
+                    ),
+                    InkWell(
+                      onTap: () => setState(() {
+                        _launched = _launchInBrowser(
+                            'https://www.facebook.com/HeynSekk');
+                      }),
+                      child: imgs(sw * 0.25, sw * 0.25, normalFontSize * 0.10,
+                          'assets/images/cprBaby.png'),
+                    ),
+
+                    /*imgLink(context, 'assets/images/cprBaby.png',
                       'https://github.com/HeynSekk'),
                   imgLink(
                       context, 'assets/images/faint.png', 'https://github.com'),
@@ -166,16 +218,16 @@ class _contactState extends State<contact> {
                   imgLink(context, 'assets/images/cprBaby.png',
                       'https://github.com/HeynSekk'),
                   imgLink(context, 'assets/images/cprBaby.png',
-                      'https://github.com/HeynSekk'),
-                ],
-              ),
-              vspace(normalFontSize * 0.70),
-            ],
+                      'https://github.com/HeynSekk'),*/
+                  ],
+                ),
+                vspace(normalFontSize * 0.70),
+              ],
+            ),
           ),
         ),
-      ),
 
-      /*ListView(
+        /*ListView(
         children: <Widget>[
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -210,6 +262,7 @@ class _contactState extends State<contact> {
           ),
         ],
       ),*/
+      ),
     );
   }
 }

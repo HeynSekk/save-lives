@@ -35,8 +35,8 @@ class drawerButton extends StatelessWidget {
     return InkWell(
       onTap: () => Scaffold.of(context).openDrawer(),
       child: Container(
-        height: normalFontSize * 2,
-        width: normalFontSize * 2,
+        height: normalFontSize * 3,
+        width: normalFontSize * 3,
         decoration: BoxDecoration(
           color: Color(0xffC4C4C4),
           borderRadius: BorderRadius.circular(normalFontSize * 0.80),
@@ -45,7 +45,7 @@ class drawerButton extends StatelessWidget {
           child: Icon(
             Icons.menu,
             color: Colors.white,
-            size: normalFontSize * 1.5,
+            size: normalFontSize * 2.2,
           ),
         ),
       ),
