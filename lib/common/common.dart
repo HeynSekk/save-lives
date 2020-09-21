@@ -481,8 +481,8 @@ class drHeader extends StatelessWidget {
         Text(
           'Save Lives',
           style: TextStyle(
-            color: Colors.black,
-            fontSize: drWid * 0.1,
+            color: Color(0xff6B6B6B),
+            fontSize: drWid * 0.13,
           ),
         ),
       ],

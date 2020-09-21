@@ -111,6 +111,9 @@ class _contactState extends State<contact> {
                   child: drawerButton(),
                 ),
               ),
+              SizedBox(
+                height: sw * 0.05,
+              ),
               //scroll
               Flexible(
                 fit: FlexFit.tight,

@@ -13,7 +13,8 @@ class catalog extends StatelessWidget {
       child: Scaffold(
         drawer: drawerUI(),
         body: Padding(
-          padding: EdgeInsets.all(sw * 0.05),
+          padding: EdgeInsets.only(
+              top: sw * 0.05, left: sw * 0.05, right: sw * 0.05),
           child: Column(
             children: <Widget>[
               //drawer
