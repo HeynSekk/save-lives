@@ -174,10 +174,51 @@ class _homeState extends State<home> {
     super.dispose();
   }
 
+  Widget card(String titleTxt, String bodyTxt) {
+    double sw = MediaQuery.of(context).size.width;
+    double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
+    return Container(
+      width: sw * 0.90,
+      height: sw * 0.50,
+      decoration: BoxDecoration(
+        color: Color(0xff6BCF63),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          //title
+          Text(
+            titleTxt,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: normalFontSize * 3,
+            ),
+          ),
+          SizedBox(
+            height: normalFontSize * 2,
+          ),
+
+          //body
+          Text(
+            bodyTxt,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: normalFontSize * 1.8,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double sh = MediaQuery.of(context).size.height;
     double sw = MediaQuery.of(context).size.width;
+    double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
     return Scaffold(
       drawer: drawerUI(), //from common.dart
       body: SafeArea(
@@ -188,29 +229,44 @@ class _homeState extends State<home> {
             child: Column(
               children: <Widget>[
                 //drawer
-              SizedBox(
-                width: sw * 0.90,
-                child: Padding(
-                  padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
-                  child: drawerButton(),
+                SizedBox(
+                  width: sw * 0.90,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
+                    child: drawerButton(),
+                  ),
                 ),
-              ),
-              //scroll
-              SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    //
-                  ],
+                //scroll
+                SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      //logo
+                      vspace(normalFontSize * 3.3),
+                      home_title(),
+                      vspace(normalFontSize * 3.3),
+
+                      //card1
+                      card('First Aids',
+                          'Save lives in case of health emergencies'),
+                      vspace(normalFontSize * 2.8),
+                      //card2
+                      card(
+                          'Survival Tips', 'Ways to survive natural disasters'),
+                      vspace(normalFontSize * 3.3),
+                      //footer quote
+                      appQuote(),
+                      vspace(normalFontSize * 3.3),
+                    ],
+                  ),
                 ),
-              ),
               ],
             ),
           ),
         ),
-        
-        Row(
+
+        /*Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             sideStick(),
@@ -286,7 +342,7 @@ class _homeState extends State<home> {
               ),
             ),
           ],
-        ),
+        ),*/
       ),
     );
   }
@@ -440,7 +496,7 @@ padding 15
 Row
 icon 30 30,space 15,text 30
 */
-class homeMenu extends StatelessWidget {
+/*class homeMenu extends StatelessWidget {
   Icon iconPic;
   Text nameText;
   String onTapDest;
@@ -568,4 +624,4 @@ class moreButton extends StatelessWidget {
       ),
     );
   }
-}
+}*/
