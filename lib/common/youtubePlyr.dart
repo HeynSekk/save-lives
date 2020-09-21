@@ -62,6 +62,7 @@ class _ytPlyrState extends State<ytPlyr> {
                   this.txt,
                   style: TextStyle(
                     fontSize: normalFontSize,
+                    color: Color(0xff353335),
                   ),
                 ),
               ),

@@ -134,6 +134,7 @@ class contLink extends StatelessWidget {
                   this.txt,
                   style: TextStyle(
                     fontSize: normalFontSize,
+                    color: Color(0xff353335),
                   ),
                 ),
               ),

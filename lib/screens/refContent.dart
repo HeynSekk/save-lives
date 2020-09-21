@@ -24,11 +24,11 @@ class refContent extends StatelessWidget {
       height: sHeight * 0.07,
     ));
     wLst.add(SizedBox(
-        width: sw * 0.70,
+        width: sw * 0.90,
         child: Text(
           this.contentTitle,
           style: TextStyle(
-            fontSize: normalFontSize * 2,
+            fontSize: normalFontSize * 1.7,
           ),
         )));
     wLst.add(SizedBox(height: normalFontSize * 2));
@@ -42,7 +42,7 @@ class refContent extends StatelessWidget {
         color: Color(0xff6BCF63),
       ),
     ));
-    wLst.add(SizedBox(height: normalFontSize * 2));
+    wLst.add(SizedBox(height: normalFontSize * 1.5));
 
     countWidget = this.ytVids.length;
     for (int i = 0; i < countWidget; i++) {
@@ -60,7 +60,7 @@ class refContent extends StatelessWidget {
           color: Color(0xff6BCF63),
         ),
       ));
-      wLst.add(SizedBox(height: normalFontSize * 2));
+      wLst.add(SizedBox(height: normalFontSize * 1.5));
 
       countWidget = this.webPages.length;
       for (int i = 0; i < countWidget; i++) {
@@ -75,7 +75,8 @@ class refContent extends StatelessWidget {
     }
 
     //remember
-    if (this.remember.compareTo('no')!=0) { //not equal to no
+    if (this.remember.compareTo('no') != 0) {
+      //not equal to no
       wLst.add(Text(
         'Brief memorizing:',
         style: TextStyle(
@@ -83,7 +84,7 @@ class refContent extends StatelessWidget {
           color: Color(0xff6BCF63),
         ),
       ));
-      wLst.add(SizedBox(height: normalFontSize * 2));
+      wLst.add(SizedBox(height: normalFontSize * 1.5));
       wLst.add(Container(
         width: sw * 0.80,
         padding: EdgeInsets.all(normalFontSize),
@@ -104,7 +105,36 @@ class refContent extends StatelessWidget {
 
     wLst.add(appQuote());
 
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
+        drawer: drawerUI(),
+        body: Padding(
+          padding: EdgeInsets.all(sw * 0.05),
+          child: Column(
+            children: <Widget>[
+              //dr
+              SizedBox(
+                width: sw * 0.90,
+                child: Padding(
+                  padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
+                  child: drawerButton(),
+                ),
+              ),
+              //scroll
+              SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  //title
+                  children: wLst,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    /*Scaffold(
       drawer: drawerUI(),
       body: SafeArea(
         child: Row(
@@ -115,7 +145,7 @@ class refContent extends StatelessWidget {
               padding: EdgeInsets.only(
                 //top: sHeight * 0.07*0.10,
                 left: sHeight * 0.11 * 0.20,
-                right:0,
+                right: 0,
               ),
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
@@ -127,36 +157,6 @@ class refContent extends StatelessWidget {
           ],
         ),
       ),
-    );
+    );*/
   }
 }
-
-/*class markLearned extends StatelessWidget {
-  
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: ()=>Navigator.pushNamed(context, this.dest),
-      child: Container(
-        color: Color(0xffE5E5E5),
-        child: Column(
-          children: <Widget>[
-            Row(
-          children: <Widget>[
-            imgs(30, 30, this.img),
-            SizedBox(width: 10),
-            Text(this.txt),
-          ],
-        ),
-        Text(this.addr),
-
-          ]
-        ),
-        
-        
-
-      ),
-    );
-  }
-}*/
