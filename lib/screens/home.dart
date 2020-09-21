@@ -17,7 +17,7 @@ class _homeState extends State<home> {
       MethodChannel('crossingthestreams.io/resourceResolver');
   Future<void> _showNotification() async {
     var rdm = new Random();
-    int screenId = rdm.nextInt(26);
+    int screenId = rdm.nextInt(25);
     List<String> routeList = [
       '/emergencies',
       '/adCpr',
@@ -177,11 +177,40 @@ class _homeState extends State<home> {
   @override
   Widget build(BuildContext context) {
     double sh = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    double sw = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: drawerUI(), //from common.dart
       body: SafeArea(
-        child: Row(
+        child: Scaffold(
+          drawer: drawerUI(),
+          body: Padding(
+            padding: EdgeInsets.all(sw * 0.05),
+            child: Column(
+              children: <Widget>[
+                //drawer
+              SizedBox(
+                width: sw * 0.90,
+                child: Padding(
+                  padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
+                  child: drawerButton(),
+                ),
+              ),
+              //scroll
+              SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    //
+                  ],
+                ),
+              ),
+              ],
+            ),
+          ),
+        ),
+        
+        Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             sideStick(),
@@ -208,14 +237,14 @@ class _homeState extends State<home> {
                       Text(
                         'Health Emergencies',
                         style: TextStyle(
-                          fontSize: screenWidth * 0.75 * (1 / 4) * 0.28,
+                          fontSize: sw * 0.75 * (1 / 4) * 0.28,
                           color: Colors.white,
                         ),
                       ),
                       '/emergencies'),
 
                   SizedBox(
-                    height: screenWidth * 0.75 * (1 / 4) * 0.35,
+                    height: sw * 0.75 * (1 / 4) * 0.35,
                   ),
                   homeMenu(
                       Icon(
@@ -225,7 +254,7 @@ class _homeState extends State<home> {
                       Text(
                         'Disasters',
                         style: TextStyle(
-                          fontSize: screenWidth * 0.75 * (1 / 4) * 0.28,
+                          fontSize: sw * 0.75 * (1 / 4) * 0.28,
                           color: Colors.white,
                         ),
                       ),
