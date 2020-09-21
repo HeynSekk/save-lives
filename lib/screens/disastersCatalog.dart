@@ -24,34 +24,47 @@ class disastersCatalog extends StatelessWidget {
                   child: drawerButton(),
                 ),
               ),
+              SizedBox(
+                height: sw * 0.05,
+              ),
               //scroll
-              SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: <Widget>[
-                    //title
-                    SizedBox(height: sHeight * 0.03),
-                    catalogTitle('Ways to survive natural disasters'),
-                    SizedBox(
-                      height: wRow * 0.15 * 0.43,
+              Flexible(
+                fit: FlexFit.tight,
+                flex: 1,
+                child: SizedBox(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        //title
+                        SizedBox(height: sHeight * 0.03),
+                        catalogTitle('Ways to survive natural disasters'),
+                        SizedBox(
+                          height: wRow * 0.15 * 0.43,
+                        ),
+                        //sub title
+                        subTitle('How to survive'),
+                        SizedBox(
+                          height: normalFontSize * 1.2,
+                        ),
+                        //items
+                        menuItemFirst(
+                            'assets/images/drowning.jpg',
+                            'Drowning (For those who can\'t swim)',
+                            '/dro',
+                            'D'),
+                        menuItemFirst('assets/images/natural.jpg',
+                            'Natural disasters', '/natdis', 'N'),
+                        menuItemFirst('assets/images/ship.png',
+                            'Shipwreck at sea', '/shi', 'S'),
+                        menuItemFirst('assets/images/tornado.jpg', 'Tornado',
+                            '/tor', 'T'),
+                        menuItemFirst('assets/images/wild.jpg',
+                            'Wild animal attacks', '/wild', 'W'),
+                      ],
                     ),
-                    //sub title
-                    subTitle('How to survive'),
-                    SizedBox(
-                      height: normalFontSize * 1.2,
-                    ),
-                    //items
-                    menuItemFirst('assets/images/drowning.jpg',
-                        'Drowning [For those who can\'t swim]', '/dro', 'D'),
-                    menuItemFirst('assets/images/natural.jpg',
-                        'Natural disasters', '/natdis', 'N'),
-                    menuItemFirst('assets/images/ship.png', 'Shipwreck at sea',
-                        '/shi', 'S'),
-                    menuItemFirst(
-                        'assets/images/tornado.jpg', 'Tornado', '/tor', 'T'),
-                    menuItemFirst('assets/images/wild.jpg',
-                        'Wild animal attacks', '/wild', 'W'),
-                  ],
+                  ),
                 ),
               ),
             ],
@@ -80,7 +93,7 @@ class catalogTitle extends StatelessWidget {
         //heart
         Icon(
           Icons.favorite,
-          size: wRow * 0.12,
+          size: wRow * 0.18,
           color: Colors.green,
         ),
         //ImageInApp(wRow * 0.15, wRow * 0.15, 'assets/images/heartIcon.png'),
@@ -91,14 +104,13 @@ class catalogTitle extends StatelessWidget {
         //text
         SizedBox(
           //height: 45,
-          width: wRow * 0.88,
+          width: wRow * 0.79,
           child: Text(
             this.title,
             style: TextStyle(
-              fontSize: wRow * 0.06,
+              fontSize: wRow * 0.07,
               fontWeight: FontWeight.bold,
               color: Color(0xff6B6B6B),
-              height: 1.6,
             ),
           ),
         ),
@@ -117,9 +129,10 @@ class subTitle extends StatelessWidget {
     double normalFontSize = wRow * 0.07 * 1.5 * 0.50;
     //double hTitle=mwid*0.32;
     return SizedBox(
-      width: screenWidth * 0.75,
+      width: screenWidth * 0.87,
       child: Text(
         this.title,
+        textAlign: TextAlign.start,
         style:
             TextStyle(color: Color(0xff6B6B6B), fontSize: normalFontSize * 1.2),
       ),
@@ -182,7 +195,7 @@ class menuCtnr extends StatelessWidget {
   Widget build(BuildContext context) {
     MediaQueryData media = MediaQuery.of(context);
     double screenWidth = media.size.width;
-    double wRow = screenWidth * 0.84;
+    double wRow = screenWidth * 0.83;
     double hRow = wRow * 0.47;
     return InkWell(
       onTap: () {
@@ -239,12 +252,18 @@ class alphaTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double sw = MediaQuery.of(context).size.width;
-    return Text(
-      this.alphabet,
-      style: TextStyle(
-        fontSize: sw * 0.05,
-        color: Color(0xff353335),
-        height: 1,
+    return SizedBox(
+      height: sw * 0.06,
+      width: sw * 0.06,
+      child: Center(
+        child: Text(
+          this.alphabet,
+          style: TextStyle(
+            fontSize: sw * 0.05,
+            color: Color(0xff353335),
+            height: 1,
+          ),
+        ),
       ),
     );
   }

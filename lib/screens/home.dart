@@ -174,42 +174,50 @@ class _homeState extends State<home> {
     super.dispose();
   }
 
-  Widget card(String titleTxt, String bodyTxt) {
+  Widget card(String titleTxt, String bodyTxt, String dest) {
     double sw = MediaQuery.of(context).size.width;
     double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
-    return Container(
-      width: sw * 0.90,
-      height: sw * 0.50,
-      decoration: BoxDecoration(
-        color: Color(0xff6BCF63),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          //title
-          Text(
-            titleTxt,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: normalFontSize * 3,
+    return InkWell(
+      onTap: () => Navigator.pushNamed(context, dest),
+      child: Container(
+        width: sw * 0.85,
+        height: sw * 0.42,
+        decoration: BoxDecoration(
+          color: Color(0xff6BCF63),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            //title
+            Text(
+              titleTxt,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: normalFontSize * 2.1,
+              ),
+              textAlign: TextAlign.center,
             ),
-          ),
-          SizedBox(
-            height: normalFontSize * 2,
-          ),
+            SizedBox(
+              height: normalFontSize * 0.50,
+            ),
 
-          //body
-          Text(
-            bodyTxt,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: normalFontSize * 1.8,
+            //body
+            SizedBox(
+              width: sw * 0.68,
+              child: Text(
+                bodyTxt,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: normalFontSize * 1.3,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -237,28 +245,38 @@ class _homeState extends State<home> {
                   ),
                 ),
                 //scroll
-                SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      //logo
-                      vspace(normalFontSize * 3.3),
-                      home_title(),
-                      vspace(normalFontSize * 3.3),
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 1,
+                  child: SizedBox(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          //logo
+                          vspace(normalFontSize * 2),
+                          home_title(),
+                          vspace(normalFontSize * 2),
 
-                      //card1
-                      card('First Aids',
-                          'Save lives in case of health emergencies'),
-                      vspace(normalFontSize * 2.8),
-                      //card2
-                      card(
-                          'Survival Tips', 'Ways to survive natural disasters'),
-                      vspace(normalFontSize * 3.3),
-                      //footer quote
-                      appQuote(),
-                      vspace(normalFontSize * 3.3),
-                    ],
+                          //card1
+                          card(
+                              'First Aids',
+                              'Save lives in case of health emergencies',
+                              '/emergencies'),
+                          vspace(normalFontSize * 1.8),
+                          //card2
+                          card(
+                              'Survival Tips',
+                              'Ways to survive natural disasters',
+                              '/disasters'),
+                          vspace(normalFontSize * 1.5),
+                          //footer quote
+                          appQuote(),
+                          vspace(normalFontSize * 3.3),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -472,7 +490,7 @@ class home_title extends StatelessWidget {
         //heart
         Icon(
           Icons.favorite,
-          size: wRow * 0.20,
+          size: wRow * 0.21,
           color: Colors.green,
         ),
         SizedBox(
@@ -481,8 +499,8 @@ class home_title extends StatelessWidget {
         Text(
           'Save Lives',
           style: TextStyle(
-            color: Colors.black,
-            fontSize: wRow * 0.07 * 2.5,
+            color: Color(0xff6B6B6B),
+            fontSize: wRow * 0.08 * 2.5,
           ),
         ),
       ],

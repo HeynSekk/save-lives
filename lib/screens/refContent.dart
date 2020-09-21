@@ -21,17 +21,20 @@ class refContent extends StatelessWidget {
     int countWidget = 0;
     //title
     wLst.add(SizedBox(
-      height: sHeight * 0.07,
+      height: sHeight * 0.01,
     ));
     wLst.add(SizedBox(
         width: sw * 0.90,
         child: Text(
           this.contentTitle,
+          textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: normalFontSize * 1.7,
+            fontSize: normalFontSize * 2,
+            color: Color(0xff6B6B6B),
+            fontWeight: FontWeight.bold,
           ),
         )));
-    wLst.add(SizedBox(height: normalFontSize * 2));
+    wLst.add(SizedBox(height: normalFontSize * 1.5));
 
     //video
     //sub title
@@ -120,12 +123,21 @@ class refContent extends StatelessWidget {
                   child: drawerButton(),
                 ),
               ),
+              SizedBox(
+                height: sw * 0.05,
+              ),
               //scroll
-              SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  //title
-                  children: wLst,
+              Flexible(
+                fit: FlexFit.tight,
+                flex: 1,
+                child: SizedBox(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: wLst,
+                    ),
+                  ),
                 ),
               ),
             ],

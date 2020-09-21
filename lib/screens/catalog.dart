@@ -24,74 +24,97 @@ class catalog extends StatelessWidget {
                   child: drawerButton(),
                 ),
               ),
+              SizedBox(
+                height: sw * 0.05,
+              ),
               //scroll
-              SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: <Widget>[
-                    //title
-                    SizedBox(height: sHeight * 0.03),
-                    catalogTitle('Learn First Aids to Save Lives'),
-                    SizedBox(
-                      height: wRow * 0.15 * 0.43,
+              Flexible(
+                fit: FlexFit.tight,
+                flex: 1,
+                child: SizedBox(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        //title
+                        SizedBox(height: sHeight * 0.03),
+                        catalogTitle('Learn First Aids to Save Lives'),
+                        SizedBox(
+                          height: wRow * 0.15 * 0.43,
+                        ),
+                        //sub title
+                        SizedBox(
+                          height: normalFontSize * 0.50,
+                        ),
+                        subTitle('Basic first aids'),
+                        SizedBox(
+                          height: normalFontSize * 1.2,
+                        ),
+                        //items
+                        menuItemNormal('assets/images/cprAd.jpg',
+                            'CPR for adults', '/adCpr'),
+                        menuItemNormal('assets/images/cprBaby.png',
+                            'CPR for babies', '/babyCpr'),
+                        menuItemNormal('assets/images/cprChild.png',
+                            'CPR for children', '/childCpr'),
+                        menuItemNormal('assets/images/priSurAd.png',
+                            'Primary Survey', '/priSurAd'),
+                        menuItemNormal('assets/images/priSurBa.png',
+                            'Primary Survey (Babies)', '/priSurBa'),
+                        menuItemNormal('assets/images/recPosAd.png',
+                            'Recovery position (adults)', '/recPosAd'),
+                        menuItemNormal('assets/images/recPosBa.png',
+                            'Recovery position (babies)', '/recPosBa'),
+
+                        //LIST
+                        SizedBox(
+                          height: normalFontSize * 1.3,
+                        ),
+                        subTitle('Common health emergency conditions:'),
+                        SizedBox(
+                          height: normalFontSize * 1.2,
+                        ),
+                        menuItemFirst('assets/images/burn.png',
+                            'Burn and scalds', '/burn', 'B'),
+                        menuItemFirst('assets/images/chokAd.png',
+                            'Choking (adults)', '/chokAd', 'C'),
+                        menuItemNormal('assets/images/chokBaby.png',
+                            'Choking (babies)', '/chokBaby'),
+                        menuItemNormal('assets/images/chokChi.png',
+                            'Choking (children)', '/chokChi'),
+                        menuItemFirst('assets/images/eye.jpg', 'Eye injuries',
+                            '/eye', 'E'),
+                        menuItemFirst(
+                            'assets/images/faint.png', 'Fainting', '/fai', 'F'),
+
+                        //menuItemFirst('assets/images/heaAtt.png', 'Heart attack','/heaAtt','H'),
+                        menuItemFirst(
+                            'assets/images/heaInj.png',
+                            'Head injuries in children, babies',
+                            '/heaInj',
+                            'H'),
+                        menuItemNormal('assets/images/heaAtt.png',
+                            'Heart attack', '/heaAtt'),
+                        menuItemFirst('assets/images/seiAd.png',
+                            'Seizure (adults)', '/seiAd', 'S'),
+                        menuItemNormal('assets/images/seiBa.png',
+                            'Seizure (babies)', '/seibb'),
+
+                        //menuItemNormal('assets/images/seiBa.png', 'Seizure (baby)','/seiBa'),
+                        menuItemNormal('assets/images/seiChi.png',
+                            'Seizure (children)', '/seiChi'),
+                        menuItemNormal('assets/images/sevBl.png',
+                            'Severe bleeding', '/sevBl'),
+                        menuItemNormal('assets/images/sevBlBa.png',
+                            'Severe bleeding (babies)', '/sevBlBa'),
+                        menuItemNormal(
+                            'assets/images/sho.png', 'Shock', '/sho'),
+                        menuItemNormal(
+                            'assets/images/snak.png', 'Snake Bite', '/snak'),
+                      ],
                     ),
-                    //sub title
-                    subTitle('Basic first aids'),
-                    SizedBox(
-                      height: normalFontSize * 1.2,
-                    ),
-                    //items
-                    menuItemNormal(
-                        'assets/images/cprAd.jpg', 'CPR for adults', '/adCpr'),
-                    menuItemNormal('assets/images/cprBaby.png',
-                        'CPR for babies', '/babyCpr'),
-                    menuItemNormal('assets/images/cprChild.png',
-                        'CPR for children', '/childCpr'),
-                    menuItemNormal('assets/images/priSurAd.png',
-                        'Primary Survey', '/priSurAd'),
-                    menuItemNormal('assets/images/priSurBa.png',
-                        'Primary Survey (Babies)', '/priSurBa'),
-                    menuItemNormal('assets/images/recPosAd.png',
-                        'Recovery position (adults)', '/recPosAd'),
-                    menuItemNormal('assets/images/recPosBa.png',
-                        'Recovery position (babies)', '/recPosBa'),
-
-                    //LIST
-                    subTitle('Common health emergency conditions:'),
-                    menuItemFirst('assets/images/burn.png', 'Burn and scalds',
-                        '/burn', 'B'),
-                    menuItemFirst('assets/images/chokAd.png',
-                        'Choking (adults)', '/chokAd', 'C'),
-                    menuItemNormal('assets/images/chokBaby.png',
-                        'Choking (babies)', '/chokBaby'),
-                    menuItemNormal('assets/images/chokChi.png',
-                        'Choking (children)', '/chokChi'),
-                    menuItemFirst(
-                        'assets/images/eye.jpg', 'Eye injuries', '/eye', 'E'),
-                    menuItemFirst(
-                        'assets/images/faint.png', 'Fainting', '/fai', 'F'),
-
-                    //menuItemFirst('assets/images/heaAtt.png', 'Heart attack','/heaAtt','H'),
-                    menuItemFirst('assets/images/heaInj.png',
-                        'Head injuries in children, babies', '/heaInj', 'H'),
-                    menuItemNormal(
-                        'assets/images/heaAtt.png', 'Heart attack', '/heaAtt'),
-                    menuItemFirst('assets/images/seiAd.png', 'Seizure (adults)',
-                        '/seiAd', 'S'),
-                    menuItemNormal('assets/images/seiBa.png',
-                        'Seizure (babies)', '/seibb'),
-
-                    //menuItemNormal('assets/images/seiBa.png', 'Seizure (baby)','/seiBa'),
-                    menuItemNormal('assets/images/seiChi.png',
-                        'Seizure (children)', '/seiChi'),
-                    menuItemNormal(
-                        'assets/images/sevBl.png', 'Severe bleeding', '/sevBl'),
-                    menuItemNormal('assets/images/sevBlBa.png',
-                        'Severe bleeding (babies)', '/sevBlBa'),
-                    menuItemNormal('assets/images/sho.png', 'Shock', '/sho'),
-                    menuItemNormal(
-                        'assets/images/snak.png', 'Snake Bite', '/snak'),
-                  ],
+                  ),
                 ),
               ),
             ],
@@ -120,7 +143,7 @@ class catalogTitle extends StatelessWidget {
         //heart
         Icon(
           Icons.favorite,
-          size: wRow * 0.12,
+          size: wRow * 0.18,
           color: Colors.green,
         ),
         //ImageInApp(wRow * 0.15, wRow * 0.15, 'assets/images/heartIcon.png'),
@@ -131,14 +154,13 @@ class catalogTitle extends StatelessWidget {
         //text
         SizedBox(
           //height: 45,
-          width: wRow * 0.88,
+          width: wRow * 0.79,
           child: Text(
             this.title,
             style: TextStyle(
-              fontSize: wRow * 0.06,
+              fontSize: wRow * 0.07,
               fontWeight: FontWeight.bold,
               color: Color(0xff6B6B6B),
-              height: 1.6,
             ),
           ),
         ),
@@ -157,9 +179,10 @@ class subTitle extends StatelessWidget {
     double normalFontSize = wRow * 0.07 * 1.5 * 0.50;
     //double hTitle=mwid*0.32;
     return SizedBox(
-      width: screenWidth * 0.75,
+      width: screenWidth * 0.87,
       child: Text(
         this.title,
+        textAlign: TextAlign.start,
         style:
             TextStyle(color: Color(0xff6B6B6B), fontSize: normalFontSize * 1.2),
       ),
@@ -222,7 +245,7 @@ class menuCtnr extends StatelessWidget {
   Widget build(BuildContext context) {
     MediaQueryData media = MediaQuery.of(context);
     double screenWidth = media.size.width;
-    double wRow = screenWidth * 0.84;
+    double wRow = screenWidth * 0.83;
     double hRow = wRow * 0.47;
     return InkWell(
       onTap: () {
@@ -279,12 +302,18 @@ class alphaTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double sw = MediaQuery.of(context).size.width;
-    return Text(
-      this.alphabet,
-      style: TextStyle(
-        fontSize: sw * 0.05,
-        color: Color(0xff353335),
-        height: 1,
+    return SizedBox(
+      height: sw * 0.06,
+      width: sw * 0.06,
+      child: Center(
+        child: Text(
+          this.alphabet,
+          style: TextStyle(
+            fontSize: sw * 0.05,
+            color: Color(0xff353335),
+            height: 1,
+          ),
+        ),
       ),
     );
   }
