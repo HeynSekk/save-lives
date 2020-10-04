@@ -21,7 +21,7 @@ class refContent extends StatelessWidget {
     int countWidget = 0;
     //title
     wLst.add(SizedBox(
-      height: sHeight * 0.01,
+      height: normalFontSize * 1.8,
     ));
     wLst.add(SizedBox(
         width: sw * 0.90,
@@ -34,7 +34,7 @@ class refContent extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         )));
-    wLst.add(SizedBox(height: normalFontSize * 1.5));
+    wLst.add(SizedBox(height: normalFontSize * 1.8));
 
     //video
     //sub title
@@ -45,17 +45,19 @@ class refContent extends StatelessWidget {
         color: Color(0xff6BCF63),
       ),
     ));
-    wLst.add(SizedBox(height: normalFontSize * 1.5));
+    wLst.add(SizedBox(height: normalFontSize));
 
     countWidget = this.ytVids.length;
     for (int i = 0; i < countWidget; i++) {
       wLst.add(ytPlyr(this.ytVids[i][0], this.ytVids[i][1], this.ytVids[i][2],
           this.ytVids[i][3]));
-      wLst.add(SizedBox(height: normalFontSize * 2));
+      wLst.add(SizedBox(height: sw * 0.05));
     }
     //webpages
+    //wLst.add(SizedBox(height: normalFontSize * 0.80));
     if (this.webPages[0][0].compareTo('no') != 0) {
       //intro txt
+      wLst.add(SizedBox(height: normalFontSize * 0.80));
       wLst.add(Text(
         'Learn from websites:',
         style: TextStyle(
@@ -63,7 +65,7 @@ class refContent extends StatelessWidget {
           color: Color(0xff6BCF63),
         ),
       ));
-      wLst.add(SizedBox(height: normalFontSize * 1.5));
+      wLst.add(SizedBox(height: normalFontSize));
 
       countWidget = this.webPages.length;
       for (int i = 0; i < countWidget; i++) {
@@ -73,13 +75,14 @@ class refContent extends StatelessWidget {
           this.webPages[i][2],
           this.webPages[i][3],
         ));
-        wLst.add(SizedBox(height: normalFontSize * 2));
+        wLst.add(SizedBox(height: sw * 0.05));
       }
     }
 
     //remember
     if (this.remember.compareTo('no') != 0) {
       //not equal to no
+      wLst.add(SizedBox(height: normalFontSize * 0.80));
       wLst.add(Text(
         'Brief memorizing:',
         style: TextStyle(
@@ -87,7 +90,7 @@ class refContent extends StatelessWidget {
           color: Color(0xff6BCF63),
         ),
       ));
-      wLst.add(SizedBox(height: normalFontSize * 1.5));
+      wLst.add(SizedBox(height: normalFontSize));
       wLst.add(Container(
         width: sw * 0.80,
         padding: EdgeInsets.all(normalFontSize),
@@ -103,7 +106,7 @@ class refContent extends StatelessWidget {
                   color: Colors.white, fontSize: normalFontSize, height: 1.9),
             )),
       ));
-      wLst.add(SizedBox(height: normalFontSize));
+      wLst.add(SizedBox(height: normalFontSize * 1.8));
     }
 
     wLst.add(appQuote());

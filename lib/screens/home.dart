@@ -15,100 +15,6 @@ class home extends StatefulWidget {
 class _homeState extends State<home> {
   final MethodChannel platform =
       MethodChannel('crossingthestreams.io/resourceResolver');
-  Future<void> _showNotification() async {
-    var rdm = new Random();
-    int screenId = rdm.nextInt(25);
-    List<String> routeList = [
-      '/emergencies',
-      '/adCpr',
-      '/adCpr',
-      '/priSurAd',
-      '/recPosAd',
-      '/burn',
-      '/chokAd',
-      '/chokAd',
-      '/eye',
-      '/fai',
-      '/eye',
-      '/eye',
-      '/heaInj',
-      '/heaAtt',
-      '/seiAd',
-      '/sevBl',
-      '/sho',
-      '/snak',
-      '/snak',
-      //disasters
-      '/shi',
-      '/tor',
-      '/wild',
-      '/dro',
-      '/natdis'
-    ];
-    List<String> titleList = [
-      'Medical first aids',
-      'How to save a live by performing CPR',
-      'How to save a live by performing CPR',
-      'Performing primary survey before approaching a casuality',
-      'How to put someone in recovery position',
-      'How to make someone relieved from burns and scalds',
-      'How to save someone with choking',
-      'How to save someone with choking',
-      'Helping someone with eye injuries',
-      'Performing First aid for a casuality with fainting',
-      'What to do when the eye is injuried by a foreign object',
-      'What to do when chemicals injuries the eye',
-      'First aid for head injuries in children',
-      'Helping someone with a heart attacks',
-      'Helping someone with seizure',
-      'How to save the live of a casuality who is bleeding severely',
-      'Performing first aid for someone with shock',
-      'How to save yourself when a venomous snake bites you',
-      'What to do when a venomous snake bites you',
-      // *** DISASTERS ***
-      'Tips for survival at sea in case of shipwreck',
-      'How to survive tornado',
-      'How to escape from wild animal attacks',
-      'How to save yourself from drowning',
-      'How to survive natural disasters like tsunami'
-    ];
-    List<String> bodyList = [
-      'Many death can be avoided if people had First Aids knowledge',
-      'A knowledge that can be useful one day',
-      'A knowledge that we should memorize',
-      'Learning something valuable today',
-      'A knowledge that can save your live one day',
-      'Learning something valuable today',
-      'A valuable knowledge of health',
-      'Today\'s knowledge',
-      'A knowledge that can be useful one day',
-      'Learning something valuable today',
-      'A knowledge that can be useful one day',
-      'A valuable knowledge that can be useful one day',
-      'Today\'s knowledge',
-      'Something special for you to study today',
-      'Today\'s knowledge',
-      'A valuable knowledge that can save a live one day',
-      'Something special for you to study today',
-      'A knowledge that can save your live one day',
-      'Something special for you to study today',
-      // *** NATURAL DISASTERS ***
-      'Learning something valuable today',
-      'A knowledge that can save a live one day',
-      'Something special for you to study today',
-      'Learning something valuable today',
-      'Learning something valuable today'
-    ];
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        'your channel id', 'your channel name', 'your channel description',
-        importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
-    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
-    var platformChannelSpecifics = NotificationDetails(
-        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.show(
-        0, titleList[screenId], bodyList[screenId], platformChannelSpecifics,
-        payload: routeList[screenId]);
-  }
 
   @override
   void initState() {
@@ -367,7 +273,7 @@ class _homeState extends State<home> {
 
   Future<void> _showDailyAtTime() async {
     var rdm = new Random();
-    int screenId = rdm.nextInt(25);
+    int screenId = rdm.nextInt(24);
     List<String> routeList = [
       '/emergencies',
       '/adCpr',
@@ -450,8 +356,8 @@ class _homeState extends State<home> {
       'Learning something valuable today'
     ];
     var morningTime = Time(8, 1, 0), eveningTime = Time(20, 1, 0);
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        'Show up', 'Notifying about ', 'repeatDailyAtTime description');
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails('Show up',
+        'Notifying knowledge of the day', 'Notify knowledge of the day');
     var iOSPlatformChannelSpecifics = IOSNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
@@ -465,7 +371,7 @@ class _homeState extends State<home> {
       payload: routeList[screenId],
     );
     //evening
-    screenId = rdm.nextInt(25);
+    screenId = rdm.nextInt(24);
     await flutterLocalNotificationsPlugin.showDailyAtTime(
       1,
       titleList[screenId],

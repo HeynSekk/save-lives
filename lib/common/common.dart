@@ -107,29 +107,29 @@ class contLink extends StatelessWidget {
     return InkWell(
       onTap: () => Navigator.pushNamed(context, this.dest),
       child: Container(
-        width: sw * 0.76,
+        width: sw * 0.87,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(normalFontSize * 0.90),
+          borderRadius: BorderRadius.circular(normalFontSize * 0.30),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 0.5,
-              blurRadius: 4,
+              blurRadius: 2,
               offset: Offset(0, 0), // changes position of shadow
             ),
           ],
         ),
-        padding: EdgeInsets.all(normalFontSize * 0.80),
+        padding: EdgeInsets.all(sw * 0.87 * 0.07),
         margin: EdgeInsets.only(left: 5),
         child: Column(children: <Widget>[
           Row(
             children: <Widget>[
-              imgs(sw * 0.80 * 0.30, sw * 0.80 * 0.30, normalFontSize * 0.50,
+              imgs(sw * 0.87 * 0.30, sw * 0.87 * 0.30, normalFontSize * 0.50,
                   this.img),
-              SizedBox(width: normalFontSize * 0.77),
+              SizedBox(width: sw * 0.87 * 0.05),
               SizedBox(
-                width: sw * 0.80 * 0.50,
+                width: sw * 0.87 * 0.50,
                 child: Text(
                   this.txt,
                   style: TextStyle(
@@ -350,13 +350,14 @@ class drawerUI extends StatelessWidget {
                   thickness: 1,
                 ),
                 //purpose
-                drMenu(
+                /*drMenu(
                     'assets/images/qm.png', 'Purpose of this app', '/purpose'),
 
-                SizedBox(height: drWid * 0.07),
+                SizedBox(height: drWid * 0.07),*/
                 //contact
                 drMenu('assets/images/feedback.png', 'Contact & Credits',
                     '/contact'),
+                SizedBox(height: drWid * 0.07),
               ],
             ),
           ),

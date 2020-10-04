@@ -102,7 +102,7 @@ class MyApp extends StatelessWidget {
         // ***CONTENTS***
         //CPR ADULT
         '/adCpr': (context) => refContent(
-            'CPR for adult',
+            'CPR for adults',
             [
               [
                 'https://youtu.be/f4ZI1PAsmks',
@@ -125,7 +125,7 @@ class MyApp extends StatelessWidget {
 
         //CPR BABY
         '/babyCpr': (context) => refContent(
-            'CPR for baby',
+            'CPR for babies',
             [
               [
                 'https://youtu.be/avYRvVHAvfM',
@@ -148,7 +148,7 @@ class MyApp extends StatelessWidget {
 
         //CPR CHILD
         '/childCpr': (context) => refContent(
-            'CPR for child',
+            'CPR for children',
             [
               [
                 'https://youtu.be/0aV9NS0ogiM',
@@ -172,7 +172,7 @@ class MyApp extends StatelessWidget {
         //PRI SUR ADULT
         '/priSurAd': (context) => refContent(
             //title
-            'Primary survey (Adult)',
+            'Primary survey (Adults)',
             //vid
             [
               [
@@ -199,7 +199,7 @@ class MyApp extends StatelessWidget {
 
         //PRI SUR BABY
         '/priSurBa': (context) => refContent(
-            'Primary Survey (Baby)',
+            'Primary Survey (Babies)',
             [
               [
                 'https://youtu.be/uZYptqxfZ1E',
@@ -221,7 +221,7 @@ class MyApp extends StatelessWidget {
             'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/baby-primary-survey/'),
         //REC POS ADULT
         '/recPosAd': (context) => refContent(
-            'Recovery position (adult)',
+            'Recovery position (adults)',
             [
               [
                 'https://youtu.be/GmqXqwSV3bo',
@@ -244,7 +244,7 @@ class MyApp extends StatelessWidget {
 
         //REC POS BABY
         '/recPosBa': (context) => refContent(
-            'Recovery Position (Baby)',
+            'Recovery Position (Babies)',
             [
               [
                 'https://youtu.be/NupCeGFUuoo',
@@ -298,7 +298,7 @@ class MyApp extends StatelessWidget {
             'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/chemical-burns/'),
         //CHOKING ADULT
         '/chokAd': (context) => refContent(
-            'Choking(Adult)',
+            'Choking(Adults)',
             [
               [
                 'https://youtu.be/PA9hpOnvtCk',
@@ -321,7 +321,7 @@ class MyApp extends StatelessWidget {
 
         //CHOKING BABY
         '/chokBaby': (context) => refContent(
-            'Choking(Baby)',
+            'Choking(Babies)',
             [
               [
                 'https://youtu.be/oswDpwzbAV8',
@@ -344,7 +344,7 @@ class MyApp extends StatelessWidget {
 
         //CHOKING CHILD
         '/chokChi': (context) => refContent(
-            'Choking(Child)',
+            'Choking(Children)',
             [
               [
                 'https://youtu.be/PA9hpOnvtCk',
@@ -468,7 +468,7 @@ class MyApp extends StatelessWidget {
             [
               [
                 'assets/images/heaInj.png',
-                'First aids - Head injuries in children, baby',
+                'First aids - Head injuries in children, babies',
                 'www.sja.org.uk',
                 '/heaInjW'
               ]
@@ -569,7 +569,7 @@ class MyApp extends StatelessWidget {
             'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/severe-bleeding/'),
         //SEVERE BLEEDING BABY
         '/sevBlBa': (context) => refContent(
-            'Severe bleeding (baby)',
+            'Severe bleeding (babies)',
             [
               [
                 'https://youtu.be/RZ6hBvAulpE',
@@ -638,7 +638,7 @@ class MyApp extends StatelessWidget {
 
         //DROWNING
         '/dro': (context) => refContent(
-            'Drowning [For those who can\'t swim]',
+            'Drowning (For those who can\'t swim)',
             [
               [
                 'https://youtu.be/yt8M6qFBT5Y',
