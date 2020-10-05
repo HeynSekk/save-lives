@@ -350,10 +350,10 @@ class drawerUI extends StatelessWidget {
                   thickness: 1,
                 ),
                 //purpose
-                /*drMenu(
+                drMenu(
                     'assets/images/qm.png', 'Purpose of this app', '/purpose'),
 
-                SizedBox(height: drWid * 0.07),*/
+                SizedBox(height: drWid * 0.07),
                 //contact
                 drMenu('assets/images/feedback.png', 'Contact & Credits',
                     '/contact'),
