@@ -10,7 +10,7 @@ We have to give him the First aid of stopping the bleeding. Only if we did so, t
 
 First aid is the first thing to give to a casuality, making him relieve from pain and saving his live. We should perform first aid while waiting for the ambulance. This increase the probability that the casuality survive.
 
-The primary goal of first aid is to prevent death or serious injury from worsening. The key aims of first aid can be summarized with the acronym of 'the three Ps':[16]
+The primary goal of first aid is to prevent death or serious injury from worsening. The key aims of first aid can be summarized with the acronym of 'the three Ps':
 
 Preserve life:: The overriding aim of all medical care which includes first aid, is to save lives and minimize the threat of death. First aid done correctly should help reduce the patient's level of pain and calm them down during the evaluation and treatment process.
 
@@ -18,7 +18,7 @@ Prevent further harm: Prevention of further harm includes addressing both extern
 
 Promote recovery: First aid also involves trying to start the recovery process from the illness or injury, and in some cases might involve completing a treatment, such as in the case of applying a plaster to a small wound.
 
-It is important to note that first aid is not medical treatment and cannot be compared with what a trained medical professional provides. First aid involves making common sense decisions in best interest of an injured person.
+It is important to note that first aid is not medical treatment and cannot be compared with what a trained medical professional provides.
 
 So, what benefits can we get if we had the first aid knowledges?
 
