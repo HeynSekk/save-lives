@@ -49,7 +49,7 @@ Brief summary)
 
 #Burns
 Title)
-First Aid for burns
+First Aid for minor burns
 
 YouTube videos)
 url - https://www.youtube.com/watch?v=EaJmzB8YgS0
@@ -65,7 +65,9 @@ url- https://www.wikihow.com/Treat-a-Burn
 title of Webpages- How to treat a Burn
 
 Brief summary)
-Resources giving information on how to act and what type of first aid to give in case of a person suffereing from a burn
+-place burned area under cool water
+-don't break blisters
+-apply burn ointments
 
 #
 Title)
