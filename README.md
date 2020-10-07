@@ -1,6 +1,6 @@
 # Save Lives
 
-This is a mobile app that make people have First aids knowledges.
+This mobile app was born with the purpose of making people get First aids knowledges.
 
 ## So what is first aid?
 
