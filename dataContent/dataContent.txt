@@ -47,6 +47,26 @@ Brief summary)
 
 #### Add your new contents starting from here. A template provided ####
 
+#Burns
+Title)
+First Aid for burns
+
+YouTube videos)
+url - https://www.youtube.com/watch?v=EaJmzB8YgS0
+title - How to Treat Burns and Scalds - First Aid Training - St John Ambulance
+channel name - St John Ambulance
+
+url - https://www.youtube.com/watch?v=B10sth4zjuI
+title - First Aid for a Burn
+channel name - Mayo Clinic
+
+Webpages)
+url- https://www.wikihow.com/Treat-a-Burn
+title of Webpages- How to treat a Burn
+
+Brief summary)
+Resources giving information on how to act and what type of first aid to give in case of a person suffereing from a burn
+
 #
 Title)
 
