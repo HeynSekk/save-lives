@@ -37,3 +37,6 @@ You can see example content datas in dataContent.txt file for reference purpose.
 # Improving illustrations
 
 Also artists can contribute by drawing Illustrations. You can see this app use many Illustrations for more expressive UI. You can improve existing Illustrations to be more expressive, attractive and clear. In drawing illustrations, please make sure the image's dimension is square. The maintainer of this repo will provide proper credit to the artists.
+
+
+If you have any inconveniences in contributing or want to suggest a more convenient way to contribute, I am pleased to receive messages from you. You can drop a message, or contact heynxsehhz@gmail.com
