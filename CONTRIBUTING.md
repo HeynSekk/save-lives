@@ -30,7 +30,7 @@ Similarly, for a webpage, provide:
 - URL of the webpage and
 - title of the page
 
-Lastly, provide a brief summary that you wrote yourself or got from the internet. This summary help users to memorize the first aids or survival tips in brief words.
+Lastly, provide a brief summary that you wrote yourself or got from the internet. This summary help users to memorize the first aids or survival tips in brief words. The brief summary also help users remember the first aid procedures just by spending a very short time on reading the summary words, when they forget what they learned. It is useful as a speedy reference to look back when forget and don't want to spend a long time on watching the entire videos and reading the entire webpages again.
 
 You can see example content datas in dataContent.txt file for reference purpose. Thanks for your interest in contributing.
 
