@@ -1,0 +1,84 @@
+Example contents
+
+#CPR (adults)
+Title)
+CPR for adults
+
+YouTube videos)
+url - https://youtu.be/f4ZI1PAsmks
+title - How to do CPR on an adult - YouTube
+channel name - St John Ambulance
+
+url - https://youtu.be/avYRvVHAvfM
+title - How to do CPR on a baby - YouTube
+channel name - St John Ambulance
+
+Webpages)
+url- https://www.sja.org.uk/get-advice/first-aid-advice/choking/child-choking/
+title of Webpages- First aid advices for Choking (children)
+
+Brief summary)
+-30 chest compression
+-2 resuce breathe
+
+#drowning
+Title)
+Drowning (For those who can't swim)
+
+YouTube videos)
+url - https://youtu.be/yt8M6qFBT5Y
+title - 2 ways to save yourself from drowning
+channel name - Bright Side
+
+url - https://youtu.be/_radmCM_HDg
+title - How to save yourself from drowning
+channel name - Super Tony
+
+Webpages)
+url- https://www.sja.org.uk/get-advice/first-aid-advice/choking/child-choking/
+title of Webpages- First aid advices for Choking (children)
+
+Brief summary)
+-30 chest compression
+-2 resuce breathe
+
+//if you can't find a webpage, you can omit it. However, at least one content: video or webpage
+//need to be provided.
+
+#### Add your new contents starting from here. A template provided ####
+
+#Burns
+Title)
+First Aid for minor burns
+
+YouTube videos)
+url - https://www.youtube.com/watch?v=EaJmzB8YgS0
+title - How to Treat Burns and Scalds - First Aid Training - St John Ambulance
+channel name - St John Ambulance
+
+url - https://www.youtube.com/watch?v=B10sth4zjuI
+title - First Aid for a Burn
+channel name - Mayo Clinic
+
+Webpages)
+url- https://www.wikihow.com/Treat-a-Burn
+title of Webpages- How to treat a Burn
+
+Brief summary)
+-place burned area under cool water
+-don't break blisters
+-apply burn ointments
+
+#
+Title)
+
+YouTube videos)
+url - 
+title - 
+channel name -
+
+Webpages)
+url- 
+title of Webpages-
+
+Brief summary)
