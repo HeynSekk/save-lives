@@ -20,7 +20,8 @@ Promote recovery: First aid also involves trying to start the recovery process f
 
 It is important to note that first aid is not medical treatment and cannot be compared with what a trained medical professional provides.
 
-## So, what benefits can we get if we had the first aid knowledges?
+## So, what benefits can we get if we had the first aid knowledges ?
+
 
 According to a survey, commissioned by the British Red Cross,
 
