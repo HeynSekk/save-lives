@@ -105,23 +105,29 @@ class MyApp extends StatelessWidget {
             'Choking when you\'re alone',
             [
               [
-                'https://youtu.be/oswDpwzbAV8',
+                'https://youtu.be/FEr9jjZ6fi8',
                 'img',
                 'What To Do When you are Choking alone',
-                'St John Ambulance'
+                'Howcast'
+              ],
+              [
+                'https://youtu.be/ljL9JcK6RnM',
+                'img',
+                'How to perform Heimlinch Manuever on yourself',
+                'The List Show TV'
               ]
             ],
             [
               [
                 'assets/images/chokBaby.png',
-                'First aid advices for Choking (babies)',
-                'www.sja.org.uk',
-                '/chokBabyW'
+                'Choking alone | Heimlinch Manuever | First aid',
+                'www.emergencyphysicians.org',
+                '/chokAlW'
               ]
             ],
             'no'),
-        '/chokBabyW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/choking/baby-choking/'),
+        '/chokAlW': (context) => webViewer(
+            'https://www.emergencyphysicians.org/article/know-when-to-go/choking--heimlich-manuever'),
 
         //CPR ADULT
         '/adCpr': (context) => refContent(
