@@ -107,7 +107,7 @@ class MyApp extends StatelessWidget {
               [
                 'https://youtu.be/oswDpwzbAV8',
                 'img',
-                'What To Do When A Baby Is Choking',
+                'What To Do When you are Choking alone',
                 'St John Ambulance'
               ]
             ],
