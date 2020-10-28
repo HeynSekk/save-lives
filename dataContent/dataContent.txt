@@ -47,6 +47,28 @@ Brief summary)
 
 #### Add your new contents starting from here. A template provided ####
 
+#Burns
+Title)
+First Aid for minor burns
+
+YouTube videos)
+url - https://www.youtube.com/watch?v=EaJmzB8YgS0
+title - How to Treat Burns and Scalds - First Aid Training - St John Ambulance
+channel name - St John Ambulance
+
+url - https://www.youtube.com/watch?v=B10sth4zjuI
+title - First Aid for a Burn
+channel name - Mayo Clinic
+
+Webpages)
+url- https://www.wikihow.com/Treat-a-Burn
+title of Webpages- How to treat a Burn
+
+Brief summary)
+-place burned area under cool water
+-don't break blisters
+-apply burn ointments
+
 #
 Title)
 
