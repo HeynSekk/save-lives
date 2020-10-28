@@ -405,8 +405,9 @@ class home_title extends StatelessWidget {
         Text(
           'Save Lives',
           style: TextStyle(
-            color: Color(0xff6B6B6B),
-            fontSize: wRow * 0.08 * 2.5,
+            color: Colors.black, //Color(0xff6B6B6B),
+            fontSize: wRow * 0.08 * 2.2,
+            //fontWeight: FontWeight.bold,
           ),
         ),
       ],

@@ -81,6 +81,8 @@ class catalog extends StatelessWidget {
                         menuItemFirst('assets/images/chokAd.png',
                             'Choking (adults)', '/chokAd', 'C'),
                         menuItemNormal('assets/images/chokBaby.png',
+                            'Choking when you\'re alone', '/chokAl'),
+                        menuItemNormal('assets/images/chokBaby.png',
                             'Choking (babies)', '/chokBaby'),
                         menuItemNormal('assets/images/chokChi.png',
                             'Choking (children)', '/chokChi'),

@@ -100,6 +100,29 @@ class MyApp extends StatelessWidget {
         '/contact': (context) => contact(),
 
         // ***CONTENTS***
+        //CHOKING ALONE
+        '/chokAl': (context) => refContent(
+            'Choking when you\'re alone',
+            [
+              [
+                'https://youtu.be/oswDpwzbAV8',
+                'img',
+                'What To Do When A Baby Is Choking',
+                'St John Ambulance'
+              ]
+            ],
+            [
+              [
+                'assets/images/chokBaby.png',
+                'First aid advices for Choking (babies)',
+                'www.sja.org.uk',
+                '/chokBabyW'
+              ]
+            ],
+            'no'),
+        '/chokBabyW': (context) => webViewer(
+            'https://www.sja.org.uk/get-advice/first-aid-advice/choking/baby-choking/'),
+
         //CPR ADULT
         '/adCpr': (context) => refContent(
             'CPR for adults',

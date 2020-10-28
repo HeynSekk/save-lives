@@ -63,10 +63,13 @@ class actualUI extends StatelessWidget {
   actualUI(this.dl);
   Widget secTitle(BuildContext context, String txt) {
     double sw = MediaQuery.of(context).size.width;
-    double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
+    double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.35;
     return Text(
       txt,
-      style: TextStyle(color: Color(0xff6B6B6B), fontSize: normalFontSize * 3),
+      style: TextStyle(
+          color: Color(0xff6B6B6B),
+          fontSize: normalFontSize * 3,
+          fontWeight: FontWeight.bold),
     );
   }
 
@@ -89,7 +92,7 @@ class actualUI extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: sw * 0.05,
+              height: sw * 0.1,
             ),
             //scroll view
             Flexible(
@@ -105,7 +108,7 @@ class actualUI extends StatelessWidget {
                       //title
                       secTitle(context, 'Purpose of this app'),
                       SizedBox(
-                        height: sw * 0.05,
+                        height: sw * 0.089,
                       ),
                       normalPara(this.dl[0]),
                       normalPara(this.dl[1]),
@@ -148,7 +151,7 @@ class para extends StatelessWidget {
     double sw = MediaQuery.of(context).size.width;
     double paraFontSize = sw * 0.85 * 0.055; //screenWidth * 0.85 * 0.055
     return SizedBox(
-      width: sw * 0.90,
+      width: sw * 0.80,
       child: Text(
         this.data,
         style: TextStyle(
