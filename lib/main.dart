@@ -129,6 +129,35 @@ class MyApp extends StatelessWidget {
         '/chokAlW': (context) => webViewer(
             'https://www.emergencyphysicians.org/article/know-when-to-go/choking--heimlich-manuever'),
 
+        //FRACTURE
+        '/fra': (context) => refContent(
+            'Choking when you\'re alone',
+            [
+              [
+                'https://youtu.be/2v8vlXgGXwE',
+                'img',
+                'How To Treat A Fracture & Fracture Types - First Aid Training - St John Ambulance',
+                'St John Ambulance'
+              ],
+              [
+                'https://youtu.be/NoPgd1XXkSo',
+                'img',
+                'Emergency Medical Care : How to Splint a Fracture of the Lower Leg',
+                'ehowhealth'
+              ]
+            ],
+            [
+              [
+                'assets/images/chokBaby.png',
+                'Fractures (broken bones)',
+                'www.emergencyphysicians.org',
+                '/fraW'
+              ]
+            ],
+            'no'),
+        '/fraW': (context) => webViewer(
+            'https://www.mayoclinic.org/first-aid/first-aid-fractures/basics/art-20056641'),
+
         //CPR ADULT
         '/adCpr': (context) => refContent(
             'CPR for adults',
