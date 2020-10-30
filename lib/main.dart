@@ -130,9 +130,7 @@ class MyApp extends StatelessWidget {
             'https://www.emergencyphysicians.org/article/know-when-to-go/choking--heimlich-manuever'),
 
         //FRACTURE
-        '/fra': (context) => refContent(
-            'Choking when you\'re alone',
-            [
+        '/fra': (context) => refContent('Fracture', [
               [
                 'https://youtu.be/2v8vlXgGXwE',
                 'img',
@@ -145,18 +143,43 @@ class MyApp extends StatelessWidget {
                 'Emergency Medical Care : How to Splint a Fracture of the Lower Leg',
                 'ehowhealth'
               ]
-            ],
-            [
+            ], [
               [
                 'assets/images/chokBaby.png',
                 'Fractures (broken bones)',
                 'www.emergencyphysicians.org',
                 '/fraW'
               ]
-            ],
-            'no'),
+            ], '''- Call for emergency help
+- Stop any bleeding. Apply pressure to the wound with a sterile bandage, a clean cloth or a clean piece of clothing.
+- Immobilize the injured area. Don't try to realign the bone or push a bone that's sticking out back in. Apply a splint to the area above and below the fracture sites. Padding the splints can help reduce discomfort.
+- Apply ice packs to limit swelling and help relieve pain
+- Treat for shock. If the person feels faint or is breathing in short, rapid breaths, lay the person down with the head slightly lower than the trunk and, if possible, elevate the legs.'''),
         '/fraW': (context) => webViewer(
             'https://www.mayoclinic.org/first-aid/first-aid-fractures/basics/art-20056641'),
+
+        //POISONING
+        '/poi': (context) => refContent(
+            'Poisoning',
+            [
+              [
+                'https://youtu.be/b2ieb8BZJuY',
+                'assets/images/cpr.png',
+                'How to treat poisoning: signs and symptoms',
+                'St John Ambulance'
+              ],
+            ],
+            [
+              [
+                'assets/images/cprAd.jpg',
+                'Poisoning : First Aid',
+                'www.mayoclinic.org',
+                '/poiW'
+              ]
+            ],
+            'no'),
+        '/poiW': (context) => webViewer(
+            'https://www.mayoclinic.org/first-aid/first-aid-poisoning/basics/art-20056657'),
 
         //CPR ADULT
         '/adCpr': (context) => refContent(
