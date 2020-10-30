@@ -181,6 +181,38 @@ class MyApp extends StatelessWidget {
         '/poiW': (context) => webViewer(
             'https://www.mayoclinic.org/first-aid/first-aid-poisoning/basics/art-20056657'),
 
+        //FOREIGN IN BODY
+        '/foreign': (context) => refContent(
+            'Foreign object in the body',
+            [
+              [
+                'https://youtu.be/8FK8w6HFdcw',
+                'assets/images/cpr.png',
+                'If your Baby has a Foreign Object in the Nose or Ear - First Aid Training - St John Ambulance',
+                'St John Ambulance'
+              ],
+            ],
+            [
+              [
+                'assets/images/cprAd.jpg',
+                'Foreign object in the nose: First aid',
+                'www.mayoclinic.org',
+                '/foreignW'
+              ],
+              [
+                'assets/images/cprAd.jpg',
+                'Foreign object in the ear: First aid',
+                'www.mayoclinic.org',
+                '/foreignW2'
+              ]
+            ],
+            'no'),
+        '/foreignW': (context) => webViewer(
+            'https://www.mayoclinic.org/first-aid/first-aid/basics/art-20056610'),
+
+        '/foreignW2': (context) => webViewer(
+            'https://www.mayoclinic.org/first-aid/first-aid/basics/art-20056709'),
+
         //CPR ADULT
         '/adCpr': (context) => refContent(
             'CPR for adults',
