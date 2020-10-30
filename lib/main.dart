@@ -182,17 +182,14 @@ class MyApp extends StatelessWidget {
             'https://www.mayoclinic.org/first-aid/first-aid-poisoning/basics/art-20056657'),
 
         //FOREIGN IN BODY
-        '/foreign': (context) => refContent(
-            'Foreign object in the body',
-            [
+        '/foreign': (context) => refContent('Foreign object in the body', [
               [
                 'https://youtu.be/8FK8w6HFdcw',
                 'assets/images/cpr.png',
                 'If your Baby has a Foreign Object in the Nose or Ear - First Aid Training - St John Ambulance',
                 'St John Ambulance'
               ],
-            ],
-            [
+            ], [
               [
                 'assets/images/cprAd.jpg',
                 'Foreign object in the nose: First aid',
@@ -205,13 +202,46 @@ class MyApp extends StatelessWidget {
                 'www.mayoclinic.org',
                 '/foreignW2'
               ]
-            ],
-            'no'),
+            ], '''For foreign object in the nose,
+- keep clam, don't probe at the object
+- don't try to inhale the object by forcefully breathing in. Breathe through your mouth until the object is removed.
+- blow out of your nose gently to try to free the object, but don't blow hard or repeatedly.
+- gently remove the object if it's visible and you can easily grasp it with tweezers. Don't try to remove an object that isn't visible or easily grasped.
+- call for emergency medical assistance
+
+For foreign object in the ear,
+- Don't probe the ear with a tool such as a cotton swab or matchstick.
+- Try using gravity
+- Try washing the object out. Use a rubber-bulb ear syringe and warm water to irrigate the object out of the canal, provided no ear tubes are in place and you don't suspect the eardrum is perforated.
+- Try using oil or warm water for an insect. If the foreign object is an insect, tilt the person's head so that the ear with the insect is upward. Try to float the insect out by pouring mineral oil, olive oil or baby oil into the ear. The oil should be warm, but not hot. Don't use oil to remove an object other than an insect'''),
         '/foreignW': (context) => webViewer(
             'https://www.mayoclinic.org/first-aid/first-aid/basics/art-20056610'),
 
         '/foreignW2': (context) => webViewer(
             'https://www.mayoclinic.org/first-aid/first-aid/basics/art-20056709'),
+
+        //STROKE
+        '/stro': (context) => refContent(
+            'Stroke signs and symptoms',
+            [
+              [
+                'https://youtu.be/PhH9a0kIwmk',
+                'assets/images/cpr.png',
+                'What To Do If Someone Has A Stroke, Signs & Symptoms - First Aid Training - St John Ambulance',
+                'St John Ambulance'
+              ],
+            ],
+            [
+              [
+                'assets/images/cprAd.jpg',
+                'Stroke: First aid',
+                'www.mayoclinic.org',
+                '/stroW'
+              ]
+            ],
+            'no'),
+        '/stroW': (context) => webViewer(
+            'https://www.mayoclinic.org/first-aid/first-aid-stroke/basics/art-20056602'),
 
         //CPR ADULT
         '/adCpr': (context) => refContent(
