@@ -1,12 +1,15 @@
 import 'dart:math';
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+
 import 'package:save_lives/common/common.dart';
 import 'package:save_lives/main.dart';
 
-//test
 class home extends StatefulWidget {
   @override
   _homeState createState() => _homeState();
@@ -23,7 +26,66 @@ class _homeState extends State<home> {
     _configureDidReceiveLocalNotificationSubject();
     _configureSelectNotificationSubject();
     _showDailyAtTime();
+    _fetchConfigs();
   }
+
+  Future<void> _fetchConfigs() async {
+    //create an instance
+    await Firebase.initializeApp();
+    final RemoteConfig remoteConfig = await RemoteConfig.instance;
+    print('have created the instance');
+
+    // Enable developer mode to relax fetch throttling
+    remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
+    remoteConfig.setDefaults(<String, dynamic>{
+      'test': '1.0',
+    });
+    print('have set defaults');
+
+    //refresh value
+    try {
+      // Using default duration to force fetching from remote server.
+      await remoteConfig.fetch(expiration: const Duration(seconds: 0));
+      await remoteConfig.activateFetched();
+    } on FetchThrottledException catch (exception) {
+      // Fetch throttled.
+      print(exception);
+    } catch (exception) {
+      print('Unable to fetch remote config. Cached or default values will be '
+          'used');
+    }
+    print('have refreshed the value and have activated the value');
+
+    //fetch value
+    String fetchedVerCode = remoteConfig.getString('test');
+    print('fetched verCode =  {$fetchedVerCode}');
+    //convert string to double
+    double verCode = 1.23;
+    //get current verCode from sharedPref
+    double curVerCode = 1.22;
+
+    //compare
+    if (curVerCode < verCode) {
+      //pop up
+      print('yes update');
+    }
+  }
+
+  /*Future<void> _checkUpd() async {
+    //_fetchConfigs
+    Future<String> fetchedVerCode = _fetchConfigs();
+    print('fetched verCode =  {$fetchedVerCode}');
+    //convert string to double
+    double verCode = 1.23;
+    //get current verCode from sharedPref
+    double curVerCode = 1.22;
+
+    //compare
+    if (curVerCode < verCode) {
+      //pop up
+      print('yes update');
+    }
+  }*/
 
   void _requestIOSPermissions() {
     flutterLocalNotificationsPlugin
