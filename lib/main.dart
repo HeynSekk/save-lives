@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:flutter/foundation.dart' show SynchronousFuture;
@@ -46,6 +47,7 @@ class ReceivedNotification {
 Future<void> main() async {
   // *** VARIABLE CREATING ***
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   notificationAppLaunchDetails =
       await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();

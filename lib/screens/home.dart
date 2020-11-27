@@ -4,8 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:connectivity/connectivity.dart';
+import 'package:ota_update/ota_update.dart';
+import 'package:device_info/device_info.dart';
 
 import 'package:save_lives/common/common.dart';
 import 'package:save_lives/main.dart';
@@ -16,6 +19,25 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
+  //DON'T FORGET TO UPDATE THE curVer WHEN ROLL OUT UPDATES
+  final double curVer = 1.1;
+  bool upd = false;
+  double verCode = 0;
+  String apkUrlArm = 'https://internal1.4q.sk/flutter_hello_world.apk';
+  String apkUrlArme = 'https://internal1.4q.sk/flutter_hello_world.apk';
+  String apkUrlArmx = 'https://internal1.4q.sk/flutter_hello_world.apk';
+  Widget forceCheckResult = new Container();
+  //for debug
+  String debugLogs = 'Debug Logs:';
+  OtaEvent currentEvent = new OtaEvent();
+  bool gonnaFetch = false;
+  String expireDate = 'no';
+  double verCodeSP = 0;
+  String apkUrlSP = 'no';
+  List<String> supportedAbisDB = [];
+  List<String> supported32BitAbisDB = [];
+  List<String> supported64BitAbisDB = [];
+
   final MethodChannel platform =
       MethodChannel('crossingthestreams.io/resourceResolver');
 
@@ -26,66 +48,313 @@ class _homeState extends State<home> {
     _configureDidReceiveLocalNotificationSubject();
     _configureSelectNotificationSubject();
     _showDailyAtTime();
-    _fetchConfigs();
+    checkForUpd();
   }
 
-  Future<void> _fetchConfigs() async {
-    //create an instance
-    await Firebase.initializeApp();
-    final RemoteConfig remoteConfig = await RemoteConfig.instance;
-    print('have created the instance');
-
-    // Enable developer mode to relax fetch throttling
-    remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
-    remoteConfig.setDefaults(<String, dynamic>{
-      'test': '1.0',
+  //methods
+  Future<void> forceFetchCheckForUpd() async {
+    double fetchedVerCode;
+    String fetchedUrlArm, fetchedUrlArme, fetchedUrlArmx;
+    //create pref instance
+    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs.catchError((e) {
+      print('error= $e');
+      return null;
     });
-    print('have set defaults');
+    //check internet connected
+    var connResult = await (Connectivity().checkConnectivity().catchError((e) {
+      print(e);
+      return null;
+    }));
 
-    //refresh value
-    try {
-      // Using default duration to force fetching from remote server.
-      await remoteConfig.fetch(expiration: const Duration(seconds: 0));
-      await remoteConfig.activateFetched();
-    } on FetchThrottledException catch (exception) {
-      // Fetch throttled.
-      print(exception);
-    } catch (exception) {
-      print('Unable to fetch remote config. Cached or default values will be '
-          'used');
-    }
-    print('have refreshed the value and have activated the value');
+    if (connResult == ConnectivityResult.mobile ||
+        connResult == ConnectivityResult.wifi) {
+      //fetch from fs
+      Map<String, dynamic> versionInfo = await getVersionInfo();
+      print('fetched ver info');
+      fetchedVerCode = versionInfo['verCode'] as double;
+      fetchedUrlArm = versionInfo['apkUrlArm'] as String;
+      fetchedUrlArme = versionInfo['apkUrlArme'] as String;
+      fetchedUrlArmx = versionInfo['apkUrlArmx'] as String;
+      print(
+          'fetchedVerCode=$fetchedVerCode, fetchedUrl=$fetchedUrlArm and $fetchedUrlArme and $fetchedUrlArmx');
 
-    //fetch value
-    String fetchedVerCode = remoteConfig.getString('test');
-    print('fetched verCode =  {$fetchedVerCode}');
-    //convert string to double
-    double verCode = 1.23;
-    //get current verCode from sharedPref
-    double curVerCode = 1.22;
+      //write fetched data to sp
+      await prefs
+          .setDouble('verCode', fetchedVerCode)
+          .catchError((e) => print('error in setDouble= $e'));
+      await prefs
+          .setString('apkUrlArm', fetchedUrlArm)
+          .catchError((e) => print('error in setString= $e'));
+      await prefs
+          .setString('apkUrlArme', fetchedUrlArme)
+          .catchError((e) => print('error in setString= $e'));
+      await prefs
+          .setString('apkUrlArmx', fetchedUrlArmx)
+          .catchError((e) => print('error in setString= $e'));
 
-    //compare
-    if (curVerCode < verCode) {
-      //pop up
-      print('yes update');
+      setState(() {
+        verCodeSP = fetchedVerCode;
+        apkUrlSP = fetchedUrlArm;
+      });
+      //compare cur ver and fetched ver code
+      if (curVer < fetchedVerCode) {
+        //updates
+        setState(() {
+          upd = true;
+          verCode = fetchedVerCode;
+          apkUrlArm = fetchedUrlArm;
+          apkUrlArme = fetchedUrlArme;
+          apkUrlArmx = fetchedUrlArmx;
+          forceCheckResult = Column(
+            children: [
+              Text('An update rolled out. Plz install it.'),
+              SizedBox(
+                height: 20,
+              ),
+              InkWell(
+                onTap: () async {
+                  tryOtaUpdate();
+                },
+                child: Text('Install'),
+              ),
+            ],
+          );
+        });
+      } else {
+        //no updates
+        setState(() {
+          forceCheckResult = Text('ur app is up to date');
+        });
+      }
+    } else {
+      setState(() {
+        forceCheckResult = Text('plz connect to internet');
+      });
     }
   }
 
-  /*Future<void> _checkUpd() async {
-    //_fetchConfigs
-    Future<String> fetchedVerCode = _fetchConfigs();
-    print('fetched verCode =  {$fetchedVerCode}');
-    //convert string to double
-    double verCode = 1.23;
-    //get current verCode from sharedPref
-    double curVerCode = 1.22;
+  Future<void> checkForUpd() async {
+    double fetchedVerCode;
+    String fetchedUrlArm, fetchedUrlArme, fetchedUrlArmx;
+    //create pref instance
+    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs.catchError((e) {
+      print('error= $e');
+      return null;
+    });
 
-    //compare
-    if (curVerCode < verCode) {
-      //pop up
-      print('yes update');
+    //decide whether to fetch fs or not
+    bool shouldFetch = await shouldFetchFromFS();
+    print('shouldFetch=$shouldFetch');
+    //check internet connected
+    var connResult = await (Connectivity().checkConnectivity().catchError((e) {
+      print(e);
+      return null;
+    }));
+    if ((connResult == ConnectivityResult.mobile ||
+            connResult == ConnectivityResult.wifi) &&
+        shouldFetch)
+      shouldFetch = true;
+    else
+      shouldFetch = false;
+    //yes decided to fetch
+    if (shouldFetch) {
+      print('gonna fetch fs');
+      setState(() {
+        gonnaFetch = true;
+      });
+      //fetch version info from fs
+      Map<String, dynamic> versionInfo = await getVersionInfo();
+      print('fetched ver info');
+      fetchedVerCode = versionInfo['verCode'] as double;
+      fetchedUrlArm = versionInfo['apkUrlArm'] as String;
+      fetchedUrlArme = versionInfo['apkUrlArme'] as String;
+      fetchedUrlArmx = versionInfo['apkUrlArmx'] as String;
+      print(
+          'fetchedVerCode=$fetchedVerCode, fetchedUrl=$fetchedUrlArm and $fetchedUrlArme and $fetchedUrlArmx');
+
+      //write updated verCode and apkUrl to SP
+      await prefs
+          .setDouble('verCode', fetchedVerCode)
+          .catchError((e) => print('error in setDouble= $e'));
+      await prefs
+          .setString('apkUrlArm', fetchedUrlArm)
+          .catchError((e) => print('error in setString= $e'));
+      await prefs
+          .setString('apkUrlArme', fetchedUrlArme)
+          .catchError((e) => print('error in setString= $e'));
+      await prefs
+          .setString('apkUrlArmx', fetchedUrlArmx)
+          .catchError((e) => print('error in setString= $e'));
+
+      setState(() {
+        verCodeSP = fetchedVerCode;
+        apkUrlSP = fetchedUrlArm;
+      });
     }
-  }*/
+    //not to fetch
+    else {
+      //get verCode and apkUrl from SP
+      try {
+        fetchedVerCode = prefs.getDouble('verCode');
+        fetchedUrlArm = prefs.getString('apkUrlArm');
+        fetchedUrlArme = prefs.getString('apkUrlArme');
+        fetchedUrlArmx = prefs.getString('apkUrlArmx');
+        print(
+            'fetchedVerCode SP=$fetchedVerCode, fetchedUrl SP=$fetchedUrlArm');
+        setState(() {
+          verCodeSP = fetchedVerCode;
+          apkUrlSP = fetchedUrlArm;
+          debugLogs =
+              '$debugLogs\n Shouldnt fetch data from FS so fetch from SP';
+        });
+      } catch (e) {
+        print('error fetching from SP= $e');
+      }
+    }
+    //compare. if cur ver is smaller, show noti
+    if (fetchedVerCode != null) {
+      if (curVer < fetchedVerCode) {
+        setState(() {
+          upd = true;
+          verCode = fetchedVerCode;
+          apkUrlArm = fetchedUrlArm;
+          apkUrlArme = fetchedUrlArme;
+          apkUrlArmx = fetchedUrlArmx;
+        });
+      }
+    }
+    //for debug
+    else {
+      setState(() {
+        debugLogs =
+            '$debugLogs\n fetchedVerCode==null meaning first time launching and internet not connected and no data in SP';
+      });
+    }
+  }
+
+  Future<String> chooseApk() async {
+    //choose abi
+    //initialize plugin
+    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    AndroidDeviceInfo build = await deviceInfoPlugin.androidInfo
+        .catchError((e) => print('error= $e'));
+    //device's supported abis
+    List<String> supported64BitAbis = build.supported64BitAbis;
+    setState(() {
+      supportedAbisDB = build.supportedAbis;
+      supported32BitAbisDB = build.supported32BitAbis;
+      supported64BitAbisDB = build.supported64BitAbis;
+    });
+    print('supportedAbis= $supportedAbisDB');
+    print('supported32BitAbis= $supported32BitAbisDB');
+    print('supported64BitAbis= $supported64BitAbisDB');
+    //return the right apkUrl
+    if (supported64BitAbis.contains('arm64-v8a'))
+      return apkUrlArm;
+    else if (supported64BitAbis.contains('armeabi-v7a'))
+      return apkUrlArme;
+    else if (supported64BitAbis.contains('x86_64'))
+      return apkUrlArmx;
+    else
+      return null;
+  }
+
+  Future<void> tryOtaUpdate() async {
+    //choose the right apk
+    String apkUrl = await chooseApk();
+    print('the right apk= $apkUrl');
+    //and download
+    try {
+      OtaUpdate()
+          .execute(
+        apkUrl,
+        destinationFilename: 'SaveLives.apk',
+      )
+          .listen(
+        (OtaEvent event) {
+          setState(() => currentEvent = event);
+        },
+      );
+      // ignore: avoid_catches_without_on_clauses
+    } catch (e) {
+      print('Failed to make OTA update. Details: $e');
+    }
+  }
+
+  Future<bool> shouldFetchFromFS() async {
+    var curTime = new DateTime.now();
+    var expDate = new DateTime.now();
+    //create pref instance
+    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs.catchError((e) {
+      print('error= $e');
+      return null;
+    });
+
+    print('created an SP instance');
+
+    //get expDate from sp
+    String expDateStr = prefs.getString('expDate');
+    if (expDateStr != null) {
+      setState(() {
+        expireDate = expDateStr;
+      });
+      expDate = DateTime.parse(expDateStr);
+      if (curTime.isAfter(expDate)) {
+        expDateStr = curTime.add(new Duration(days: 3)).toString();
+        setState(() {
+          expireDate = expDateStr;
+        });
+        //set exp date
+        await prefs
+            .setString('expDate', expDateStr)
+            .catchError((e) => print('error in setString= $e'));
+        //tell to check
+        return true;
+      } else {
+        //dont check
+        return false;
+      }
+    } else {
+      //first time
+      expDateStr = curTime.add(new Duration(days: 3)).toString();
+      setState(() {
+        expireDate = expDateStr;
+      });
+      //set exp date
+      await prefs
+          .setString('expDate', expDateStr)
+          .catchError((e) => print('error in setString= $e'));
+      //tell to check
+      return true;
+    }
+  }
+
+  Future<Map<String, dynamic>> getVersionInfo() async {
+    DocumentReference dr =
+        FirebaseFirestore.instance.collection('versions').doc('version');
+    print('created an instance');
+    return dr.get().then((ds) {
+      String apkUrlArm = ds['apkUrlArm'] as String;
+      String apkUrlArme = ds['apkUrlArme'] as String;
+      String apkUrlArmx = ds['apkUrlArmx'] as String;
+      double verCode = ds['verCode'] as double;
+      int forceUpd = ds['forceUpd'] as int;
+      Map<String, dynamic> versionInfo = {
+        'apkUrlArm': apkUrlArm,
+        'apkUrlArme': apkUrlArme,
+        'apkUrlArmx': apkUrlArmx,
+        'verCode': verCode,
+        'forceUpd': forceUpd
+      };
+      return versionInfo;
+    }).catchError((e) {
+      print(e);
+      return null;
+    });
+  }
 
   void _requestIOSPermissions() {
     flutterLocalNotificationsPlugin
@@ -142,6 +411,212 @@ class _homeState extends State<home> {
     super.dispose();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    double sh = MediaQuery.of(context).size.height;
+    double sw = MediaQuery.of(context).size.width;
+    double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
+    if (upd == false) {
+      //normal screen
+      return Scaffold(
+        drawer: drawerUI(), //from common.dart
+        body: SafeArea(
+          child: Scaffold(
+            drawer: drawerUI(),
+            body: Padding(
+              padding: EdgeInsets.all(sw * 0.05),
+              child: Column(
+                children: <Widget>[
+                  //drawer
+                  SizedBox(
+                    width: sw * 0.90,
+                    child: Padding(
+                      padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
+                      child: drawerButton(),
+                    ),
+                  ),
+                  //scroll
+                  Flexible(
+                    fit: FlexFit.tight,
+                    flex: 1,
+                    child: SizedBox(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            //logo
+                            vspace(normalFontSize * 2),
+                            home_title(),
+                            vspace(normalFontSize * 2),
+
+                            //card1
+                            card(
+                                'First Aids',
+                                'Save lives in case of health emergencies',
+                                '/emergencies'),
+                            vspace(normalFontSize * 1.8),
+                            //card2
+                            card(
+                                'Survival Tips',
+                                'Ways to survive natural disasters',
+                                '/disasters'),
+                            vspace(normalFontSize * 1.5),
+                            //debug section
+                            FutureBuilder<Map<String, dynamic>>(
+                                future: getVersionInfo(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<Map<String, dynamic>>
+                                        snapshot) {
+                                  if (snapshot.hasData) {
+                                    print('url=${snapshot.data['apkUrl']}');
+                                    print(
+                                        'ver code=${snapshot.data['verCode']}');
+                                    print(
+                                        'force upd=${snapshot.data['forceUpd']}');
+                                    return Padding(
+                                      padding: EdgeInsets.all(20),
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text('''
+url=${snapshot.data['apkUrl']}
+ver code FS=${snapshot.data['verCode']}
+force upd FS=${snapshot.data['forceUpd']}
+expire date=$expireDate
+gonna check for update=$gonnaFetch
+ver code SP='$verCodeSP
+apkUrl SP=$apkUrlSP
+supportedAbis = $supportedAbisDB
+supported32BitAbis = $supported32BitAbisDB
+supported64BitAbis = $supported64BitAbisDB
+'''),
+                                            //debug log
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            SizedBox(
+                                              width: 150,
+                                              height: 150,
+                                              child: SingleChildScrollView(
+                                                scrollDirection: Axis.vertical,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Text(debugLogs)
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  } else if (snapshot.hasError) {
+                                    print(snapshot.error);
+                                    return Text('error ${snapshot.error}');
+                                  } else {
+                                    return CircularProgressIndicator();
+                                  }
+                                }),
+                            vspace(30),
+                            InkWell(
+                              onTap: () async {
+                                setState(() {
+                                  forceCheckResult = Padding(
+                                    padding:
+                                        EdgeInsets.only(top: 30, bottom: 30),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        CircularProgressIndicator(),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text('Checking for updates...'),
+                                      ],
+                                    ),
+                                  );
+                                });
+                                forceFetchCheckForUpd();
+                              },
+                              child: Container(
+                                height: 40,
+                                width: 80,
+                                color: Colors.green,
+                                child: Center(
+                                  child: Text('Check for updates'),
+                                ),
+                              ),
+                            ),
+                            vspace(30),
+                            forceCheckResult,
+
+                            //footer quote
+                            appQuote(),
+                            vspace(normalFontSize * 3.3),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    } else {
+      //UPDATE SCREEN
+      return Scaffold(
+        body: Padding(
+          padding: EdgeInsets.all(30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Plz update the app'),
+              SizedBox(
+                height: 30,
+              ),
+              InkWell(
+                onTap: () async {
+                  tryOtaUpdate();
+                },
+                child: Text(
+                  'Install',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    upd = false;
+                  });
+                },
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text('OTA EVENT\n${currentEvent.status} : ${currentEvent.value}'),
+            ],
+          ),
+        ),
+      );
+    }
+  }
+
   Widget card(String titleTxt, String bodyTxt, String dest) {
     double sw = MediaQuery.of(context).size.width;
     double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
@@ -186,149 +661,6 @@ class _homeState extends State<home> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    double sh = MediaQuery.of(context).size.height;
-    double sw = MediaQuery.of(context).size.width;
-    double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
-    return Scaffold(
-      drawer: drawerUI(), //from common.dart
-      body: SafeArea(
-        child: Scaffold(
-          drawer: drawerUI(),
-          body: Padding(
-            padding: EdgeInsets.all(sw * 0.05),
-            child: Column(
-              children: <Widget>[
-                //drawer
-                SizedBox(
-                  width: sw * 0.90,
-                  child: Padding(
-                    padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
-                    child: drawerButton(),
-                  ),
-                ),
-                //scroll
-                Flexible(
-                  fit: FlexFit.tight,
-                  flex: 1,
-                  child: SizedBox(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          //logo
-                          vspace(normalFontSize * 2),
-                          home_title(),
-                          vspace(normalFontSize * 2),
-
-                          //card1
-                          card(
-                              'First Aids',
-                              'Save lives in case of health emergencies',
-                              '/emergencies'),
-                          vspace(normalFontSize * 1.8),
-                          //card2
-                          card(
-                              'Survival Tips',
-                              'Ways to survive natural disasters',
-                              '/disasters'),
-                          vspace(normalFontSize * 1.5),
-                          //footer quote
-                          appQuote(),
-                          vspace(normalFontSize * 3.3),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-
-        /*Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            sideStick(),
-            Padding(
-              padding: EdgeInsets.only(
-                top: sh * 0.11 * 0.90,
-                bottom: sh * 0.11 * 0.10,
-                left: sh * 0.11 * 0.20,
-                right: sh * 0.11 * 0.20,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  home_title(),
-                  SizedBox(
-                    height: sh * 0.09,
-                  ),
-                  homeMenu(
-                      Icon(
-                        Icons.add_box,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        'Health Emergencies',
-                        style: TextStyle(
-                          fontSize: sw * 0.75 * (1 / 4) * 0.28,
-                          color: Colors.white,
-                        ),
-                      ),
-                      '/emergencies'),
-
-                  SizedBox(
-                    height: sw * 0.75 * (1 / 4) * 0.35,
-                  ),
-                  homeMenu(
-                      Icon(
-                        Icons.nature_people,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        'Disasters',
-                        style: TextStyle(
-                          fontSize: sw * 0.75 * (1 / 4) * 0.28,
-                          color: Colors.white,
-                        ),
-                      ),
-                      '/disasters'),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      await _showNotification();
-                    },
-                    child: Text(
-                      'Show noti',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  //blank
-                  Flexible(
-                    fit: FlexFit.tight,
-                    flex: 1,
-                    child: SizedBox(
-                      height: 10,
-                    ),
-                  ),
-                  appQuote(),
-                ],
-              ),
-            ),
-          ],
-        ),*/
       ),
     );
   }
@@ -476,139 +808,3 @@ class home_title extends StatelessWidget {
     );
   }
 }
-
-/*
-Container
-padding 15
-Row
-icon 30 30,space 15,text 30
-*/
-/*class homeMenu extends StatelessWidget {
-  Icon iconPic;
-  Text nameText;
-  String onTapDest;
-  homeMenu(this.iconPic, this.nameText, this.onTapDest);
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    return InkWell(
-      onTap: () => Navigator.pushNamed(context, this.onTapDest),
-      child: Container(
-        //height: screenWidth * 0.75 * 0.30,
-        width: screenWidth * 0.68,
-        decoration: BoxDecoration(
-          color: Color(0xff6BCF63),
-          //border: Border.all(),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        padding: EdgeInsets.only(
-            top: screenWidth * 0.75 * (1 / 4) * 0.30,
-            bottom: screenWidth * 0.75 * (1 / 4) * 0.30,
-            left: screenWidth * 0.75 * (1 / 4) * 0.25),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            //ICON
-            SizedBox(
-              height: screenWidth * 0.75 * (1 / 4) * 0.35,
-              width: screenWidth * 0.75 * (1 / 4) * 0.35,
-              child: this.iconPic,
-            ),
-            //SPACE
-            SizedBox(
-              width: screenWidth * 0.75 * (1 / 4) * 0.20,
-            ),
-            //TEXT
-            this.nameText,
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class benefits extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final String benefitTitle = 'ဒီ App ရဲ့ရည်ရွယ်ချက်ကဘာလဲ?';
-    final String benefitContent =
-        'ကျန်းမာရေးအရေးပေါ်အခြေနေတွေ၊ သဘာ၀ဘေးအန္တရာယ်တွေကြုံတွေ့လာရင်အသက်ရှင်နိုင်ဖို့ဘာလုပ်ရမယ်မှန်းသိမယ်။\n\nတကယ်ကြုံတွေ့လာရင် အသက်ကယ်နိုင်မယ်။ အသက်ရှင်နိုင်မယ်။\n\nရှေးဉီးသူနာပြုစုနည်း လေ့လာချင်သူတွေအတွက် ပြန့်ကြဲပီးလျှောက်ရှာစရာမလိုပဲ တစ်နေရာတည်းမှာ တစ်စုတစ်စည်းတည်းလေ့လာနိုင်မယ်။\n\nမေ့သွားခဲ့ရင်လည်း internet connection မလိုပဲ ပြန်ကြည့်နိုင်မယ်။ စာအုပ်တစ်အုပ်သဖွယ် ဖုန်းထဲမှာသိမ်းထားတော့ နေရာမရွေး internet မလိုပဲသွား‌လေရာထုတ်ဖတ်လို့ရမယ်။\n\nဒီအကျိုးကျေးဇူးတွေပေးနိုင်ဖို့ကဒီappရဲ့ရည်ရွယ်ချက်ပါပဲ။';
-    double sw = MediaQuery.of(context).size.width;
-    double fontSizeBenefit = sw * 0.80 * 0.055;
-    return Container(
-      //DL container
-      height: sw * 0.80 * 0.70,
-      width: sw * 0.79,
-      decoration: BoxDecoration(
-        color: Color(0xffE5E5E5),
-        //bord5r: Border.all(),
-        borderRadius: BorderRadius.circular(fontSizeBenefit * 0.80),
-      ),
-      padding: EdgeInsets.all(fontSizeBenefit),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            //title
-            Text(
-              benefitTitle,
-              style: TextStyle(
-                //color:Colors.black,
-                fontSize: fontSizeBenefit,
-              ),
-            ),
-            SizedBox(
-              height: fontSizeBenefit,
-            ),
-            //content
-            Text(
-              benefitContent,
-              style: TextStyle(
-                //color: Colors.black,
-                fontSize: fontSizeBenefit,
-                height: 1.9,
-              ),
-            ),
-            SizedBox(
-              height: fontSizeBenefit,
-            ),
-            //more button
-            moreButton(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class moreButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    double sw = MediaQuery.of(context).size.width;
-    double fontSizeBenefit = sw * 0.85 * 0.055;
-    return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, '/purpose');
-      },
-      child: Container(
-        width: sw * 0.80,
-        height: sw * 0.80 * (1 / 6),
-        decoration: BoxDecoration(
-          color: Color(0xff6BCF63),
-          borderRadius: BorderRadius.circular(fontSizeBenefit * 0.70),
-        ),
-        child: Center(
-          child: Text(
-            'အပြည့်အစုံဖတ်ရန်',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: fontSizeBenefit * 0.80,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}*/
