@@ -27,9 +27,10 @@ class _homeState extends State<home> {
   String apkUrlArme = 'https://internal1.4q.sk/flutter_hello_world.apk';
   String apkUrlArmx = 'https://internal1.4q.sk/flutter_hello_world.apk';
   Widget forceCheckResult = new Container();
+  Widget updatingStatus = new Container();
+  OtaEvent currentEvent = new OtaEvent();
   //for debug
   String debugLogs = 'Debug Logs:';
-  OtaEvent currentEvent = new OtaEvent();
   bool gonnaFetch = false;
   String expireDate = 'no';
   double verCodeSP = 0;
@@ -55,6 +56,7 @@ class _homeState extends State<home> {
   Future<void> forceFetchCheckForUpd() async {
     double fetchedVerCode;
     String fetchedUrlArm, fetchedUrlArme, fetchedUrlArmx;
+    var curTime = new DateTime.now();
     //create pref instance
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs.catchError((e) {
@@ -78,6 +80,11 @@ class _homeState extends State<home> {
       fetchedUrlArmx = versionInfo['apkUrlArmx'] as String;
       print(
           'fetchedVerCode=$fetchedVerCode, fetchedUrl=$fetchedUrlArm and $fetchedUrlArme and $fetchedUrlArmx');
+
+      //set new expire date to SP
+      await prefs
+          .setString('expDate', curTime.add(new Duration(days: 3)).toString())
+          .catchError((e) => print('error= $e'));
 
       //write fetched data to sp
       await prefs
@@ -106,20 +113,6 @@ class _homeState extends State<home> {
           apkUrlArm = fetchedUrlArm;
           apkUrlArme = fetchedUrlArme;
           apkUrlArmx = fetchedUrlArmx;
-          forceCheckResult = Column(
-            children: [
-              Text('An update rolled out. Plz install it.'),
-              SizedBox(
-                height: 20,
-              ),
-              InkWell(
-                onTap: () async {
-                  tryOtaUpdate();
-                },
-                child: Text('Install'),
-              ),
-            ],
-          );
         });
       } else {
         //no updates
@@ -129,7 +122,8 @@ class _homeState extends State<home> {
       }
     } else {
       setState(() {
-        forceCheckResult = Text('plz connect to internet');
+        forceCheckResult =
+            Text('plz connect to internet and try Checking again');
       });
     }
   }
@@ -265,21 +259,75 @@ class _homeState extends State<home> {
     //choose the right apk
     String apkUrl = await chooseApk();
     print('the right apk= $apkUrl');
-    //and download
-    try {
-      OtaUpdate()
-          .execute(
-        apkUrl,
-        destinationFilename: 'SaveLives.apk',
-      )
-          .listen(
-        (OtaEvent event) {
-          setState(() => currentEvent = event);
-        },
-      );
-      // ignore: avoid_catches_without_on_clauses
-    } catch (e) {
-      print('Failed to make OTA update. Details: $e');
+    setState(() {
+      debugLogs = '$debugLogs\n the right apk= $apkUrl';
+    });
+    //check internet connected
+    var connResult = await (Connectivity().checkConnectivity().catchError((e) {
+      print(e);
+      return null;
+    }));
+    if (connResult == ConnectivityResult.mobile ||
+        connResult == ConnectivityResult.wifi) {
+      //connected
+      setState(() {
+        updatingStatus = Column(
+          children: [
+            Text('Updating...\n Plz don\'t quit the app'),
+            SizedBox(
+              height: 20,
+            ),
+            Text('OTA status\n ${currentEvent.status}: ${currentEvent.value}'),
+            SizedBox(
+              height: 20,
+            ),
+          ],
+        );
+      });
+      try {
+        OtaUpdate()
+            .execute(
+          apkUrl,
+          destinationFilename: 'SaveLives.apk',
+        )
+            .listen(
+          (OtaEvent event) {
+            setState(() => currentEvent = event);
+          },
+        );
+        // ignore: avoid_catches_without_on_clauses
+      } catch (e) {
+        print('Failed to make OTA update. Details: $e');
+      }
+    } else {
+      //not connected
+      setState(() {
+        updatingStatus = Column(
+          children: [
+            Text(
+                'No internet connection. Turn on mobile data or wifi and try again.'),
+            SizedBox(
+              height: 20,
+            ),
+            InkWell(
+              onTap: () async {
+                //debug
+                print('internet not connected and trying again.');
+                tryOtaUpdate();
+              },
+              child: Container(
+                height: 30,
+                width: 80,
+                color: Colors.grey,
+                child: Text('Try again'),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+          ],
+        );
+      });
     }
   }
 
@@ -484,7 +532,7 @@ class _homeState extends State<home> {
                                               CrossAxisAlignment.center,
                                           children: <Widget>[
                                             Text('''
-url=${snapshot.data['apkUrl']}
+url=${snapshot.data['apkUrlArm']}
 ver code FS=${snapshot.data['verCode']}
 force upd FS=${snapshot.data['forceUpd']}
 expire date=$expireDate
@@ -595,21 +643,12 @@ supported64BitAbis = $supported64BitAbisDB
               SizedBox(
                 height: 30,
               ),
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    upd = false;
-                  });
-                },
-                child: Text(
-                  'Cancel',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
+              updatingStatus,
               SizedBox(
-                height: 30,
+                height: 20,
               ),
-              Text('OTA EVENT\n${currentEvent.status} : ${currentEvent.value}'),
+              Text(
+                  'OTA STATUS:\n ${currentEvent.status}: ${currentEvent.value}'),
             ],
           ),
         ),
