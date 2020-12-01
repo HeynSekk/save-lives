@@ -67,7 +67,7 @@ class appQuote extends StatelessWidget {
         SizedBox(height: normalFontSize),
         Icon(
           Icons.favorite,
-          color: Color(0xff6BCF63),
+          color: Color(0xff69ac37),
           size: normalFontSize * 2,
         ),
         SizedBox(
@@ -79,7 +79,7 @@ class appQuote extends StatelessWidget {
             'Learn how to save lives.\nAnd share the knowledge to others',
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Color(0xff1BC163),
+              color: Color(0xffbf8c00),
               fontSize: normalFontSize,
             ),
           ),
@@ -476,13 +476,13 @@ class drHeader extends StatelessWidget {
         Icon(
           Icons.favorite,
           size: sw * 0.75 * 0.17,
-          color: Colors.green,
+          color: Color(0xff69ac37),
         ),
         SizedBox(width: drWid * (1 / 6) * 0.20),
         Text(
           'Save Lives',
           style: TextStyle(
-            color: Color(0xff6B6B6B),
+            color: Colors.black,
             fontSize: drWid * 0.13,
           ),
         ),

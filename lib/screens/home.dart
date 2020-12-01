@@ -21,6 +21,7 @@ class home extends StatefulWidget {
 class _homeState extends State<home> {
   //DON'T FORGET TO UPDATE THE curVer WHEN ROLL OUT UPDATES
   final double curVer = 1.1;
+  int _stackToShow = 0;
   bool upd = false;
   double verCode = 0;
   String apkUrlArm = 'https://internal1.4q.sk/flutter_hello_world.apk';
@@ -29,6 +30,7 @@ class _homeState extends State<home> {
   Widget forceCheckResult = new Container();
   Widget updatingStatus = new Container();
   OtaEvent currentEvent = new OtaEvent();
+  double downloadProgress = 0.0;
   //for debug
   String debugLogs = 'Debug Logs:';
   bool gonnaFetch = false;
@@ -53,7 +55,7 @@ class _homeState extends State<home> {
   }
 
   //methods
-  Future<void> forceFetchCheckForUpd() async {
+  Future<void> forceFetchCheckForUpd(BuildContext context) async {
     double fetchedVerCode;
     String fetchedUrlArm, fetchedUrlArme, fetchedUrlArmx;
     var curTime = new DateTime.now();
@@ -81,6 +83,10 @@ class _homeState extends State<home> {
       print(
           'fetchedVerCode=$fetchedVerCode, fetchedUrl=$fetchedUrlArm and $fetchedUrlArme and $fetchedUrlArmx');
 
+      setState(() {
+        debugLogs =
+            '$debugLogs\n\n fetch FS. fetched ver code= $fetchedVerCode';
+      });
       //set new expire date to SP
       await prefs
           .setString('expDate', curTime.add(new Duration(days: 3)).toString())
@@ -103,27 +109,34 @@ class _homeState extends State<home> {
       setState(() {
         verCodeSP = fetchedVerCode;
         apkUrlSP = fetchedUrlArm;
+        debugLogs = '$debugLogs\n\n wrote new exp date and fetched datas to SP';
       });
       //compare cur ver and fetched ver code
       if (curVer < fetchedVerCode) {
         //updates
         setState(() {
-          upd = true;
+          _stackToShow = 1;
           verCode = fetchedVerCode;
           apkUrlArm = fetchedUrlArm;
           apkUrlArme = fetchedUrlArme;
           apkUrlArmx = fetchedUrlArmx;
+          //DEBUG
+          debugLogs = '$debugLogs\n\n compre ver codes';
         });
       } else {
         //no updates
         setState(() {
-          forceCheckResult = Text('ur app is up to date');
+          forceCheckResult = Text('The app is up to date');
+          debugLogs = '$debugLogs\n\n compre ver codes';
         });
       }
     } else {
       setState(() {
-        forceCheckResult =
-            Text('plz connect to internet and try Checking again');
+        forceCheckResult = SizedBox(
+          width: MediaQuery.of(context).size.width * 0.85,
+          child: Text(
+              'Please turn on mobile data or wifi. And try Checking again'),
+        );
       });
     }
   }
@@ -141,23 +154,9 @@ class _homeState extends State<home> {
     //decide whether to fetch fs or not
     bool shouldFetch = await shouldFetchFromFS();
     print('shouldFetch=$shouldFetch');
-    //check internet connected
-    var connResult = await (Connectivity().checkConnectivity().catchError((e) {
-      print(e);
-      return null;
-    }));
-    if ((connResult == ConnectivityResult.mobile ||
-            connResult == ConnectivityResult.wifi) &&
-        shouldFetch)
-      shouldFetch = true;
-    else
-      shouldFetch = false;
+
     //yes decided to fetch
     if (shouldFetch) {
-      print('gonna fetch fs');
-      setState(() {
-        gonnaFetch = true;
-      });
       //fetch version info from fs
       Map<String, dynamic> versionInfo = await getVersionInfo();
       print('fetched ver info');
@@ -165,9 +164,13 @@ class _homeState extends State<home> {
       fetchedUrlArm = versionInfo['apkUrlArm'] as String;
       fetchedUrlArme = versionInfo['apkUrlArme'] as String;
       fetchedUrlArmx = versionInfo['apkUrlArmx'] as String;
+      //DEBUG
       print(
           'fetchedVerCode=$fetchedVerCode, fetchedUrl=$fetchedUrlArm and $fetchedUrlArme and $fetchedUrlArmx');
-
+      setState(() {
+        debugLogs =
+            '$debugLogs\n\n fetched datas from FS. fetchedVerCode=$fetchedVerCode';
+      });
       //write updated verCode and apkUrl to SP
       await prefs
           .setDouble('verCode', fetchedVerCode)
@@ -182,13 +185,19 @@ class _homeState extends State<home> {
           .setString('apkUrlArmx', fetchedUrlArmx)
           .catchError((e) => print('error in setString= $e'));
 
+      //DEBUG
       setState(() {
+        debugLogs = '$debugLogs\n\n wrote FS datas to SP';
         verCodeSP = fetchedVerCode;
         apkUrlSP = fetchedUrlArm;
       });
     }
     //not to fetch
     else {
+      setState(() {
+        debugLogs =
+            '$debugLogs\n\n Shouldnt fetch from FS (Maybe internet off or not 3 days apart)';
+      });
       //get verCode and apkUrl from SP
       try {
         fetchedVerCode = prefs.getDouble('verCode');
@@ -201,21 +210,32 @@ class _homeState extends State<home> {
           verCodeSP = fetchedVerCode;
           apkUrlSP = fetchedUrlArm;
           debugLogs =
-              '$debugLogs\n Shouldnt fetch data from FS so fetch from SP';
+              '$debugLogs\n\n fetched datas from SP. fetchedVerCodeSP= $fetchedVerCode';
         });
       } catch (e) {
         print('error fetching from SP= $e');
+        setState(() {
+          debugLogs = '$debugLogs\n\n couldnt fetch from SP';
+        });
       }
     }
     //compare. if cur ver is smaller, show noti
     if (fetchedVerCode != null) {
       if (curVer < fetchedVerCode) {
         setState(() {
-          upd = true;
+          _stackToShow = 1;
           verCode = fetchedVerCode;
           apkUrlArm = fetchedUrlArm;
           apkUrlArme = fetchedUrlArme;
           apkUrlArmx = fetchedUrlArmx;
+          debugLogs = '$debugLogs\n\n comparing ver codes. Updates available';
+        });
+      }
+      //DEBUG
+      else {
+        setState(() {
+          debugLogs =
+              '$debugLogs\n\n comparing ver codes. No Updates available';
         });
       }
     }
@@ -223,13 +243,12 @@ class _homeState extends State<home> {
     else {
       setState(() {
         debugLogs =
-            '$debugLogs\n fetchedVerCode==null meaning first time launching and internet not connected and no data in SP';
+            '$debugLogs\n\n first time launching and internet not connected and no data in SP';
       });
     }
   }
 
   Future<String> chooseApk() async {
-    //choose abi
     //initialize plugin
     final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
     AndroidDeviceInfo build = await deviceInfoPlugin.androidInfo
@@ -241,27 +260,32 @@ class _homeState extends State<home> {
       supported32BitAbisDB = build.supported32BitAbis;
       supported64BitAbisDB = build.supported64BitAbis;
     });
-    print('supportedAbis= $supportedAbisDB');
-    print('supported32BitAbis= $supported32BitAbisDB');
-    print('supported64BitAbis= $supported64BitAbisDB');
     //return the right apkUrl
-    if (supported64BitAbis.contains('arm64-v8a'))
+    if (supported64BitAbis.contains('arm64-v8a')) {
+      setState(() {
+        debugLogs =
+            '$debugLogs\n\n device supported 64 bit abi=$supported64BitAbisDB and returned right apkUrlArm';
+      });
       return apkUrlArm;
-    else if (supported64BitAbis.contains('armeabi-v7a'))
+    } else if (supported64BitAbis.contains('armeabi-v7a')) {
+      setState(() {
+        debugLogs =
+            '$debugLogs\n\n device supported 64 bit abi=$supported64BitAbisDB and returned right apkUrlArme';
+      });
       return apkUrlArme;
-    else if (supported64BitAbis.contains('x86_64'))
+    } else if (supported64BitAbis.contains('x86_64')) {
+      setState(() {
+        debugLogs =
+            '$debugLogs\n\n device supported 64bit abi=$supported64BitAbisDB and returned right apkUrlArmx';
+      });
       return apkUrlArmx;
-    else
+    } else
       return null;
   }
 
   Future<void> tryOtaUpdate() async {
     //choose the right apk
     String apkUrl = await chooseApk();
-    print('the right apk= $apkUrl');
-    setState(() {
-      debugLogs = '$debugLogs\n the right apk= $apkUrl';
-    });
     //check internet connected
     var connResult = await (Connectivity().checkConnectivity().catchError((e) {
       print(e);
@@ -271,18 +295,8 @@ class _homeState extends State<home> {
         connResult == ConnectivityResult.wifi) {
       //connected
       setState(() {
-        updatingStatus = Column(
-          children: [
-            Text('Updating...\n Plz don\'t quit the app'),
-            SizedBox(
-              height: 20,
-            ),
-            Text('OTA status\n ${currentEvent.status}: ${currentEvent.value}'),
-            SizedBox(
-              height: 20,
-            ),
-          ],
-        );
+        //show downloading screen
+        _stackToShow = 2;
       });
       try {
         OtaUpdate()
@@ -292,41 +306,30 @@ class _homeState extends State<home> {
         )
             .listen(
           (OtaEvent event) {
-            setState(() => currentEvent = event);
+            setState(() {
+              currentEvent = event;
+              downloadProgress = double.parse(currentEvent.value);
+              debugLogs =
+                  '$debugLogs\n currentEvent.value = ${currentEvent.value}';
+              debugLogs = '$debugLogs\n downloadProgress = $downloadProgress';
+            });
+            print('currentEvent.value = ${currentEvent.value}');
+            //print('downloadProgress = $downloadProgress');
           },
         );
         // ignore: avoid_catches_without_on_clauses
       } catch (e) {
         print('Failed to make OTA update. Details: $e');
+        setState(() {
+          //show error updating screen
+          _stackToShow = 4;
+        });
       }
     } else {
       //not connected
       setState(() {
-        updatingStatus = Column(
-          children: [
-            Text(
-                'No internet connection. Turn on mobile data or wifi and try again.'),
-            SizedBox(
-              height: 20,
-            ),
-            InkWell(
-              onTap: () async {
-                //debug
-                print('internet not connected and trying again.');
-                tryOtaUpdate();
-              },
-              child: Container(
-                height: 30,
-                width: 80,
-                color: Colors.grey,
-                child: Text('Try again'),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-          ],
-        );
+        //no internet screen
+        _stackToShow = 3;
       });
     }
   }
@@ -334,6 +337,15 @@ class _homeState extends State<home> {
   Future<bool> shouldFetchFromFS() async {
     var curTime = new DateTime.now();
     var expDate = new DateTime.now();
+    bool intConn = false;
+    //check internet connected
+    var connResult = await (Connectivity().checkConnectivity().catchError((e) {
+      print(e);
+      return null;
+    }));
+    if (connResult == ConnectivityResult.mobile ||
+        connResult == ConnectivityResult.wifi) intConn = true;
+
     //create pref instance
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs.catchError((e) {
@@ -350,12 +362,13 @@ class _homeState extends State<home> {
         expireDate = expDateStr;
       });
       expDate = DateTime.parse(expDateStr);
-      if (curTime.isAfter(expDate)) {
+      if (curTime.isAfter(expDate) && intConn) {
+        //calculate new expire date
         expDateStr = curTime.add(new Duration(days: 3)).toString();
         setState(() {
           expireDate = expDateStr;
         });
-        //set exp date
+        //write exp date to SP
         await prefs
             .setString('expDate', expDateStr)
             .catchError((e) => print('error in setString= $e'));
@@ -367,16 +380,29 @@ class _homeState extends State<home> {
       }
     } else {
       //first time
-      expDateStr = curTime.add(new Duration(days: 3)).toString();
-      setState(() {
-        expireDate = expDateStr;
-      });
-      //set exp date
-      await prefs
-          .setString('expDate', expDateStr)
-          .catchError((e) => print('error in setString= $e'));
-      //tell to check
-      return true;
+      if (intConn) {
+        //calculate new expire date
+        expDateStr = curTime.add(new Duration(days: 3)).toString();
+        setState(() {
+          expireDate = expDateStr;
+        });
+        //write exp date to SP
+        await prefs
+            .setString('expDate', expDateStr)
+            .catchError((e) => print('error in setString= $e'));
+        //DEBUG
+        setState(() {
+          debugLogs =
+              '$debugLogs\n\n First time and int on\n\n wrote exp date to SP: expDate= $expDateStr';
+        });
+        //tell to check
+        return true;
+      } else {
+        setState(() {
+          debugLogs = '$debugLogs\n\n First time and int off and doing nothing';
+        });
+        return false;
+      }
     }
   }
 
@@ -464,74 +490,105 @@ class _homeState extends State<home> {
     double sh = MediaQuery.of(context).size.height;
     double sw = MediaQuery.of(context).size.width;
     double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
-    if (upd == false) {
-      //normal screen
-      return Scaffold(
-        drawer: drawerUI(), //from common.dart
-        body: SafeArea(
-          child: Scaffold(
-            drawer: drawerUI(),
-            body: Padding(
-              padding: EdgeInsets.all(sw * 0.05),
-              child: Column(
-                children: <Widget>[
-                  //drawer
-                  SizedBox(
-                    width: sw * 0.90,
-                    child: Padding(
-                      padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
-                      child: drawerButton(),
+    return IndexedStack(
+      index: _stackToShow,
+      children: [
+        //home screen
+        Scaffold(
+          drawer: drawerUI(), //from common.dart
+          body: SafeArea(
+            child: Scaffold(
+              drawer: drawerUI(),
+              body: Padding(
+                padding: EdgeInsets.all(sw * 0.05),
+                child: Column(
+                  children: <Widget>[
+                    //drawer
+                    SizedBox(
+                      width: sw * 0.90,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
+                        child: drawerButton(),
+                      ),
                     ),
-                  ),
-                  //scroll
-                  Flexible(
-                    fit: FlexFit.tight,
-                    flex: 1,
-                    child: SizedBox(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            //logo
-                            vspace(normalFontSize * 2),
-                            home_title(),
-                            vspace(normalFontSize * 2),
+                    //scroll
+                    Flexible(
+                      fit: FlexFit.tight,
+                      flex: 1,
+                      child: SizedBox(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              //logo
+                              vspace(normalFontSize * 2),
+                              home_title(),
+                              vspace(normalFontSize * 2),
 
-                            //card1
-                            card(
-                                'First Aids',
-                                'Save lives in case of health emergencies',
-                                '/emergencies'),
-                            vspace(normalFontSize * 1.8),
-                            //card2
-                            card(
-                                'Survival Tips',
-                                'Ways to survive natural disasters',
-                                '/disasters'),
-                            vspace(normalFontSize * 1.5),
-                            //debug section
-                            FutureBuilder<Map<String, dynamic>>(
-                                future: getVersionInfo(),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<Map<String, dynamic>>
-                                        snapshot) {
-                                  if (snapshot.hasData) {
-                                    print('url=${snapshot.data['apkUrl']}');
-                                    print(
-                                        'ver code=${snapshot.data['verCode']}');
-                                    print(
-                                        'force upd=${snapshot.data['forceUpd']}');
-                                    return Padding(
-                                      padding: EdgeInsets.all(20),
-                                      child: Center(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text('''
+                              //card1
+                              card(
+                                  'First Aids',
+                                  'Save lives in case of health emergencies',
+                                  '/emergencies'),
+                              vspace(normalFontSize * 1.8),
+                              //card2
+                              card(
+                                  'Survival Tips',
+                                  'Ways to survive natural disasters',
+                                  '/disasters'),
+                              vspace(normalFontSize * 1.5),
+                              //footer quote
+                              appQuote(),
+                              vspace(30),
+                              InkWell(
+                                onTap: () async {
+                                  setState(() {
+                                    forceCheckResult = Padding(
+                                      padding:
+                                          EdgeInsets.only(top: 30, bottom: 30),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          CircularProgressIndicator(),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          Text('Checking for updates...'),
+                                        ],
+                                      ),
+                                    );
+                                  });
+                                  forceFetchCheckForUpd(context);
+                                },
+                                child:
+                                    actionBtn('Check for updates', 0xff69ac37),
+                              ),
+                              vspace(30),
+                              forceCheckResult,
+                              //debug section
+                              FutureBuilder<Map<String, dynamic>>(
+                                  future: getVersionInfo(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<Map<String, dynamic>>
+                                          snapshot) {
+                                    if (snapshot.hasData) {
+                                      print('url=${snapshot.data['apkUrl']}');
+                                      print(
+                                          'ver code=${snapshot.data['verCode']}');
+                                      print(
+                                          'force upd=${snapshot.data['forceUpd']}');
+                                      return Padding(
+                                        padding: EdgeInsets.all(20),
+                                        child: Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Text('''
 url=${snapshot.data['apkUrlArm']}
 ver code FS=${snapshot.data['verCode']}
 force upd FS=${snapshot.data['forceUpd']}
@@ -543,117 +600,228 @@ supportedAbis = $supportedAbisDB
 supported32BitAbis = $supported32BitAbisDB
 supported64BitAbis = $supported64BitAbisDB
 '''),
-                                            //debug log
-                                            SizedBox(
-                                              height: 30,
-                                            ),
-                                            SizedBox(
-                                              width: 150,
-                                              height: 150,
-                                              child: SingleChildScrollView(
-                                                scrollDirection: Axis.vertical,
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Text(debugLogs)
-                                                  ],
+                                              //debug log
+                                              SizedBox(
+                                                height: 30,
+                                              ),
+                                              SizedBox(
+                                                width: sw * 0.90,
+                                                height: 200,
+                                                child: SingleChildScrollView(
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Text(debugLogs)
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                              SizedBox(
+                                                height: 30,
+                                              ),
+                                              InkWell(
+                                                onTap: () async {
+                                                  setState(() {
+                                                    debugLogs = 'DEBUG LOGS\n';
+                                                  });
+                                                },
+                                                child: actionBtn(
+                                                    'Clear Logs', 0xff69ac37),
+                                              ),
+                                              SizedBox(
+                                                height: 30,
+                                              ),
+                                              InkWell(
+                                                onTap: () async {
+                                                  setState(() {
+                                                    _stackToShow = 4;
+                                                  });
+                                                },
+                                                child: actionBtn(
+                                                    'Show stack 4', 0xff69ac37),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  } else if (snapshot.hasError) {
-                                    print(snapshot.error);
-                                    return Text('error ${snapshot.error}');
-                                  } else {
-                                    return CircularProgressIndicator();
-                                  }
-                                }),
-                            vspace(30),
-                            InkWell(
-                              onTap: () async {
-                                setState(() {
-                                  forceCheckResult = Padding(
-                                    padding:
-                                        EdgeInsets.only(top: 30, bottom: 30),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        CircularProgressIndicator(),
-                                        SizedBox(
-                                          height: 15,
-                                        ),
-                                        Text('Checking for updates...'),
-                                      ],
-                                    ),
-                                  );
-                                });
-                                forceFetchCheckForUpd();
-                              },
-                              child: Container(
-                                height: 40,
-                                width: 80,
-                                color: Colors.green,
-                                child: Center(
-                                  child: Text('Check for updates'),
-                                ),
-                              ),
-                            ),
-                            vspace(30),
-                            forceCheckResult,
-
-                            //footer quote
-                            appQuote(),
-                            vspace(normalFontSize * 3.3),
-                          ],
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      print(snapshot.error);
+                                      return Text('error ${snapshot.error}');
+                                    } else {
+                                      return CircularProgressIndicator();
+                                    }
+                                  }),
+                              vspace(30),
+                            ],
+                          ),
                         ),
                       ),
                     ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        //update notify screen
+        Scaffold(
+          body: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //title
+                titleTxt('Software updates available!'),
+                SizedBox(
+                  height: normalFontSize * 1.5,
+                ),
+                //desc
+                descText(
+                    'Please turn on mobile data or wifi. And update the app.'),
+                SizedBox(
+                  height: normalFontSize * 2.9,
+                ),
+                //btn
+                InkWell(
+                  onTap: () async {
+                    tryOtaUpdate();
+                  },
+                  child: actionBtn('Update now', 0xff69ac37),
+                ),
+                SizedBox(
+                  height: normalFontSize * 1.7,
+                ),
+                InkWell(
+                  onTap: () async {
+                    setState(() {
+                      _stackToShow = 0;
+                      forceCheckResult = Container();
+                    });
+                  },
+                  child: actionBtn('Cancel', 0xff7f7f7f),
+                ),
+              ],
+            ),
+          ),
+        ),
+        //update success
+        SafeArea(
+          child: Scaffold(
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  //title
+                  titleTxt('Updating...'),
+                  SizedBox(
+                    height: normalFontSize * 1.5,
+                  ),
+                  //desc
+                  descText('Please don\'t quit the app while updating'),
+                  SizedBox(
+                    height: normalFontSize * 2.9,
+                  ),
+                  //progress
+                  SizedBox(
+                    width: sw * 0.70,
+                    child: LinearProgressIndicator(
+                      value: downloadProgress * 0.01,
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(Color(0xff69ac37)),
+                      backgroundColor: Color(0xffd6d6d6),
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: normalFontSize * 1.5,
+                  ),
+                  //percent
+                  Text(
+                    '$downloadProgress%',
+                    style: TextStyle(
+                      color: Color(0xffbf8c00),
+                      fontSize: normalFontSize * 2,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: normalFontSize * 1.5,
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      setState(() {
+                        _stackToShow = 0;
+                      });
+                    },
+                    child: actionBtn('Run in background', 0xff69ac37),
                   ),
                 ],
               ),
             ),
           ),
         ),
-      );
-    } else {
-      //UPDATE SCREEN
-      return Scaffold(
-        body: Padding(
-          padding: EdgeInsets.all(30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Plz update the app'),
-              SizedBox(
-                height: 30,
-              ),
-              InkWell(
-                onTap: () async {
-                  tryOtaUpdate();
-                },
-                child: Text(
-                  'Install',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+        //no internet
+        Scaffold(
+          body: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //title
+                titleTxt('No internet connection!'),
+                SizedBox(
+                  height: normalFontSize * 1.5,
                 ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              updatingStatus,
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                  'OTA STATUS:\n ${currentEvent.status}: ${currentEvent.value}'),
-            ],
+                //desc
+                descText('Please turn on mobile data or wifi. And try again.'),
+                SizedBox(
+                  height: normalFontSize * 2.9,
+                ),
+                //btn
+                InkWell(
+                  onTap: () async {
+                    tryOtaUpdate();
+                  },
+                  child: actionBtn('Try Again', 0xff69ac37),
+                ),
+              ],
+            ),
           ),
         ),
-      );
-    }
+        //error updating
+        Scaffold(
+          body: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //desc
+                Text(
+                  'Couldn\'t download updates',
+                  style: TextStyle(
+                    fontSize: normalFontSize * 1.2,
+                    color: Color(0xff4c7031),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: normalFontSize * 1.5,
+                ),
+                //btn
+                InkWell(
+                  onTap: () async {
+                    tryOtaUpdate();
+                  },
+                  child: actionBtn('Try Again', 0xff69ac37),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget card(String titleTxt, String bodyTxt, String dest) {
@@ -665,7 +833,7 @@ supported64BitAbis = $supported64BitAbisDB
         width: sw * 0.85,
         height: sw * 0.42,
         decoration: BoxDecoration(
-          color: Color(0xff6BCF63),
+          color: Color(0xff69ac37),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
@@ -816,8 +984,6 @@ supported64BitAbis = $supported64BitAbisDB
   }
 }
 
-//HOME SCREEN
-
 class home_title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -830,7 +996,7 @@ class home_title extends StatelessWidget {
         Icon(
           Icons.favorite,
           size: wRow * 0.21,
-          color: Colors.green,
+          color: Color(0xff69ac37),
         ),
         SizedBox(
           width: wRow * 0.02,
@@ -844,6 +1010,78 @@ class home_title extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+/*
+title green #4c7031
+urgent yellow #bf8c00
+button green #69ac37
+
+*/
+//title text
+class titleTxt extends StatelessWidget {
+  String txt;
+  titleTxt(this.txt);
+  @override
+  Widget build(BuildContext context) {
+    double sw = MediaQuery.of(context).size.width;
+    return SizedBox(
+      width: sw * 0.95,
+      child: Text(
+        this.txt,
+        style: TextStyle(
+          color: Color(0xff4c7031),
+          fontWeight: FontWeight.bold,
+          fontSize: sw * 0.8 * 0.07 * 3 * 0.48,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+}
+
+//descText
+class descText extends StatelessWidget {
+  String txt;
+  descText(this.txt);
+  @override
+  Widget build(BuildContext context) {
+    double sw = MediaQuery.of(context).size.width;
+    return SizedBox(
+      width: sw * 0.85,
+      child: Text(
+        this.txt,
+        style: TextStyle(
+          color: Color(0xffbf8c00),
+          fontSize: sw * 0.8 * 0.07 * 1.8 * 0.48,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+}
+
+//actionBtn
+class actionBtn extends StatelessWidget {
+  String txt;
+  int color;
+  actionBtn(this.txt, this.color);
+  @override
+  Widget build(BuildContext context) {
+    double sw = MediaQuery.of(context).size.width;
+    double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
+    return Container(
+      padding: EdgeInsets.all(normalFontSize * 0.85),
+      decoration: BoxDecoration(
+        color: Color(this.color),
+        borderRadius: BorderRadius.circular(normalFontSize * 0.85),
+      ),
+      child: Text(
+        txt,
+        style: TextStyle(color: Colors.white, fontSize: normalFontSize * 1.1),
+      ),
     );
   }
 }
