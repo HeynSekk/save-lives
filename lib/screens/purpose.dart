@@ -67,7 +67,7 @@ class actualUI extends StatelessWidget {
     return Text(
       txt,
       style: TextStyle(
-          color: Color(0xff6B6B6B),
+          color: Color(0xff4c7031),
           fontSize: normalFontSize * 3,
           fontWeight: FontWeight.bold),
     );

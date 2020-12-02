@@ -43,14 +43,14 @@ class _contactState extends State<contact> {
     double sw = MediaQuery.of(context).size.width;
     double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
     return Container(
-      padding: EdgeInsets.all(normalFontSize),
+      padding: EdgeInsets.all(normalFontSize * 0.85),
       decoration: BoxDecoration(
-        color: Color(0xff6BCF63),
-        borderRadius: BorderRadius.circular(normalFontSize * 1.2),
+        color: Color(0xff69ac37),
+        borderRadius: BorderRadius.circular(normalFontSize * 0.85),
       ),
       child: Text(
         txt,
-        style: TextStyle(color: Colors.white, fontSize: normalFontSize * 1.2),
+        style: TextStyle(color: Colors.white, fontSize: normalFontSize * 1.1),
       ),
     );
   }
@@ -74,7 +74,7 @@ class _contactState extends State<contact> {
     double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
     return Text(
       txt,
-      style: TextStyle(color: Color(0xff6B6B6B), fontSize: normalFontSize * 3),
+      style: TextStyle(color: Color(0xff4c7031), fontSize: normalFontSize * 3),
     );
   }
 

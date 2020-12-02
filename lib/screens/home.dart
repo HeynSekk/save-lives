@@ -20,7 +20,7 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   //DON'T FORGET TO UPDATE THE curVer WHEN ROLL OUT UPDATES
-  final double curVer = 1.1;
+  final double curVer = 1.2;
   int _stackToShow = 0;
   bool upd = false;
   double verCode = 0;
@@ -562,8 +562,8 @@ class _homeState extends State<home> {
                                   });
                                   forceFetchCheckForUpd(context);
                                 },
-                                child:
-                                    actionBtn('Check for updates', 0xff69ac37),
+                                child: actionBtn(
+                                    'Check for software updates', 0xff69ac37),
                               ),
                               vspace(30),
                               forceCheckResult,
@@ -589,6 +589,7 @@ class _homeState extends State<home> {
                                                 CrossAxisAlignment.center,
                                             children: <Widget>[
                                               Text('''
+cur ver= $curVer
 url=${snapshot.data['apkUrlArm']}
 ver code FS=${snapshot.data['verCode']}
 force upd FS=${snapshot.data['forceUpd']}
@@ -699,7 +700,7 @@ supported64BitAbis = $supported64BitAbisDB
                       forceCheckResult = Container();
                     });
                   },
-                  child: actionBtn('Cancel', 0xff7f7f7f),
+                  child: actionBtn('Cancel', 0xff69ac37),
                 ),
               ],
             ),
@@ -753,6 +754,7 @@ supported64BitAbis = $supported64BitAbisDB
                     onTap: () async {
                       setState(() {
                         _stackToShow = 0;
+                        forceCheckResult = Container();
                       });
                     },
                     child: actionBtn('Run in background', 0xff69ac37),
@@ -1016,7 +1018,7 @@ class home_title extends StatelessWidget {
 
 /*
 title green #4c7031
-urgent yellow #bf8c00
+desc yellow #bf8c00
 button green #69ac37
 
 */

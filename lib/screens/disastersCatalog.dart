@@ -95,7 +95,7 @@ class catalogTitle extends StatelessWidget {
         Icon(
           Icons.favorite,
           size: wRow * 0.18,
-          color: Colors.green,
+          color: Color(0xff69ac37),
         ),
         //ImageInApp(wRow * 0.15, wRow * 0.15, 'assets/images/heartIcon.png'),
         //space
@@ -111,7 +111,7 @@ class catalogTitle extends StatelessWidget {
             style: TextStyle(
               fontSize: wRow * 0.07,
               fontWeight: FontWeight.bold,
-              color: Color(0xff6B6B6B),
+              color: Color(0xff4c7031),
             ),
           ),
         ),
@@ -135,7 +135,7 @@ class subTitle extends StatelessWidget {
         this.title,
         textAlign: TextAlign.start,
         style:
-            TextStyle(color: Color(0xff6B6B6B), fontSize: normalFontSize * 1.2),
+            TextStyle(color: Color(0xffbf8c00), fontSize: normalFontSize * 1.2),
       ),
     );
   }
@@ -261,7 +261,7 @@ class alphaTag extends StatelessWidget {
           this.alphabet,
           style: TextStyle(
             fontSize: sw * 0.05,
-            color: Color(0xff353335),
+            color: Color(0xffbf8c00),
             height: 1,
           ),
         ),

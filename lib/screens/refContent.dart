@@ -30,7 +30,7 @@ class refContent extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: normalFontSize * 2,
-            color: Color(0xff6B6B6B),
+            color: Color(0xff4c7031),
             fontWeight: FontWeight.bold,
           ),
         )));
@@ -42,7 +42,7 @@ class refContent extends StatelessWidget {
       'Learn from videos:',
       style: TextStyle(
         fontSize: normalFontSize,
-        color: Color(0xff6BCF63),
+        color: Color(0xff4c7031),
       ),
     ));
     wLst.add(SizedBox(height: normalFontSize));
@@ -62,7 +62,7 @@ class refContent extends StatelessWidget {
         'Learn from websites:',
         style: TextStyle(
           fontSize: normalFontSize,
-          color: Color(0xff6BCF63),
+          color: Color(0xff4c7031),
         ),
       ));
       wLst.add(SizedBox(height: normalFontSize));
@@ -87,16 +87,16 @@ class refContent extends StatelessWidget {
         'Brief memorizing:',
         style: TextStyle(
           fontSize: normalFontSize,
-          color: Color(0xff6BCF63),
+          color: Color(0xffbf8c00),
         ),
       ));
       wLst.add(SizedBox(height: normalFontSize));
       wLst.add(Container(
-        width: sw * 0.80,
+        width: sw * 0.85,
         padding: EdgeInsets.all(normalFontSize),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(normalFontSize),
-          color: Color(0xff5EBE73),
+          color: Colors.green,
         ),
         child: SizedBox(
             width: sw * 0.70,
