@@ -331,7 +331,7 @@ class drawerUI extends StatelessWidget {
                       size: drWid * 0.063,
                     ),
                     0xffe60707,
-                    'Health Emergencies',
+                    'First Aids',
                     '/emergencies'),
                 SizedBox(height: drWid * 0.07),
                 //disasters
@@ -342,7 +342,7 @@ class drawerUI extends StatelessWidget {
                       size: drWid * 0.063,
                     ),
                     0xff44d449,
-                    'Disasters',
+                    'Survival Tips',
                     '/disasters'),
 
                 Divider(

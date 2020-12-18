@@ -30,7 +30,7 @@ class refContent extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: normalFontSize * 2,
-            color: Color(0xff4c7031),
+            color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
         )));
@@ -84,10 +84,10 @@ class refContent extends StatelessWidget {
       //not equal to no
       wLst.add(SizedBox(height: normalFontSize * 0.80));
       wLst.add(Text(
-        'Brief memorizing:',
+        'Summary',
         style: TextStyle(
           fontSize: normalFontSize,
-          color: Color(0xffbf8c00),
+          color: Color(0xff4c7031),
         ),
       ));
       wLst.add(SizedBox(height: normalFontSize));

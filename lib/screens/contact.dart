@@ -414,6 +414,12 @@ class _contactState extends State<contact> {
                             ),
                           ],
                         ),
+                        vspace(normalFontSize * 2),
+                        //DONT FORGET TO UPDATE VERSION NUMBER
+                        Text(
+                          'Version 1.1',
+                          textAlign: TextAlign.center,
+                        ),
                         vspace(normalFontSize * 0.70),
                       ],
                     ),

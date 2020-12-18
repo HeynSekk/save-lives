@@ -102,6 +102,29 @@ class MyApp extends StatelessWidget {
         '/contact': (context) => contact(),
 
         // ***CONTENTS***
+        //ELETRIC SHOCK
+        '/elec': (context) => refContent('First aid for electric shock', [
+              [
+                'https://youtu.be/Qld84UtmFpE',
+                'img',
+                'What To Do If Your Baby Had an Electric Shock - First Aid Training - St John Ambulance',
+                'St John Ambulance'
+              ]
+            ], [
+              [
+                'assets/images/elec.jpeg',
+                'Electrical shock: First aid',
+                'www.mayoclinic.org',
+                '/elecW'
+              ]
+            ], '''- if the casuality is breathing, put him into recovery position
+- if the casualty has stopped breathing, start CPR. 
+- do CPR until the casualty breathe normally or emergency help arrive
+- if the casualty got a burn, flood the burn area with cool running water for at least 10 minutes
+- cover any burned areas with a sterile gauze bandage, if available, or a clean cloth'''),
+        '/elecW': (context) => webViewer(
+            'https://www.mayoclinic.org/first-aid/first-aid-electrical-shock/basics/art-20056695'),
+
         //CHOKING ALONE
         '/chokAl': (context) => refContent(
             'Choking when you\'re alone',
@@ -121,7 +144,13 @@ class MyApp extends StatelessWidget {
             ],
             [
               [
-                'assets/images/chokBaby.png',
+                'assets/images/chokMayo.png',
+                'Choking - First aid',
+                'www.mayoclinic.org',
+                '/chokMayoW'
+              ],
+              [
+                'assets/images/chokAl.png',
                 'Choking alone | Heimlinch Manuever | First aid',
                 'www.emergencyphysicians.org',
                 '/chokAlW'
@@ -131,6 +160,8 @@ class MyApp extends StatelessWidget {
         '/chokAlW': (context) => webViewer(
             'https://www.emergencyphysicians.org/article/know-when-to-go/choking--heimlich-manuever'),
 
+        '/chokMayoW': (context) => webViewer(
+            'https://www.mayoclinic.org/first-aid/first-aid-choking/basics/art-20056637'),
         //FRACTURE
         '/fra': (context) => refContent('Fracture', [
               [
@@ -454,6 +485,12 @@ For foreign object in the ear,
             ],
             [
               [
+                'assets/images/chokMayo.png',
+                'Choking - First aid',
+                'www.mayoclinic.org',
+                '/chokMayoW'
+              ],
+              [
                 'assets/images/chokAd.png',
                 'What To Do When Someone Is Choking - first aid',
                 'www.sja.org.uk',
@@ -477,6 +514,12 @@ For foreign object in the ear,
             ],
             [
               [
+                'assets/images/chokMayo.png',
+                'Choking - First aid',
+                'www.mayoclinic.org',
+                '/chokMayoW'
+              ],
+              [
                 'assets/images/chokBaby.png',
                 'First aid advices for Choking (babies)',
                 'www.sja.org.uk',
@@ -499,6 +542,12 @@ For foreign object in the ear,
               ]
             ],
             [
+              [
+                'assets/images/chokMayo.png',
+                'Choking - First aid',
+                'www.mayoclinic.org',
+                '/chokMayoW'
+              ],
               [
                 'assets/images/chokChi.png',
                 'First aid advices for Choking (children)',
@@ -757,27 +806,27 @@ For foreign object in the ear,
         '/shoW': (context) => webViewer(
             'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/shock/'),
         //SNAKE BITE
-        '/snak': (context) => refContent(
-            'Snake bite',
-            [
+        '/snak': (context) => refContent('Snake bite', [
               [
-                'https://youtu.be/5k8nDlfaA9E',
+                'https://youtu.be/nH8o-bgwo_g',
                 'img',
-                'First aids for snake bites - Youtube',
-                'St John Ambulance'
+                'First aids for snake bites',
+                'HCI Health Tips'
               ]
-            ],
-            [
+            ], [
               [
                 'assets/images/snak.png',
                 'Snake bite - First aids',
-                'www.paradisefirstaid.com.au',
+                'www.mayoclinic.org',
                 '/snakW'
               ]
-            ],
-            'no'),
+            ], '''- Move beyond the snake's striking distance.
+- Remain still and calm to help slow the spread of venom.
+- Remove jewelry and tight clothing before you start to swell.
+- Position yourself, if possible, so that the bite is at or below the level of your heart.
+- Clean the wound with soap and water. Cover it with a clean, dry dressing.'''),
         '/snakW': (context) => webViewer(
-            'https://www.paradisefirstaid.com.au/snake-bite-first-aid/'),
+            'https://www.mayoclinic.org/first-aid/first-aid-snake-bites/basics/art-20056681'),
 
         //DISASTERS
 

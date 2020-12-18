@@ -11,7 +11,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="sl debug"
+        android:label="Save Lives"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

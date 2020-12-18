@@ -43,7 +43,7 @@ Future<List<String>> loadData(String jsonAddr) async {
 // parse
 List<String> parseData(String data) {
   var dl = new List<String>();
-  final int lineNum = 3;
+  final int lineNum = 5;
   int lineCtr = 0;
   Map<String, dynamic> parsed = jsonDecode(data) as Map<String, dynamic>;
   String str;
@@ -114,6 +114,8 @@ class actualUI extends StatelessWidget {
                       normalPara(this.dl[1]),
                       normalPara(this.dl[2]),
                       normalPara(this.dl[3]),
+                      normalPara(this.dl[4]),
+                      normalPara(this.dl[5]),
                       //to olen
                     ],
                   ),

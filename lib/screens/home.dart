@@ -20,7 +20,7 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   //DON'T FORGET TO UPDATE THE curVer WHEN ROLL OUT UPDATES
-  final double curVer = 1.2;
+  final double curVer = 1.1;
   int _stackToShow = 0;
   bool upd = false;
   double verCode = 0;
@@ -31,15 +31,6 @@ class _homeState extends State<home> {
   Widget updatingStatus = new Container();
   OtaEvent currentEvent = new OtaEvent();
   double downloadProgress = 0.0;
-  //for debug
-  String debugLogs = 'Debug Logs:';
-  bool gonnaFetch = false;
-  String expireDate = 'no';
-  double verCodeSP = 0;
-  String apkUrlSP = 'no';
-  List<String> supportedAbisDB = [];
-  List<String> supported32BitAbisDB = [];
-  List<String> supported64BitAbisDB = [];
 
   final MethodChannel platform =
       MethodChannel('crossingthestreams.io/resourceResolver');
@@ -75,18 +66,10 @@ class _homeState extends State<home> {
         connResult == ConnectivityResult.wifi) {
       //fetch from fs
       Map<String, dynamic> versionInfo = await getVersionInfo();
-      print('fetched ver info');
       fetchedVerCode = versionInfo['verCode'] as double;
       fetchedUrlArm = versionInfo['apkUrlArm'] as String;
       fetchedUrlArme = versionInfo['apkUrlArme'] as String;
       fetchedUrlArmx = versionInfo['apkUrlArmx'] as String;
-      print(
-          'fetchedVerCode=$fetchedVerCode, fetchedUrl=$fetchedUrlArm and $fetchedUrlArme and $fetchedUrlArmx');
-
-      setState(() {
-        debugLogs =
-            '$debugLogs\n\n fetch FS. fetched ver code= $fetchedVerCode';
-      });
       //set new expire date to SP
       await prefs
           .setString('expDate', curTime.add(new Duration(days: 3)).toString())
@@ -106,11 +89,6 @@ class _homeState extends State<home> {
           .setString('apkUrlArmx', fetchedUrlArmx)
           .catchError((e) => print('error in setString= $e'));
 
-      setState(() {
-        verCodeSP = fetchedVerCode;
-        apkUrlSP = fetchedUrlArm;
-        debugLogs = '$debugLogs\n\n wrote new exp date and fetched datas to SP';
-      });
       //compare cur ver and fetched ver code
       if (curVer < fetchedVerCode) {
         //updates
@@ -120,14 +98,14 @@ class _homeState extends State<home> {
           apkUrlArm = fetchedUrlArm;
           apkUrlArme = fetchedUrlArme;
           apkUrlArmx = fetchedUrlArmx;
-          //DEBUG
-          debugLogs = '$debugLogs\n\n compre ver codes';
         });
       } else {
         //no updates
         setState(() {
-          forceCheckResult = Text('The app is up to date');
-          debugLogs = '$debugLogs\n\n compre ver codes';
+          forceCheckResult = Text(
+            'The app is up to date',
+            textAlign: TextAlign.center,
+          );
         });
       }
     } else {
@@ -135,7 +113,9 @@ class _homeState extends State<home> {
         forceCheckResult = SizedBox(
           width: MediaQuery.of(context).size.width * 0.85,
           child: Text(
-              'Please turn on mobile data or wifi. And try Checking again'),
+            'Please turn on mobile data or wifi. And try Checking again',
+            textAlign: TextAlign.center,
+          ),
         );
       });
     }
@@ -164,13 +144,7 @@ class _homeState extends State<home> {
       fetchedUrlArm = versionInfo['apkUrlArm'] as String;
       fetchedUrlArme = versionInfo['apkUrlArme'] as String;
       fetchedUrlArmx = versionInfo['apkUrlArmx'] as String;
-      //DEBUG
-      print(
-          'fetchedVerCode=$fetchedVerCode, fetchedUrl=$fetchedUrlArm and $fetchedUrlArme and $fetchedUrlArmx');
-      setState(() {
-        debugLogs =
-            '$debugLogs\n\n fetched datas from FS. fetchedVerCode=$fetchedVerCode';
-      });
+
       //write updated verCode and apkUrl to SP
       await prefs
           .setDouble('verCode', fetchedVerCode)
@@ -184,39 +158,17 @@ class _homeState extends State<home> {
       await prefs
           .setString('apkUrlArmx', fetchedUrlArmx)
           .catchError((e) => print('error in setString= $e'));
-
-      //DEBUG
-      setState(() {
-        debugLogs = '$debugLogs\n\n wrote FS datas to SP';
-        verCodeSP = fetchedVerCode;
-        apkUrlSP = fetchedUrlArm;
-      });
     }
     //not to fetch
     else {
-      setState(() {
-        debugLogs =
-            '$debugLogs\n\n Shouldnt fetch from FS (Maybe internet off or not 3 days apart)';
-      });
       //get verCode and apkUrl from SP
       try {
         fetchedVerCode = prefs.getDouble('verCode');
         fetchedUrlArm = prefs.getString('apkUrlArm');
         fetchedUrlArme = prefs.getString('apkUrlArme');
         fetchedUrlArmx = prefs.getString('apkUrlArmx');
-        print(
-            'fetchedVerCode SP=$fetchedVerCode, fetchedUrl SP=$fetchedUrlArm');
-        setState(() {
-          verCodeSP = fetchedVerCode;
-          apkUrlSP = fetchedUrlArm;
-          debugLogs =
-              '$debugLogs\n\n fetched datas from SP. fetchedVerCodeSP= $fetchedVerCode';
-        });
       } catch (e) {
         print('error fetching from SP= $e');
-        setState(() {
-          debugLogs = '$debugLogs\n\n couldnt fetch from SP';
-        });
       }
     }
     //compare. if cur ver is smaller, show noti
@@ -228,23 +180,8 @@ class _homeState extends State<home> {
           apkUrlArm = fetchedUrlArm;
           apkUrlArme = fetchedUrlArme;
           apkUrlArmx = fetchedUrlArmx;
-          debugLogs = '$debugLogs\n\n comparing ver codes. Updates available';
         });
       }
-      //DEBUG
-      else {
-        setState(() {
-          debugLogs =
-              '$debugLogs\n\n comparing ver codes. No Updates available';
-        });
-      }
-    }
-    //for debug
-    else {
-      setState(() {
-        debugLogs =
-            '$debugLogs\n\n first time launching and internet not connected and no data in SP';
-      });
     }
   }
 
@@ -254,30 +191,14 @@ class _homeState extends State<home> {
     AndroidDeviceInfo build = await deviceInfoPlugin.androidInfo
         .catchError((e) => print('error= $e'));
     //device's supported abis
-    List<String> supported64BitAbis = build.supported64BitAbis;
-    setState(() {
-      supportedAbisDB = build.supportedAbis;
-      supported32BitAbisDB = build.supported32BitAbis;
-      supported64BitAbisDB = build.supported64BitAbis;
-    });
+    List<String> supportedAbis = build.supportedAbis;
+
     //return the right apkUrl
-    if (supported64BitAbis.contains('arm64-v8a')) {
-      setState(() {
-        debugLogs =
-            '$debugLogs\n\n device supported 64 bit abi=$supported64BitAbisDB and returned right apkUrlArm';
-      });
+    if (supportedAbis[0].compareTo('arm64-v8a') == 0) {
       return apkUrlArm;
-    } else if (supported64BitAbis.contains('armeabi-v7a')) {
-      setState(() {
-        debugLogs =
-            '$debugLogs\n\n device supported 64 bit abi=$supported64BitAbisDB and returned right apkUrlArme';
-      });
+    } else if (supportedAbis[0].compareTo('armeabi-v7a') == 0) {
       return apkUrlArme;
-    } else if (supported64BitAbis.contains('x86_64')) {
-      setState(() {
-        debugLogs =
-            '$debugLogs\n\n device supported 64bit abi=$supported64BitAbisDB and returned right apkUrlArmx';
-      });
+    } else if (supportedAbis[0].compareTo('x86_64') == 0) {
       return apkUrlArmx;
     } else
       return null;
@@ -309,9 +230,6 @@ class _homeState extends State<home> {
             setState(() {
               currentEvent = event;
               downloadProgress = double.parse(currentEvent.value);
-              debugLogs =
-                  '$debugLogs\n currentEvent.value = ${currentEvent.value}';
-              debugLogs = '$debugLogs\n downloadProgress = $downloadProgress';
             });
             print('currentEvent.value = ${currentEvent.value}');
             //print('downloadProgress = $downloadProgress');
@@ -358,16 +276,11 @@ class _homeState extends State<home> {
     //get expDate from sp
     String expDateStr = prefs.getString('expDate');
     if (expDateStr != null) {
-      setState(() {
-        expireDate = expDateStr;
-      });
       expDate = DateTime.parse(expDateStr);
       if (curTime.isAfter(expDate) && intConn) {
         //calculate new expire date
         expDateStr = curTime.add(new Duration(days: 3)).toString();
-        setState(() {
-          expireDate = expDateStr;
-        });
+
         //write exp date to SP
         await prefs
             .setString('expDate', expDateStr)
@@ -383,24 +296,15 @@ class _homeState extends State<home> {
       if (intConn) {
         //calculate new expire date
         expDateStr = curTime.add(new Duration(days: 3)).toString();
-        setState(() {
-          expireDate = expDateStr;
-        });
+
         //write exp date to SP
         await prefs
             .setString('expDate', expDateStr)
             .catchError((e) => print('error in setString= $e'));
-        //DEBUG
-        setState(() {
-          debugLogs =
-              '$debugLogs\n\n First time and int on\n\n wrote exp date to SP: expDate= $expDateStr';
-        });
+
         //tell to check
         return true;
       } else {
-        setState(() {
-          debugLogs = '$debugLogs\n\n First time and int off and doing nothing';
-        });
         return false;
       }
     }
@@ -562,97 +466,11 @@ class _homeState extends State<home> {
                                   });
                                   forceFetchCheckForUpd(context);
                                 },
-                                child: actionBtn(
-                                    'Check for software updates', 0xff69ac37),
+                                child:
+                                    actionBtn('Check for updates', 0xff69ac37),
                               ),
                               vspace(30),
                               forceCheckResult,
-                              //debug section
-                              FutureBuilder<Map<String, dynamic>>(
-                                  future: getVersionInfo(),
-                                  builder: (BuildContext context,
-                                      AsyncSnapshot<Map<String, dynamic>>
-                                          snapshot) {
-                                    if (snapshot.hasData) {
-                                      print('url=${snapshot.data['apkUrl']}');
-                                      print(
-                                          'ver code=${snapshot.data['verCode']}');
-                                      print(
-                                          'force upd=${snapshot.data['forceUpd']}');
-                                      return Padding(
-                                        padding: EdgeInsets.all(20),
-                                        child: Center(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              Text('''
-cur ver= $curVer
-url=${snapshot.data['apkUrlArm']}
-ver code FS=${snapshot.data['verCode']}
-force upd FS=${snapshot.data['forceUpd']}
-expire date=$expireDate
-gonna check for update=$gonnaFetch
-ver code SP='$verCodeSP
-apkUrl SP=$apkUrlSP
-supportedAbis = $supportedAbisDB
-supported32BitAbis = $supported32BitAbisDB
-supported64BitAbis = $supported64BitAbisDB
-'''),
-                                              //debug log
-                                              SizedBox(
-                                                height: 30,
-                                              ),
-                                              SizedBox(
-                                                width: sw * 0.90,
-                                                height: 200,
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      Text(debugLogs)
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 30,
-                                              ),
-                                              InkWell(
-                                                onTap: () async {
-                                                  setState(() {
-                                                    debugLogs = 'DEBUG LOGS\n';
-                                                  });
-                                                },
-                                                child: actionBtn(
-                                                    'Clear Logs', 0xff69ac37),
-                                              ),
-                                              SizedBox(
-                                                height: 30,
-                                              ),
-                                              InkWell(
-                                                onTap: () async {
-                                                  setState(() {
-                                                    _stackToShow = 4;
-                                                  });
-                                                },
-                                                child: actionBtn(
-                                                    'Show stack 4', 0xff69ac37),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    } else if (snapshot.hasError) {
-                                      print(snapshot.error);
-                                      return Text('error ${snapshot.error}');
-                                    } else {
-                                      return CircularProgressIndicator();
-                                    }
-                                  }),
                               vspace(30),
                             ],
                           ),

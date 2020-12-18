@@ -1,49 +1,52 @@
-# Save Lives
+## Save Lives
+It is developed using Flutter. And it is related to health.
 
-This mobile app was born with the purpose of making people get First aids knowledges.
+### What is Save Lives?
+The purpose of Save Lives is to make people have health knowledge. It has a collection of essential health knowledge that everyone should know. You can get valuable health knowledge just by spending a few minutes a day in this app.
 
-## So what is first aid?
+Health knowledge are very useful in our life. Some knowledge are so powerful that they can even save a live.
 
-When someone encounter a severe injury,  like car accident and is bleeding severely, if the bleeding was not stopped, he could die even before the ambulance arrive. 
+A few months ago, a sixteen years old boy who lives near my house died from an electric shock. Although his family transported him to the nearest hospital, his heart stopped beating when they arrived the hospital.
 
-We have to give him the First aid of stopping the bleeding. Only if we did so, there would be a possibility that he can survive. 
+When someone gets a severe electric shock, his heart stop beating. We must perform a task that resuscitates his heart, called CPR, immediately. Only if so, he has the chance to get his life back.
 
-First aid is the first thing to give to a casuality, making him relieve from pain and saving his live. We should perform first aid while waiting for the ambulance. This increase the probability that the casuality survive.
+### A huge difference
+In his case, no one performed CPR for immediate resuscitation, and he lost his life although there was an obvious possibility to get back his life. If someone performed the CPR immediately, he will not die. But now, he didn't get CPR at the time he needed, and he lost his life.
 
-The primary goal of first aid is to prevent death or serious injury from worsening. The key aims of first aid can be summarized with the acronym of 'the three Ps':
+We can say that such knowledge are crucial because they can even save the lives. They are called "First Aids". Giving first aids when one really needs it, can surely save his life.
 
-Preserve life:: The overriding aim of all medical care which includes first aid, is to save lives and minimize the threat of death. First aid done correctly should help reduce the patient's level of pain and calm them down during the evaluation and treatment process.
+### What is First Aid?
+First aid is the first and immediate assistance given to any person suffering from either a minor or serious illness or injury.
 
-Prevent further harm: Prevention of further harm includes addressing both external factors, such as moving a patient away from any cause of harm, and applying first aid techniques to prevent worsening of the condition, such as applying pressure to stop a bleed becoming dangerous.
+We must give the casualty the first aids immediately in some illnesses or injuries such as choking, snake bite, electric shock, severe bleeding etc.
 
-Promote recovery: First aid also involves trying to start the recovery process from the illness or injury, and in some cases might involve completing a treatment, such as in the case of applying a plaster to a small wound.
+When a baby is choking and his mom don't know how to make him get relief, he will stop breathing within a few minutes if the thing that is choked didn't come out. Even if he can get to the hospital within 5 minutes, he might even die because no babies can't live for 5 minutes without breathing.
 
-It is important to note that first aid is not medical treatment and cannot be compared with what a trained medical professional provides.
-
-## So, what benefits can we get if we had the first aid knowledges?
-
-According to a survey, commissioned by the British Red Cross,
-
-More than 532,000 young teenagers have been left to cope with a drunken friend who was sick, injured or unconscious in the last year.
-
-1/4 (25%) of young people have had to deal with asthma attacks.
-
-1/3 (33%) of teenagers have had to cope with someone with a head injury.
-
-1/5 (20%) teenagers have had to help someone who is choking.
-
-This indicate that we may meet someone troubled with injuries.
-
-According to ROSPA survey, when people faced with these emergency situations, 44% panicked and 46% simply didn’t know what to do.
-
-#### In the survey’s most compelling statistic, 97% of young people, believed first aid education would improve their confidence, skills and willingness to act in a crisis.
-
-Therefore, young people and kids should learn first aids to be able to act more confidently, skillfully, and willingly in cases of emergencies.
-
-So if we had first aid knowledges, we won't see the people losing their lives just because of injuries. There were many people who lost their lives just because of not getting First aid when they seriously need it. 
+In those cases, immediate first aid is a must. Otherwise, the casualty has a very little chance to get his life back.
 
 #### A Red Cross survey showed a staggering 59% of deaths from injuries would have been preventable had first aid been given before the emergency services arrived. So having First aid knowledge can save many lives. It is worth learning.
 
-These days, most people including me don't use to pay attention to health related knowledges and reading health articles. Therefore, this app is born to notify you to study a first aid everyday. Thus, we commit learning something valuable on that day. This app is a remainder of what is really important: health.
+We might encounter some illnesses or injuries in our life. We can't definitely say we will not do so. According to a survey, commissioned by the British Red Cross, one in five teenagers have had to help someone who is choking.
 
-When you get bored sometimes, you can watch videos and read articles of First aids in this app. This would be fun and you would have learned a useful technique of first aid.
+Ourselves, our family members, or other people around us might encounter a health emergency conditions in life. When encountered, we must have First aids knowledge in order to be able to save the lives.
+
+Surely, we don't want that we were panicked and didn't know what to do when our loved ones were in an injury. And we won't want to see our loved ones losing their lives just because of small accidental injuries like choking. Therefore, we should have essential first aids knowledge, at least for our loved ones.
+
+### So where can we learn first aid?
+
+It is the best to join an offline course with practical lessons and trainings. But, if you can't make time for joining a course, you can learn from videos and websites on the internet.
+
+There are mobile apps that can help you in learning first aids like this app called 'Save Lives'. This app has a collection of common first aids that everyone should know. And you can learn the first aids by watching YouTube videos or reading articles from websites.
+
+Lately most people on the internet don't pay much attention to health knowledge. So this app will show you something to learn from notification, every day. Having this app installed, will trigger you to make commitments on getting health knowledge.
+
+First aids are easily forgotten when we are away from them for a while. So we need to revise when we forget. You can easily revise the first aids information without needing to type and search again, if you have a mobile app like Save Lives installed on your phone.
+
+And, we need to share the first aids that we have learned, to other people. It is better that many people have the knowledge of first aid. So people can help each other when they know how to give first aids. Sharing directly to our family members in leisure times, or if we want our sharing to reach to more people, sharing on social media will help it.
+
+As summary, we might encounter health emergency conditions in our life. And in some case, the casualty would die if he didn't get the first aid immediately. Only if he gets the first aid immediately, he would not lose his life.
+
+Having first aids knowledge can save many lives. They can be useful one day. Therefore, we all should learn first aids.
+
+
+
