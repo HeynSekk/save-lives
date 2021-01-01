@@ -22,7 +22,7 @@ class _ytPlyrState extends State<ytPlyr> {
 
   void playYoutubeVideo() {
     FlutterYoutube.playYoutubeVideoByUrl(
-      apiKey: "your YouTube api key",
+      apiKey: "your api key",
       videoUrl: this.vidUrl,
     );
   }
