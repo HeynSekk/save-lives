@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_youtube/flutter_youtube.dart';
 import 'common.dart';
+import 'sensitiveDatas.dart';
 
 class ytPlyr extends StatefulWidget {
   String vidUrl;
@@ -22,7 +23,7 @@ class _ytPlyrState extends State<ytPlyr> {
 
   void playYoutubeVideo() {
     FlutterYoutube.playYoutubeVideoByUrl(
-      apiKey: "your api key",
+      apiKey: "$ytApiKey", //from save_lives/common/sensitiveDatas.dart
       videoUrl: this.vidUrl,
     );
   }
