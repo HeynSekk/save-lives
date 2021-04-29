@@ -12,7 +12,7 @@ Not only developers but also those from medical fields and those who are interes
 
 How to add a new content?
 
-Add the contents in dataContent.txt in the dataContent folder. Optionally, you can provide a description of the First aids or survival tip.
+Add the contents in `dataContent.txt` in the `dataContent` folder. Optionally, you can provide a description of the First aids or survival tip.
 
 As contents,
 - the title of the first aid,
@@ -32,7 +32,7 @@ Similarly, for a webpage, provide:
 
 Lastly, provide a brief summary that you wrote yourself or got from the internet. This summary help users to memorize the first aids or survival tips in brief words.
 
-You can see example content data in dataContent.txt file for reference purpose. Thanks for your interest in contributing.
+You can see example content data in `dataContent.txt` file for reference purpose. Thanks for your interest in contributing.
 
 ### Improving illustrations
 
@@ -43,24 +43,26 @@ After setting up the development environment, you can start contributing. (only 
 ### 1. YouTube
 If you plan to contribute the YouTube video feature, you need a YouTube API just for contributing purpose. However if your contribution is not about that Youtube feature, you don't need the API key. You can skip the following steps.
 1. Register at their website to get a free API key.
-2. Create /lib/common/sensitiveDatas.dart. Add the following codes to the file.
+2. Create `/lib/common/sensitiveDatas.dart`. Add the following codes to the file.
 ```
 String ytApiKey = "[YOUR API KEY HERE]";
 ```
-sensitiveDatas.dart is git-ignored. So it is not checked into public.
+`sensitiveDatas.dart` is git-ignored. So it is not checked into public.
 
 ### 2. Testing in release build
-If you plan to build and test the release apk, you need to sign the app with your own signature. You can use the keystore and key.properties files from your previous Android project. But if you don't have those, you can create ones as described [here.](
+If you plan to build and test the release apk, you need to sign the app with your own signature. You can use the keystore and `key.properties` files from your previous Android project. But if you don't have those, you can create ones as described [here.](
 https://flutter.dev/docs/deployment/android#signing-the-app)
-1. Rename your keystore file to key.jks and place it at /android/app/ directory.
-2. Place key.properties file at /android/ directory. It should look like this
+1. Rename your keystore file to `key.jks` and place it at `/android/app/` directory.
+2. Place `key.properties` file at `/android/` directory. It should look like this
 ```
 storePassword= [STORE PASSWORD HERE]
 keyPassword= [KEY PASSWORD HERE]
 keyAlias=key
 storeFile=key.jks
 ```
-key.jks and key.properties are git-ignored. So they are not checked into public.
+`key.jks` and `key.properties` are git-ignored. So they are not checked into public.
 
 ### Code refactoring
 You can refactor the codes. Improving to a better coding style that mostly follow possible best practices, and removing unnecessary and unused codes, really improve the codes' quality and maintainability.
+
+**Thanks for your contribution. Wish you have a beautiful day.**

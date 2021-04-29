@@ -1,8 +1,5 @@
-## Save Lives
-It is developed using Flutter. And it is related to health.
-
 ### What is Save Lives?
-The purpose of Save Lives is to make people have health knowledge. It has a collection of essential health knowledge that everyone should know. You can get valuable health knowledge just by spending a few minutes a day in this app.
+Save Lives was born with the purpose of giving people valuable health knowledge. It is an Android app that contains a collection of essential health knowledge that everyone should know. You can get valuable health knowledge just by spending a few minutes a day in this app.
 
 Health knowledge are very useful in our life. Some knowledge are so powerful that they can even save a live.
 
@@ -24,7 +21,7 @@ When a baby is choking and his mom don't know how to make him get relief, he wil
 
 In those cases, immediate first aid is a must. Otherwise, the casualty has a very little chance to get his life back.
 
-#### A Red Cross survey showed a staggering 59% of deaths from injuries would have been preventable had first aid been given before the emergency services arrived. So having First aid knowledge can save many lives. It is worth learning.
+**A Red Cross survey showed a staggering 59% of deaths from injuries would have been preventable had first aid been given before the emergency services arrived. So having First aid knowledge can save many lives. It is worth learning.**
 
 We might encounter some illnesses or injuries in our life. We can't definitely say we will not do so. According to a survey, commissioned by the British Red Cross, one in five teenagers have had to help someone who is choking.
 
@@ -48,5 +45,10 @@ As summary, we might encounter health emergency conditions in our life. And in s
 
 Having first aids knowledge can save many lives. They can be useful one day. Therefore, we all should learn first aids.
 
-
-
+### Download Save Lives
+Download links:
+- [Google Play store](https://play.google.com/store/apps/details?id=com.heinsek.save_lives)
+- [Huawei App Gallery](https://appgallery.cloud.huawei.com/ag/n/app/C103490047?locale=en_US&source=appshare&subsource=C103490047)
+- [GetJar store](www.getjar.mobi/mobile/983791/Save-Lives)
+- [Google drive](https://drive.google.com/file/d/1CEsGtz5eyziQgXHIWHH9SmvhmG4DM-29/view?usp=sharing)
+- [Direct link](https://s3.ir-thr-at1.arvanstorage.com/alpha/SaveLives.apk)
