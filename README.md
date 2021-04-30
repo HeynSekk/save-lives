@@ -46,9 +46,8 @@ As summary, we might encounter health emergency conditions in our life. And in s
 Having first aids knowledge can save many lives. They can be useful one day. Therefore, we all should learn first aids.
 
 ### Download Save Lives
-Download links:
-- [Google Play store](https://play.google.com/store/apps/details?id=com.heinsek.save_lives)
-- [Huawei App Gallery](https://appgallery.cloud.huawei.com/ag/n/app/C103490047?locale=en_US&source=appshare&subsource=C103490047)
-- [GetJar store](www.getjar.mobi/mobile/983791/Save-Lives)
+You can install Save Lives Android app from:
+- [Google Play](https://play.google.com/store/apps/details?id=com.heinsek.save_lives)
+- [App Gallery](https://appgallery.cloud.huawei.com/ag/n/app/C103490047?locale=en_US&source=appshare&subsource=C103490047)
 - [Google drive](https://drive.google.com/file/d/1CEsGtz5eyziQgXHIWHH9SmvhmG4DM-29/view?usp=sharing)
-- [Direct link](https://s3.ir-thr-at1.arvanstorage.com/alpha/SaveLives.apk)
+- [GetJar store](https://www.getjar.com/categories/health-apps/more/Save-Lives-983791)

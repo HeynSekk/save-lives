@@ -45,7 +45,104 @@ class _homeState extends State<home> {
     checkForUpd();
   }
 
-  //methods
+  //get version info
+  Future<Map<String, dynamic>> getVersionInfo() async {
+    DocumentReference dr =
+        FirebaseFirestore.instance.collection('versions2').doc('version2');
+    print('created an instance');
+    return dr.get().then((ds) {
+      String apkUrlArm = ds['apkUrlArm'] as String;
+      String apkUrlArme = ds['apkUrlArme'] as String;
+      String apkUrlArmx = ds['apkUrlArmx'] as String;
+      double verCode = ds['verCode'] as double;
+      int forceUpd = ds['forceUpd'] as int;
+      Map<String, dynamic> versionInfo = {
+        'apkUrlArm': apkUrlArm,
+        'apkUrlArme': apkUrlArme,
+        'apkUrlArmx': apkUrlArmx,
+        'verCode': verCode,
+        'forceUpd': forceUpd
+      };
+      return versionInfo;
+    }).catchError((e) {
+      print('err in db read= $e');
+      return null;
+    });
+  }
+
+  //check for update
+  Future<void> checkForUpd() async {
+    double fetchedVerCode;
+    String fetchedUrlArm, fetchedUrlArme, fetchedUrlArmx;
+    //create pref instance
+    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs.catchError((e) {
+      print('error= $e');
+      return null;
+    });
+
+    //decide whether to fetch fs or not
+    bool shouldFetch = await shouldFetchFromFS();
+    print('shouldFetch=$shouldFetch');
+
+    //yes decided to fetch
+    if (shouldFetch) {
+      print('yes should fetch');
+      //fetch version info from fs
+      Map<String, dynamic> versionInfo = await getVersionInfo();
+      print('db has data? = ${versionInfo != null}');
+      if (versionInfo != null) {
+        print('success db read');
+        fetchedVerCode = versionInfo['verCode'] as double;
+        fetchedUrlArm = versionInfo['apkUrlArm'] as String;
+        fetchedUrlArme = versionInfo['apkUrlArme'] as String;
+        fetchedUrlArmx = versionInfo['apkUrlArmx'] as String;
+        print('fetchedVerCode= $fetchedVerCode');
+
+        //write updated verCode and apkUrl to SP
+        await prefs
+            .setDouble('verCode', fetchedVerCode)
+            .catchError((e) => print('error in setDouble= $e'));
+        await prefs
+            .setString('apkUrlArm', fetchedUrlArm)
+            .catchError((e) => print('error in setString= $e'));
+        await prefs
+            .setString('apkUrlArme', fetchedUrlArme)
+            .catchError((e) => print('error in setString= $e'));
+        await prefs
+            .setString('apkUrlArmx', fetchedUrlArmx)
+            .catchError((e) => print('error in setString= $e'));
+      }
+    }
+    //not to fetch
+    else {
+      print('should not fetch db\n fetchedVerCode=$fetchedVerCode');
+      //get verCode and apkUrl from SP
+      try {
+        fetchedVerCode = prefs.getDouble('verCode');
+        fetchedUrlArm = prefs.getString('apkUrlArm');
+        fetchedUrlArme = prefs.getString('apkUrlArme');
+        fetchedUrlArmx = prefs.getString('apkUrlArmx');
+      } catch (e) {
+        print('error fetching from SP= $e');
+      }
+    }
+    //compare. if cur ver is smaller, show noti
+    if (fetchedVerCode != null) {
+      print('got data from db');
+      if (curVer < fetchedVerCode) {
+        setState(() {
+          _stackToShow = 1;
+          verCode = fetchedVerCode;
+          apkUrlArm = fetchedUrlArm;
+          apkUrlArme = fetchedUrlArme;
+          apkUrlArmx = fetchedUrlArmx;
+        });
+      }
+    }
+  }
+
+  //force check update
   Future<void> forceFetchCheckForUpd(BuildContext context) async {
     double fetchedVerCode;
     String fetchedUrlArm, fetchedUrlArme, fetchedUrlArmx;
@@ -66,47 +163,51 @@ class _homeState extends State<home> {
         connResult == ConnectivityResult.wifi) {
       //fetch from fs
       Map<String, dynamic> versionInfo = await getVersionInfo();
-      fetchedVerCode = versionInfo['verCode'] as double;
-      fetchedUrlArm = versionInfo['apkUrlArm'] as String;
-      fetchedUrlArme = versionInfo['apkUrlArme'] as String;
-      fetchedUrlArmx = versionInfo['apkUrlArmx'] as String;
-      //set new expire date to SP
-      await prefs
-          .setString('expDate', curTime.add(new Duration(days: 3)).toString())
-          .catchError((e) => print('error= $e'));
+      print('db has data? = ${versionInfo != null}');
+      if (versionInfo != null) {
+        print('success db read');
+        fetchedVerCode = versionInfo['verCode'] as double;
+        fetchedUrlArm = versionInfo['apkUrlArm'] as String;
+        fetchedUrlArme = versionInfo['apkUrlArme'] as String;
+        fetchedUrlArmx = versionInfo['apkUrlArmx'] as String;
+        //set new expire date to SP
+        await prefs
+            .setString('expDate', curTime.add(new Duration(days: 3)).toString())
+            .catchError((e) => print('error= $e'));
 
-      //write fetched data to sp
-      await prefs
-          .setDouble('verCode', fetchedVerCode)
-          .catchError((e) => print('error in setDouble= $e'));
-      await prefs
-          .setString('apkUrlArm', fetchedUrlArm)
-          .catchError((e) => print('error in setString= $e'));
-      await prefs
-          .setString('apkUrlArme', fetchedUrlArme)
-          .catchError((e) => print('error in setString= $e'));
-      await prefs
-          .setString('apkUrlArmx', fetchedUrlArmx)
-          .catchError((e) => print('error in setString= $e'));
+        //write fetched data to sp
+        await prefs
+            .setDouble('verCode', fetchedVerCode)
+            .catchError((e) => print('error in setDouble= $e'));
+        await prefs
+            .setString('apkUrlArm', fetchedUrlArm)
+            .catchError((e) => print('error in setString= $e'));
+        await prefs
+            .setString('apkUrlArme', fetchedUrlArme)
+            .catchError((e) => print('error in setString= $e'));
+        await prefs
+            .setString('apkUrlArmx', fetchedUrlArmx)
+            .catchError((e) => print('error in setString= $e'));
 
-      //compare cur ver and fetched ver code
-      if (curVer < fetchedVerCode) {
-        //updates
-        setState(() {
-          _stackToShow = 1;
-          verCode = fetchedVerCode;
-          apkUrlArm = fetchedUrlArm;
-          apkUrlArme = fetchedUrlArme;
-          apkUrlArmx = fetchedUrlArmx;
-        });
-      } else {
-        //no updates
-        setState(() {
-          forceCheckResult = Text(
-            'The app is up to date',
-            textAlign: TextAlign.center,
-          );
-        });
+        //compare cur ver and fetched ver code
+        if (curVer < fetchedVerCode) {
+          //updates
+          setState(() {
+            _stackToShow = 1;
+            verCode = fetchedVerCode;
+            apkUrlArm = fetchedUrlArm;
+            apkUrlArme = fetchedUrlArme;
+            apkUrlArmx = fetchedUrlArmx;
+          });
+        } else {
+          //no updates
+          setState(() {
+            forceCheckResult = Text(
+              'The app is up to date',
+              textAlign: TextAlign.center,
+            );
+          });
+        }
       }
     } else {
       setState(() {
@@ -121,137 +222,7 @@ class _homeState extends State<home> {
     }
   }
 
-  Future<void> checkForUpd() async {
-    double fetchedVerCode;
-    String fetchedUrlArm, fetchedUrlArme, fetchedUrlArmx;
-    //create pref instance
-    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    final SharedPreferences prefs = await _prefs.catchError((e) {
-      print('error= $e');
-      return null;
-    });
-
-    //decide whether to fetch fs or not
-    bool shouldFetch = await shouldFetchFromFS();
-    print('shouldFetch=$shouldFetch');
-
-    //yes decided to fetch
-    if (shouldFetch) {
-      //fetch version info from fs
-      Map<String, dynamic> versionInfo = await getVersionInfo();
-      print('fetched ver info');
-      fetchedVerCode = versionInfo['verCode'] as double;
-      fetchedUrlArm = versionInfo['apkUrlArm'] as String;
-      fetchedUrlArme = versionInfo['apkUrlArme'] as String;
-      fetchedUrlArmx = versionInfo['apkUrlArmx'] as String;
-
-      //write updated verCode and apkUrl to SP
-      await prefs
-          .setDouble('verCode', fetchedVerCode)
-          .catchError((e) => print('error in setDouble= $e'));
-      await prefs
-          .setString('apkUrlArm', fetchedUrlArm)
-          .catchError((e) => print('error in setString= $e'));
-      await prefs
-          .setString('apkUrlArme', fetchedUrlArme)
-          .catchError((e) => print('error in setString= $e'));
-      await prefs
-          .setString('apkUrlArmx', fetchedUrlArmx)
-          .catchError((e) => print('error in setString= $e'));
-    }
-    //not to fetch
-    else {
-      //get verCode and apkUrl from SP
-      try {
-        fetchedVerCode = prefs.getDouble('verCode');
-        fetchedUrlArm = prefs.getString('apkUrlArm');
-        fetchedUrlArme = prefs.getString('apkUrlArme');
-        fetchedUrlArmx = prefs.getString('apkUrlArmx');
-      } catch (e) {
-        print('error fetching from SP= $e');
-      }
-    }
-    //compare. if cur ver is smaller, show noti
-    if (fetchedVerCode != null) {
-      if (curVer < fetchedVerCode) {
-        setState(() {
-          _stackToShow = 1;
-          verCode = fetchedVerCode;
-          apkUrlArm = fetchedUrlArm;
-          apkUrlArme = fetchedUrlArme;
-          apkUrlArmx = fetchedUrlArmx;
-        });
-      }
-    }
-  }
-
-  Future<String> chooseApk() async {
-    //initialize plugin
-    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-    AndroidDeviceInfo build = await deviceInfoPlugin.androidInfo
-        .catchError((e) => print('error= $e'));
-    //device's supported abis
-    List<String> supportedAbis = build.supportedAbis;
-
-    //return the right apkUrl
-    if (supportedAbis[0].compareTo('arm64-v8a') == 0) {
-      return apkUrlArm;
-    } else if (supportedAbis[0].compareTo('armeabi-v7a') == 0) {
-      return apkUrlArme;
-    } else if (supportedAbis[0].compareTo('x86_64') == 0) {
-      return apkUrlArmx;
-    } else
-      return null;
-  }
-
-  Future<void> tryOtaUpdate() async {
-    //choose the right apk
-    String apkUrl = await chooseApk();
-    //check internet connected
-    var connResult = await (Connectivity().checkConnectivity().catchError((e) {
-      print(e);
-      return null;
-    }));
-    if (connResult == ConnectivityResult.mobile ||
-        connResult == ConnectivityResult.wifi) {
-      //connected
-      setState(() {
-        //show downloading screen
-        _stackToShow = 2;
-      });
-      try {
-        OtaUpdate()
-            .execute(
-          apkUrl,
-          destinationFilename: 'SaveLives.apk',
-        )
-            .listen(
-          (OtaEvent event) {
-            setState(() {
-              currentEvent = event;
-              downloadProgress = double.parse(currentEvent.value);
-            });
-            print('currentEvent.value = ${currentEvent.value}');
-            //print('downloadProgress = $downloadProgress');
-          },
-        );
-        // ignore: avoid_catches_without_on_clauses
-      } catch (e) {
-        print('Failed to make OTA update. Details: $e');
-        setState(() {
-          //show error updating screen
-          _stackToShow = 4;
-        });
-      }
-    } else {
-      //not connected
-      setState(() {
-        //no internet screen
-        _stackToShow = 3;
-      });
-    }
-  }
-
+  //should fetch
   Future<bool> shouldFetchFromFS() async {
     var curTime = new DateTime.now();
     var expDate = new DateTime.now();
@@ -310,28 +281,73 @@ class _homeState extends State<home> {
     }
   }
 
-  Future<Map<String, dynamic>> getVersionInfo() async {
-    DocumentReference dr =
-        FirebaseFirestore.instance.collection('versions').doc('version');
-    print('created an instance');
-    return dr.get().then((ds) {
-      String apkUrlArm = ds['apkUrlArm'] as String;
-      String apkUrlArme = ds['apkUrlArme'] as String;
-      String apkUrlArmx = ds['apkUrlArmx'] as String;
-      double verCode = ds['verCode'] as double;
-      int forceUpd = ds['forceUpd'] as int;
-      Map<String, dynamic> versionInfo = {
-        'apkUrlArm': apkUrlArm,
-        'apkUrlArme': apkUrlArme,
-        'apkUrlArmx': apkUrlArmx,
-        'verCode': verCode,
-        'forceUpd': forceUpd
-      };
-      return versionInfo;
-    }).catchError((e) {
+  //choose apk
+  Future<String> chooseApk() async {
+    //initialize plugin
+    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    AndroidDeviceInfo build = await deviceInfoPlugin.androidInfo
+        .catchError((e) => print('error= $e'));
+    //device's supported abis
+    List<String> supportedAbis = build.supportedAbis;
+
+    //return the right apkUrl
+    if (supportedAbis[0].compareTo('arm64-v8a') == 0) {
+      return apkUrlArm;
+    } else if (supportedAbis[0].compareTo('armeabi-v7a') == 0) {
+      return apkUrlArme;
+    } else if (supportedAbis[0].compareTo('x86_64') == 0) {
+      return apkUrlArmx;
+    } else
+      return null;
+  }
+
+  //ota update
+  Future<void> tryOtaUpdate() async {
+    //choose the right apk
+    String apkUrl = await chooseApk();
+    //check internet connected
+    var connResult = await (Connectivity().checkConnectivity().catchError((e) {
       print(e);
       return null;
-    });
+    }));
+    if (connResult == ConnectivityResult.mobile ||
+        connResult == ConnectivityResult.wifi) {
+      //connected
+      setState(() {
+        //show downloading screen
+        _stackToShow = 2;
+      });
+      try {
+        OtaUpdate()
+            .execute(
+          apkUrl,
+          destinationFilename: 'SaveLives.apk',
+        )
+            .listen(
+          (OtaEvent event) {
+            setState(() {
+              currentEvent = event;
+              downloadProgress = double.parse(currentEvent.value);
+            });
+            print('currentEvent.value = ${currentEvent.value}');
+            //print('downloadProgress = $downloadProgress');
+          },
+        );
+        // ignore: avoid_catches_without_on_clauses
+      } catch (e) {
+        print('Failed to make OTA update. Details: $e');
+        setState(() {
+          //show error updating screen
+          _stackToShow = 4;
+        });
+      }
+    } else {
+      //not connected
+      setState(() {
+        //no internet screen
+        _stackToShow = 3;
+      });
+    }
   }
 
   void _requestIOSPermissions() {
@@ -391,7 +407,6 @@ class _homeState extends State<home> {
 
   @override
   Widget build(BuildContext context) {
-    double sh = MediaQuery.of(context).size.height;
     double sw = MediaQuery.of(context).size.width;
     double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
     return IndexedStack(

@@ -36,20 +36,29 @@ You can see example content data in `dataContent.txt` file for reference purpose
 
 ### Improving illustrations
 
-Artists can contribute by drawing Illustrations, too. You can see this app use many Illustrations for more expressive UI. You can improve existing Illustrations to be more expressive, attractive and clear. In drawing illustrations, please make sure the image's dimension is square. The maintainer of this repo will provide proper credit to the artists.
+Artists can contribute by drawing Illustrations, too. You can see this app use many Illustrations for more expressive UI. You can improve existing Illustrations to be more expressive, attractive and clear. In drawing illustrations, please make sure the image's dimension is square. You can send the illustrations to `heinsek@pm.me`. The maintainer of this repo will provide proper credit to the artists. In sending email, please provide some informations like your socials or your website so that my app can share credits to you.
 
-## Setting up development environment
-After setting up the development environment, you can start contributing. (only for developers)
-### 1. YouTube
-If you plan to contribute the YouTube video feature, you need a YouTube API just for contributing purpose. However if your contribution is not about that Youtube feature, you don't need the API key. You can skip the following steps.
-1. Register at their website to get a free API key.
-2. Create `/lib/common/sensitiveDatas.dart`. Add the following codes to the file.
+## Setting up development environment (only for developers)
+After setting up the development environment, you can start contributing.
+
+### 1. Firebase
+I use Cloud Firestore for app update mechanism without the use of Google Play, and Firebase Analytics for analytics purpose, in this project. In order to be able to run this project, you need to follow these 3 steps below.
+
+1. Go to Firebase console and create a new Firebase project. You can name it as you like.
+2. Add the Android app to the projecct by entering the package name `com.heinsek.save_lives`. Download the `google-services.json` file it shows and place it at `/android/app/` directory.
+3. Go back to the console and click Cloud Firestore tab. And create a new Firestore database. Choose `test mode` when asked and leave other inputs like database location as its default values. After having done creating the database, you will be able to run the app.
+
+It is okay to delete the Firebase project you just created when you have done contributing Save Lives. You can create another new Firebase project when you are about to contribute it again. 
+
+### 2. YouTube
+
+1. Create `/lib/common/sensitiveDatas.dart`. Add the following codes to the file.
 ```
 String ytApiKey = "[YOUR API KEY HERE]";
 ```
-`sensitiveDatas.dart` is git-ignored. So it is not checked into public.
+2. If you plan to contribute the YouTube video feature, you need a YouTube API just for contributing purpose. However if your contribution is not about that Youtube feature, you don't need an API key. You can leave the value of API key as it is. By the way, you can get a free Youtube API as described [here.](https://developers.google.com/youtube/v3/getting-started)
 
-### 2. Testing in release build
+### 3. Testing in release build
 If you plan to build and test the release apk, you need to sign the app with your own signature. You can use the keystore and `key.properties` files from your previous Android project. But if you don't have those, you can create ones as described [here.](
 https://flutter.dev/docs/deployment/android#signing-the-app)
 1. Rename your keystore file to `key.jks` and place it at `/android/app/` directory.
@@ -60,9 +69,7 @@ keyPassword= [KEY PASSWORD HERE]
 keyAlias=key
 storeFile=key.jks
 ```
-`key.jks` and `key.properties` are git-ignored. So they are not checked into public.
 
-### Code refactoring
-You can refactor the codes. Improving to a better coding style that mostly follow possible best practices, and removing unnecessary and unused codes, really improve the codes' quality and maintainability.
+`google-services.json`, `sensitiveDatas.dart`, `key.jks` and `key.properties` are git-ignored because they contain sensitive data like your API key. So they are not checked into public.
 
-**Thanks for your contribution. Wish you have a beautiful day.**
+**And thanks for your interest in contribution. Wish you have a beautiful day.**
