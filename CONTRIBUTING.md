@@ -59,17 +59,25 @@ String ytApiKey = "[YOUR API KEY HERE]";
 2. If you plan to contribute the YouTube video feature, you need a YouTube API just for contributing purpose. However if your contribution is not about that Youtube feature, you don't need an API key. You can leave the value of API key as it is. By the way, you can get a free Youtube API as described [here.](https://developers.google.com/youtube/v3/getting-started)
 
 ### 3. Testing in release build
-If you plan to build and test the release apk, you need to sign the app with your own signature. You can use the keystore and `key.properties` files from your previous Android project. But if you don't have those, you can create ones as described [here.](
-https://flutter.dev/docs/deployment/android#signing-the-app)
-1. Rename your keystore file to `key.jks` and place it at `/android/app/` directory.
-2. Place `key.properties` file at `/android/` directory. It should look like this
+If you plan to build and test the release apk, you can sign with the debug keys that Android SDK usually automatically generates, instead of the real signing keys.
+1. Go to `/android/app/build.gradle`.
+2. In the `buildTypes` block, you have to change a `release` configuration. For `signingConfig`, change `signingConfigs.release` to `signingConfigs.debug`. Now `buildTypes` block should look like this:
 ```
-storePassword= [STORE PASSWORD HERE]
-keyPassword= [KEY PASSWORD HERE]
-keyAlias=key
-storeFile=key.jks
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.debug //we changed this line
+            minifyEnabled false
+            useProguard false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
+            
+        }
+    }
 ```
+Now you can build the release versions.
 
-`google-services.json`, `sensitiveDatas.dart`, `key.jks` and `key.properties` are git-ignored because they contain sensitive data like your API key. So they are not checked into public.
+Notice that `google-services.json` and `sensitiveDatas.dart` are git-ignored because they contain sensitive data like your API key. So they are not checked into public.
 
-**And thanks for your interest in contribution. Wish you have a beautiful day.**
+**Thanks for your interest in contribution. Wish you have a beautiful day.**
