@@ -145,7 +145,7 @@ class _contactState extends State<contact> {
                             InkWell(
                               onTap: () => setState(() {
                                 _launched = _makePhoneCall(
-                                    'mailto:heynxsehhz@gmail.com?subject=Contacting from the user of Save Lives&body=Hello Hein Sek,');
+                                    'mailto:heinsek@protonmail.com?subject=Contacting from the user of Save Lives&body=Hello Hein Sek,');
                               }),
                               child: actionBtn(context, 'Email'),
                             ),

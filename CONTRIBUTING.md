@@ -54,30 +54,12 @@ It is okay to delete the Firebase project you just created when you have done co
 
 1. Create `/lib/common/sensitiveDatas.dart`. Add the following codes to the file.
 ```
-String ytApiKey = "[YOUR API KEY HERE]";
+final String ytApiKey = "[YOUR API KEY HERE]";
 ```
 2. If you plan to contribute the YouTube video feature, you need a YouTube API just for contributing purpose. However if your contribution is not about that Youtube feature, you don't need an API key. You can leave the value of API key as it is. By the way, you can get a free Youtube API as described [here.](https://developers.google.com/youtube/v3/getting-started)
 
-### 3. Testing in release build
-If you plan to build and test the release apk, you can sign with the debug keys that Android SDK usually automatically generates, instead of the real signing keys.
-1. Go to `/android/app/build.gradle`.
-2. In the `buildTypes` block, you have to change a `release` configuration. For `signingConfig`, change `signingConfigs.release` to `signingConfigs.debug`. Now `buildTypes` block should look like this:
-```
-    buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug //we changed this line
-            minifyEnabled false
-            useProguard false
-            shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
-            
-        }
-    }
-```
-Now you can build the release versions.
-
 Notice that `google-services.json` and `sensitiveDatas.dart` are git-ignored because they contain sensitive data like your API key. So they are not checked into public.
 
-**Thanks for your interest in contribution. Wish you have a beautiful day.**
+If there is anything inconvenient in contributing, you can contact heinsek@pm.me or [my Facebook](https://www.facebook.com/HeynSekk).
+
+**Thanks for your interest in contribution. Wish you have a nice day.**

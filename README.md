@@ -45,6 +45,8 @@ As summary, we might encounter health emergency conditions in our life. And in s
 
 Having first aids knowledge can save many lives. They can be useful one day. Therefore, we all should learn first aids.
 
+(You can read about Save Lives app in Burmese language [here](https://m.facebook.com/story.php?story_fbid=1295202727502588&id=100010386180768) too.)
+
 ### Download Save Lives
 You can install Save Lives Android app from:
 - [Google Play](https://play.google.com/store/apps/details?id=com.heinsek.save_lives)
