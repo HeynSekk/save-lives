@@ -1,8 +1,90 @@
 import 'package:flutter/material.dart';
 import 'package:save_lives/common/common.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+class MyWebViewer extends StatelessWidget {
+  final String url;
+  MyWebViewer(this.url);
+  Future<int> _launchWebView(String url) async {
+    int r = 1;
+    if (await canLaunch(url)) {
+      r = 1;
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: true,
+        enableJavaScript: true,
+        headers: <String, String>{'my_header_key': 'my_header_value'},
+      );
+    } else {
+      r = 0;
+    }
+    return r;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      child: Text('mayo'),
+      onPressed: () async {
+        //show circle
+        showDialog<void>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+              ],
+            ),
+          ),
+        );
+        //fail
+        if (await _launchWebView(this.url) == 0) {
+          //stop circle
+          Navigator.pop(context);
+          //show err msg
+          showDialog<void>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text('Could not launch web view'),
+              actions: <Widget>[
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('OK')),
+              ],
+            ),
+          );
+        }
+        //success
+        else {
+          //stop circle and show normal ui
+          Navigator.pop(context);
+        }
+      },
+    );
+  }
+}
 
 //MAIN UI
 class catalog extends StatelessWidget {
+  Future<int> _launchInBrowser(String url) async {
+    int r = 1;
+    if (await canLaunch(url)) {
+      r = 1;
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: true,
+        enableJavaScript: true,
+        headers: <String, String>{'my_header_key': 'my_header_value'},
+      );
+    } else {
+      r = 0;
+    }
+    return r;
+  }
+
   @override
   Widget build(BuildContext context) {
     double sw = MediaQuery.of(context).size.width;
@@ -52,6 +134,7 @@ class catalog extends StatelessWidget {
                         SizedBox(
                           height: normalFontSize * 1.2,
                         ),
+
                         //items
                         menuItemNormal('assets/images/cprAd.jpg',
                             'CPR for adults', '/adCpr'),
@@ -76,8 +159,12 @@ class catalog extends StatelessWidget {
                         SizedBox(
                           height: normalFontSize * 1.2,
                         ),
+                        menuItemFirst('assets/images/burn.png', 'Asthma attack',
+                            '/asthma', 'A'),
                         menuItemFirst('assets/images/burn.png',
                             'Burn and scalds', '/burn', 'B'),
+                        menuItemNormal('assets/images/burn.png',
+                            'Burn (chemical burns)', '/burnCh'),
                         menuItemFirst('assets/images/chokAl.png',
                             'Choking when you\'re alone', '/chokAl', 'C'),
                         menuItemNormal('assets/images/chokAd.png',
@@ -92,8 +179,10 @@ class catalog extends StatelessWidget {
                             'assets/images/eye.jpg', 'Eye injuries', '/eye'),
                         menuItemFirst(
                             'assets/images/faint.png', 'Fainting', '/fai', 'F'),
-
-                        //menuItemFirst('assets/images/heaAtt.png', 'Heart attack','/heaAtt','H'),
+                        menuItemNormal('assets/images/faint.png',
+                            'Foreign object in the body', '/foreign'),
+                        menuItemNormal(
+                            'assets/images/faint.png', 'Fracture', '/fra'),
                         menuItemFirst(
                             'assets/images/heaInj.png',
                             'Head injuries in children, babies',
@@ -101,6 +190,10 @@ class catalog extends StatelessWidget {
                             'H'),
                         menuItemNormal('assets/images/heaAtt.png',
                             'Heart attack', '/heaAtt'),
+                        menuItemFirst('assets/images/heaInj.png',
+                            'Nose bleeding', '/nose', 'N'),
+                        menuItemFirst('assets/images/heaInj.png', 'Poisoning',
+                            '/poi', 'P'),
                         menuItemFirst('assets/images/seiAd.png',
                             'Seizure (adults)', '/seiAd', 'S'),
                         menuItemNormal('assets/images/seiBa.png',
@@ -117,6 +210,8 @@ class catalog extends StatelessWidget {
                             'assets/images/sho.png', 'Shock', '/sho'),
                         menuItemNormal(
                             'assets/images/snak.png', 'Snake Bite', '/snak'),
+                        menuItemNormal(
+                            'assets/images/snak.png', 'Stroke', '/stro'),
                       ],
                     ),
                   ),
@@ -285,7 +380,7 @@ class menuCtnr extends StatelessWidget {
               child: Text(
                 this.eName,
                 style: TextStyle(
-                  fontSize: wRow * 0.075, //screenWidth * 0.75 * 0.055
+                  fontSize: wRow * 0.05, //screenWidth * 0.75 * 0.055
                   color: Color(0xff353335),
                   height: 1.5,
                 ),

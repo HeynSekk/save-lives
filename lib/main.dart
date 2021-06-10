@@ -102,28 +102,98 @@ class MyApp extends StatelessWidget {
         '/contact': (context) => contact(),
 
         // ***CONTENTS***
-        //ELETRIC SHOCK
-        '/elec': (context) => refContent('First aid for electric shock', [
+        //NOSE BLEED
+        '/nose': (context) => refContent(
+            'Nose bleeding',
+            [
               [
-                'https://youtu.be/Qld84UtmFpE',
+                'https://youtu.be/PmmhxW0vVXA',
                 'img',
-                'What To Do If Your Baby Had an Electric Shock - First Aid Training - St John Ambulance',
+                'How to treat nose bleed - First aid training - St John Ambulance',
                 'St John Ambulance'
               ]
-            ], [
+            ],
+            [
               [
-                'assets/images/elec.jpeg',
-                'Electrical shock: First aid',
-                'www.mayoclinic.org',
-                '/elecW'
+                'assets/images/chokMayo.png',
+                'First aid advice for nose bleed',
+                'www.sja.org.uk',
+                'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/nosebleeds/'
               ]
-            ], '''- if the casuality is breathing, put him into recovery position
+            ],
+            'no'),
+        //ASTHMA ATTACK
+        '/asthma': (context) => refContent(
+              'Asthma attack',
+              [
+                [
+                  'https://youtu.be/hdVKpUR513M',
+                  'img',
+                  'How to Treat an Asthma Attack - First Aid Training - St John Ambulance',
+                  'St John Ambulance'
+                ]
+              ],
+              [
+                [
+                  'assets/images/elec.jpeg',
+                  'Performing first aid for asthma attack',
+                  'www.sja.org.uk',
+                  'https://www.sja.org.uk/get-advice/first-aid-advice/breathing-difficulties/asthma-attack/'
+                ],
+                [
+                  'assets/images/elec.jpeg',
+                  'First aids for asthma attacks',
+                  'www.cprcertified.com',
+                  'https://www.cprcertified.com/blog/first-aid-for-asthma-attacks'
+                ]
+              ],
+              '''
+Sign and symptoms)
+- shortness of breath, 
+- wheezing
+- coughing 
+- In severe cases, fingernails and lips can turn blue and the victim may have difficulty walking or talking.
+
+How to help a casuality)
+- Help the person sit in an upright position.
+- If the person is wearing tight clothing, especially around the neck, loosen it.
+- Help the person use their own inhaler or administer medication, if they have it.
+- If they don’t, administer an inhaler from a first aid kit.
+
+How to help an asthma victim use an inhaler?)
+
+1- Have the victim inhale slowly through their mouth, then hold their breath for ten seconds.
+2- If the victim don’t improve within a few minutes, ask them to take a puff every 30 to 60 seconds, until they have had 10 puffs.
+3- If the victim is getting worse, or if this is his/her first attack, call for emergency help.
+4- If the ambulance hasn't arrived within 15 minutes, repeat step 2.
+5- If the victim become unresponsive at any point prepare to give CPR. 
+''',
+            ),
+        //ELETRIC SHOCK
+        '/elec': (context) => refContent(
+              'First aid for electric shock',
+              [
+                [
+                  'https://youtu.be/Qld84UtmFpE',
+                  'img',
+                  'What To Do If Your Baby Had an Electric Shock - First Aid Training - St John Ambulance',
+                  'St John Ambulance'
+                ]
+              ],
+              [
+                [
+                  'assets/images/elec.jpeg',
+                  'Electrical shock: First aid',
+                  'www.mayoclinic.org',
+                  'https://www.mayoclinic.org/first-aid/first-aid-electrical-shock/basics/art-20056695'
+                ]
+              ],
+              '''- if the casuality is breathing, put him into recovery position
 - if the casualty has stopped breathing, start CPR. 
 - do CPR until the casualty breathe normally or emergency help arrive
 - if the casualty got a burn, flood the burn area with cool running water for at least 10 minutes
-- cover any burned areas with a sterile gauze bandage, if available, or a clean cloth'''),
-        '/elecW': (context) => webViewer(
-            'https://www.mayoclinic.org/first-aid/first-aid-electrical-shock/basics/art-20056695'),
+- cover any burned areas with a sterile gauze bandage, if available, or a clean cloth''',
+            ),
 
         //CHOKING ALONE
         '/chokAl': (context) => refContent(
@@ -147,21 +217,16 @@ class MyApp extends StatelessWidget {
                 'assets/images/chokMayo.png',
                 'Choking - First aid',
                 'www.mayoclinic.org',
-                '/chokMayoW'
+                'https://www.mayoclinic.org/first-aid/first-aid-choking/basics/art-20056637'
               ],
               [
                 'assets/images/chokAl.png',
                 'Choking alone | Heimlinch Manuever | First aid',
                 'www.emergencyphysicians.org',
-                '/chokAlW'
+                'https://www.emergencyphysicians.org/article/know-when-to-go/choking--heimlich-manuever'
               ]
             ],
             'no'),
-        '/chokAlW': (context) => webViewer(
-            'https://www.emergencyphysicians.org/article/know-when-to-go/choking--heimlich-manuever'),
-
-        '/chokMayoW': (context) => webViewer(
-            'https://www.mayoclinic.org/first-aid/first-aid-choking/basics/art-20056637'),
         //FRACTURE
         '/fra': (context) => refContent('Fracture', [
               [
@@ -181,15 +246,13 @@ class MyApp extends StatelessWidget {
                 'assets/images/chokBaby.png',
                 'Fractures (broken bones)',
                 'www.emergencyphysicians.org',
-                '/fraW'
+                'https://www.mayoclinic.org/first-aid/first-aid-fractures/basics/art-20056641'
               ]
             ], '''- Call for emergency help
 - Stop any bleeding. Apply pressure to the wound with a sterile bandage, a clean cloth or a clean piece of clothing.
 - Immobilize the injured area. Don't try to realign the bone or push a bone that's sticking out back in. Apply a splint to the area above and below the fracture sites. Padding the splints can help reduce discomfort.
 - Apply ice packs to limit swelling and help relieve pain
 - Treat for shock. If the person feels faint or is breathing in short, rapid breaths, lay the person down with the head slightly lower than the trunk and, if possible, elevate the legs.'''),
-        '/fraW': (context) => webViewer(
-            'https://www.mayoclinic.org/first-aid/first-aid-fractures/basics/art-20056641'),
 
         //POISONING
         '/poi': (context) => refContent(
@@ -207,12 +270,10 @@ class MyApp extends StatelessWidget {
                 'assets/images/cprAd.jpg',
                 'Poisoning : First Aid',
                 'www.mayoclinic.org',
-                '/poiW'
+                'https://www.mayoclinic.org/first-aid/first-aid-poisoning/basics/art-20056657'
               ]
             ],
             'no'),
-        '/poiW': (context) => webViewer(
-            'https://www.mayoclinic.org/first-aid/first-aid-poisoning/basics/art-20056657'),
 
         //FOREIGN IN BODY
         '/foreign': (context) => refContent('Foreign object in the body', [
@@ -227,13 +288,13 @@ class MyApp extends StatelessWidget {
                 'assets/images/cprAd.jpg',
                 'Foreign object in the nose: First aid',
                 'www.mayoclinic.org',
-                '/foreignW'
+                'https://www.mayoclinic.org/first-aid/first-aid/basics/art-20056610'
               ],
               [
                 'assets/images/cprAd.jpg',
                 'Foreign object in the ear: First aid',
                 'www.mayoclinic.org',
-                '/foreignW2'
+                'https://www.mayoclinic.org/first-aid/first-aid/basics/art-20056709'
               ]
             ], '''For foreign object in the nose,
 - keep clam, don't probe at the object
@@ -247,11 +308,6 @@ For foreign object in the ear,
 - Try using gravity
 - Try washing the object out. Use a rubber-bulb ear syringe and warm water to irrigate the object out of the canal, provided no ear tubes are in place and you don't suspect the eardrum is perforated.
 - Try using oil or warm water for an insect. If the foreign object is an insect, tilt the person's head so that the ear with the insect is upward. Try to float the insect out by pouring mineral oil, olive oil or baby oil into the ear. The oil should be warm, but not hot. Don't use oil to remove an object other than an insect'''),
-        '/foreignW': (context) => webViewer(
-            'https://www.mayoclinic.org/first-aid/first-aid/basics/art-20056610'),
-
-        '/foreignW2': (context) => webViewer(
-            'https://www.mayoclinic.org/first-aid/first-aid/basics/art-20056709'),
 
         //STROKE
         '/stro': (context) => refContent(
@@ -269,12 +325,10 @@ For foreign object in the ear,
                 'assets/images/cprAd.jpg',
                 'Stroke: First aid',
                 'www.mayoclinic.org',
-                '/stroW'
+                'https://www.mayoclinic.org/first-aid/first-aid-stroke/basics/art-20056602'
               ]
             ],
             'no'),
-        '/stroW': (context) => webViewer(
-            'https://www.mayoclinic.org/first-aid/first-aid-stroke/basics/art-20056602'),
 
         //CPR ADULT
         '/adCpr': (context) => refContent(
@@ -292,12 +346,10 @@ For foreign object in the ear,
                 'assets/images/cprAd.jpg',
                 'How to do CPR on an adult - first aid',
                 'www.sja.org.uk',
-                '/adCprW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/how-to-do-cpr-on-an-adult/'
               ]
             ],
             '-30 chest compression\n-2 resuce breathe'),
-        '/adCprW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/how-to-do-cpr-on-an-adult/'),
 
         //CPR BABY
         '/babyCpr': (context) => refContent(
@@ -315,12 +367,10 @@ For foreign object in the ear,
                 'assets/images/cprBaby.png',
                 'How to do CPR on a baby - first aid',
                 'www.sja.org.uk',
-                '/babyCprW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-cpr-on-a-baby/'
               ]
             ],
             'no'),
-        '/babyCprW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-cpr-on-a-baby/'),
 
         //CPR CHILD
         '/childCpr': (context) => refContent(
@@ -338,12 +388,10 @@ For foreign object in the ear,
                 'assets/images/cprChild.png',
                 'How to do CPR on children - first aid',
                 'www.sja.org.uk',
-                '/cprChildW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-cpr-on-a-child/'
               ],
             ],
             'no'),
-        '/cprChildW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-cpr-on-a-child/'),
 
         //PRI SUR ADULT
         '/priSurAd': (context) => refContent(
@@ -365,13 +413,11 @@ For foreign object in the ear,
                 'assets/images/priSurAd.png',
                 'How to do the primary survey on an adult - first aid',
                 'www.sja.org.uk',
-                '/priSurAdW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/how-to/how-to-do-the-primary-survey/'
               ],
             ],
             //remember
             'no'),
-        '/priSurAdW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/how-to/how-to-do-the-primary-survey/'),
 
         //PRI SUR BABY
         '/priSurBa': (context) => refContent(
@@ -389,12 +435,10 @@ For foreign object in the ear,
                 'assets/images/priSurBa.png',
                 'Baby primary survey - first aid',
                 'www.sja.org.uk',
-                '/priSurBaW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/baby-primary-survey/'
               ]
             ],
             'no'),
-        '/priSurBaW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/baby-primary-survey/'),
         //REC POS ADULT
         '/recPosAd': (context) => refContent(
             'Recovery position (adults)',
@@ -411,12 +455,10 @@ For foreign object in the ear,
                 'assets/images/recPosAd.png',
                 'Recovery position (adults) - first aid',
                 'www.sja.org.uk',
-                '/recPosAdW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/how-to-do-the-recovery-position/'
               ]
             ],
             'no'),
-        '/recPosAdW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/how-to-do-the-recovery-position/'),
 
         //REC POS BABY
         '/recPosBa': (context) => refContent(
@@ -434,44 +476,76 @@ For foreign object in the ear,
                 'assets/images/recPosBa.png',
                 'First aid - Recovery Position for babies',
                 'www.sja.org.uk',
-                '/recPosBaW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-the-recovery-position-baby/'
               ]
             ],
             'no'),
-        '/recPosBaW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-the-recovery-position-baby/'),
 
         //# COMMON MFA #
         //BURN AND SCALDS
-        '/burn': (context) => refContent(
-            'How to treat burn and scalds',
-            [
+        '/burn': (context) => refContent('How to treat burn and scalds', [
               [
                 'https://youtu.be/EaJmzB8YgS0',
                 'assets/images/cpr.png',
                 'How to treat burn and scalds - First aid training',
                 'St John Ambulance'
               ],
-            ],
-            [
+            ], [
               [
                 'assets/images/burn.png',
                 'Burn and scalds - signs and first aid',
                 'www.sja.org.uk',
-                '/burnW1'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/burns-and-scalds/'
               ],
               [
                 'assets/images/burn.png',
                 'First aids for chemical burns',
                 'www.sja.org.uk',
-                '/burnW2'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/chemical-burns/'
               ]
-            ],
-            'no'),
-        '/burnW1': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/burns-and-scalds/'),
-        '/burnW2': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/chemical-burns/'),
+            ], '''
+For minor burns,
+- place burned area under cool water for at least 10 minutes
+- don't break blisters.
+- if they do break, clean with a mild soap and water and apply antibiotics ointments and cover it with a nonstick gauze bandage
+- if a rash develops, stop using the ointment
+- you may use moisturizer or aloe vera lotion to soothe the burn
+- if blisters larger than little fingernails, see your doctor
+- if pain, use over-the-counter pain relievers
+            '''),
+        //CHEMICAL BURN
+        '/burnCh': (context) => refContent('Chemical burns', [
+              [
+                'https://youtu.be/eNvXrSf3Cww',
+                'assets/images/cpr.png',
+                'Chemical Burn Standard First Aid',
+                'SOLO MEDICINE'
+              ],
+            ], [
+              [
+                'assets/images/burn.png',
+                'How to perform first aid for chemical burns',
+                'www.sja.org.uk',
+                'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/chemical-burns/'
+              ],
+              [
+                'assets/images/burn.png',
+                'First aids for chemical burns in eye',
+                'www.sja.org.uk',
+                'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/eye-injuries---chemical-burns/'
+              ]
+            ], '''
+- Wear protective gloves
+- Flood the burn with cool running water for at least 20 minutes  
+- When cooling, pour the water away from yourself to avoid being hit by any chemical splashes. 
+- Ensure any contaminated water does not collect near the casualty.
+- Call for emergency help. Pass on any details you may have of the chemical to ambulance control.
+
+For chemical burns in eyes)
+- Wear protective gloves
+- Hold the casualty’s eye under gently running water for at least 20 minutes and make sure the outside and inside of the eyelid is washed.
+- If the casualty’s eye is shut due to pain, gently but firmly open it so it can be washed out.
+            '''),
         //CHOKING ADULT
         '/chokAd': (context) => refContent(
             'Choking(Adults)',
@@ -488,18 +562,16 @@ For foreign object in the ear,
                 'assets/images/chokMayo.png',
                 'Choking - First aid',
                 'www.mayoclinic.org',
-                '/chokMayoW'
+                'https://www.mayoclinic.org/first-aid/first-aid-choking/basics/art-20056637'
               ],
               [
                 'assets/images/chokAd.png',
                 'What To Do When Someone Is Choking - first aid',
                 'www.sja.org.uk',
-                '/chokAdW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/choking/adult-choking/'
               ]
             ],
             'no'),
-        '/chokAdW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/choking/adult-choking/'),
 
         //CHOKING BABY
         '/chokBaby': (context) => refContent(
@@ -517,18 +589,16 @@ For foreign object in the ear,
                 'assets/images/chokMayo.png',
                 'Choking - First aid',
                 'www.mayoclinic.org',
-                '/chokMayoW'
+                'https://www.mayoclinic.org/first-aid/first-aid-choking/basics/art-20056637'
               ],
               [
                 'assets/images/chokBaby.png',
                 'First aid advices for Choking (babies)',
                 'www.sja.org.uk',
-                '/chokBabyW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/choking/baby-choking/'
               ]
             ],
             'no'),
-        '/chokBabyW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/choking/baby-choking/'),
 
         //CHOKING CHILD
         '/chokChi': (context) => refContent(
@@ -546,18 +616,16 @@ For foreign object in the ear,
                 'assets/images/chokMayo.png',
                 'Choking - First aid',
                 'www.mayoclinic.org',
-                '/chokMayoW'
+                'https://www.mayoclinic.org/first-aid/first-aid-choking/basics/art-20056637'
               ],
               [
                 'assets/images/chokChi.png',
                 'First aid advices for Choking (children)',
                 'www.sja.org.uk',
-                '/chokChiW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/choking/child-choking/'
               ]
             ],
             'no'),
-        '/chokChiW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/choking/child-choking/'),
         //EYE INJURIES
         '/eye': (context) => refContent(
             'Eye injuries',
@@ -574,28 +642,22 @@ For foreign object in the ear,
                 'assets/images/eye.jpg',
                 'Eye injuried by foreign objects - First aid',
                 'www.sja.org.uk',
-                '/eyew1'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/minor-illnesses-and-injuries/eye-injuries/'
               ],
               [
                 'assets/images/eye.jpg',
                 'Eye wound and injuries - First aid',
                 'www.sja.org.uk',
-                '/eyew2'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/minor-illnesses-and-injuries/eye-injuries---eye-wounds/'
               ],
               [
                 'assets/images/eye.jpg',
                 'Eye injuried by chemicals - First aid',
                 'www.sja.org.uk',
-                '/eyew3'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/eye-injuries---chemical-burns/'
               ]
             ],
             'no'),
-        '/eyew1': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/minor-illnesses-and-injuries/eye-injuries/'),
-        '/eyew2': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/minor-illnesses-and-injuries/eye-injuries---eye-wounds/'),
-        '/eyew3': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/eye-injuries---chemical-burns/'),
         //FAINTING
         '/fai': (context) => refContent(
             'First aid for fainting',
@@ -612,20 +674,16 @@ For foreign object in the ear,
                 'assets/images/faint.png',
                 'First aid for fainting',
                 'www.mayoclinic.org',
-                '/faiw1'
+                'https://www.mayoclinic.org/first-aid/first-aid-fainting/basics/art-20056606'
               ],
               [
                 'assets/images/faint.png',
                 'First aid for fainting - St John Ambulance',
                 'www.sja.org.uk',
-                '/faiw2'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/fainting/'
               ]
             ],
             'no'),
-        '/faiw1': (context) => webViewer(
-            'https://www.mayoclinic.org/first-aid/first-aid-fainting/basics/art-20056606'),
-        '/faiw2': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/fainting/'),
         //HEART ATTACK
         '/heaAtt': (context) => refContent(
             'Heart attack',
@@ -642,12 +700,10 @@ For foreign object in the ear,
                 'assets/images/heaAtt.png',
                 'First aid for heart attack - St John Ambulance',
                 'www.sja.org.uk',
-                '/heaAttW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/heart-conditions/heart-attack/'
               ]
             ],
             'no'),
-        '/heaAttW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/heart-conditions/heart-attack/'),
         //HEAD INJURIES
         '/heaInj': (context) => refContent(
             'Head injuries in children and babies',
@@ -664,12 +720,10 @@ For foreign object in the ear,
                 'assets/images/heaInj.png',
                 'First aids - Head injuries in children, babies',
                 'www.sja.org.uk',
-                '/heaInjW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/head-injuries/baby-and-child-head-injury/'
               ]
             ],
             'no'),
-        '/heaInjW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/head-injuries/baby-and-child-head-injury/'),
         //SEIZURE ADULT
         '/seiAd': (context) => refContent(
             'Seizure (adults)',
@@ -686,13 +740,10 @@ For foreign object in the ear,
                 'assets/images/seiAd.png',
                 'Seizure in adults - First aid',
                 'www.sja.org.uk',
-                '/seiAdW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/seizures/seizures-in-adults/'
               ]
             ],
             'no'),
-        '/seiAdW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/seizures/seizures-in-adults/'), //https://www.sja.org.uk/get-advice/first-aid-advice/seizures/seizures-in-adults/
-
         //SEIZURE BABY
         '/seibb': (context) => refContent(
             'Seizure (babies)',
@@ -709,12 +760,10 @@ For foreign object in the ear,
                 'assets/images/seiBa.png',
                 'First aid for seizure in babies',
                 'www.sja.org.uk',
-                '/seibbw'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/febrile-convulsion-seizures/'
               ]
             ],
             'no'),
-        '/seibbw': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/febrile-convulsion-seizures/'),
 
         //SEIZURE CHILDREN
         '/seiChi': (context) => refContent(
@@ -732,12 +781,10 @@ For foreign object in the ear,
                 'assets/images/seiChi.png',
                 'Seizure in children - First aid',
                 'www.sja.org.uk',
-                '/seiChiW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/seizures-in-children/'
               ]
             ],
             'no'),
-        '/seiChiW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/seizures-in-children/'),
 
         //SEVERE BLEEDING
         '/sevBl': (context) => refContent(
@@ -755,12 +802,10 @@ For foreign object in the ear,
                 'assets/images/sevBl.png',
                 'Severe bleeding - First aids',
                 'www.sja.org.uk',
-                '/sevBlW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/severe-bleeding/'
               ]
             ],
             'no'),
-        '/sevBlW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/severe-bleeding/'),
         //SEVERE BLEEDING BABY
         '/sevBlBa': (context) => refContent(
             'Severe bleeding (babies)',
@@ -777,12 +822,10 @@ For foreign object in the ear,
                 'assets/images/sevBlBa.png',
                 'Severe bleeding in babies - First aids',
                 'www.sja.org.uk',
-                '/sevBlBaW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/baby-bleeding/'
               ]
             ],
             'no'),
-        '/sevBlBaW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/baby-bleeding/'),
         //SHOCK
         '/sho': (context) => refContent(
             'Shock',
@@ -799,12 +842,10 @@ For foreign object in the ear,
                 'assets/images/sho.png',
                 'Shock - First aids',
                 'www.sja.org.uk',
-                '/shoW'
+                'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/shock/'
               ]
             ],
             'no'),
-        '/shoW': (context) => webViewer(
-            'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/shock/'),
         //SNAKE BITE
         '/snak': (context) => refContent('Snake bite', [
               [
@@ -818,15 +859,22 @@ For foreign object in the ear,
                 'assets/images/snak.png',
                 'Snake bite - First aids',
                 'www.mayoclinic.org',
-                '/snakW'
+                'https://www.mayoclinic.org/first-aid/first-aid-snake-bites/basics/art-20056681'
+              ],
+              [
+                'assets/images/snak.png',
+                'VENOMOUS SNAKES | Symptoms and First Aid',
+                'www.cdc.gov',
+                'https://www.cdc.gov/niosh/topics/snakes/symptoms.html'
               ]
-            ], '''- Move beyond the snake's striking distance.
+            ], '''
+- Seek medical attention as soon as possible
+- Move beyond the snake's striking distance.
 - Remain still and calm to help slow the spread of venom.
 - Remove jewelry and tight clothing before you start to swell.
 - Position yourself, if possible, so that the bite is at or below the level of your heart.
-- Clean the wound with soap and water. Cover it with a clean, dry dressing.'''),
-        '/snakW': (context) => webViewer(
-            'https://www.mayoclinic.org/first-aid/first-aid-snake-bites/basics/art-20056681'),
+- Clean the wound with soap and water. Cover it with a clean, dry dressing.
+'''),
 
         //DISASTERS
 
@@ -884,12 +932,10 @@ For foreign object in the ear,
                 'assets/images/ship.png',
                 'Save yourself from drowning in a shipwreck',
                 'www.wikihow.com',
-                '/shiW'
+                'https://www.wikihow.com/Save-Yourself-from-Drowning-in-a-Shipwreck'
               ]
             ],
             'no'),
-        '/shiW': (context) => webViewer(
-            'https://www.wikihow.com/Save-Yourself-from-Drowning-in-a-Shipwreck'),
         //TORNADO
         '/tor': (context) => refContent(
             'How to survive tornado',
@@ -906,12 +952,10 @@ For foreign object in the ear,
                 'assets/images/tornado.jpg',
                 'How to survive tornado',
                 'www.wikihow.com',
-                '/torW'
+                'https://www.wikihow.com/Survive-a-Tornado'
               ]
             ],
             'no'),
-        '/torW': (context) =>
-            webViewer('https://www.wikihow.com/Survive-a-Tornado'),
         //WILD ANIMAL ATTACKS
         '/wild': (context) => refContent(
             'How to survive wild animal attacks',
@@ -928,12 +972,10 @@ For foreign object in the ear,
                 'assets/images/wild.jpg',
                 '12 Techniques That Will Help You Survive a Deadly Battle With an Animal',
                 'www.brightside.me',
-                '/wildW'
+                'https://brightside.me/inspiration-tips-and-tricks/12-techniques-that-will-help-you-survive-a-deadly-battle-with-an-animal-387910/'
               ]
             ],
             'no'),
-        '/wildW': (context) => webViewer(
-            'https://brightside.me/inspiration-tips-and-tricks/12-techniques-that-will-help-you-survive-a-deadly-battle-with-an-animal-387910/'),
       },
     );
   }

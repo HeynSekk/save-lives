@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:save_lives/common/common.dart';
 import 'package:save_lives/common/youtubePlyr.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class refContent extends StatelessWidget {
   String contentTitle;
@@ -8,16 +9,14 @@ class refContent extends StatelessWidget {
   String remember;
 
   refContent(this.contentTitle, this.ytVids, this.webPages, this.remember);
-  //String title,vidTitle,vidUrl,webDest,remember;
-  //refContent(this.title,this.vidTitle,this.vidUrl,this.webDest,this.remember);
+
   @override
   Widget build(BuildContext context) {
     double sw = MediaQuery.of(context).size.width;
     double wRow = sw * 0.8;
-    double sHeight = MediaQuery.of(context).size.height;
     double normalFontSize = wRow * 0.07 * 1.5 * 0.50;
     //build widget list
-    var wLst = new List<Widget>();
+    List<Widget> wLst = [];
     int countWidget = 0;
     //title
     wLst.add(SizedBox(
@@ -69,7 +68,7 @@ class refContent extends StatelessWidget {
 
       countWidget = this.webPages.length;
       for (int i = 0; i < countWidget; i++) {
-        wLst.add(contLink(
+        wLst.add(WebsiteLink(
           this.webPages[i][0],
           this.webPages[i][1],
           this.webPages[i][2],
@@ -149,30 +148,102 @@ class refContent extends StatelessWidget {
         ),
       ),
     );
+  }
+}
 
-    /*Scaffold(
-      drawer: drawerUI(),
-      body: SafeArea(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            sideStick(),
-            Padding(
-              padding: EdgeInsets.only(
-                //top: sHeight * 0.07*0.10,
-                left: sHeight * 0.11 * 0.20,
-                right: 0,
-              ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: wLst),
-              ),
+class WebsiteLink extends StatelessWidget {
+  //attri
+  final String img, txt, addr, url;
+  //constructor
+  WebsiteLink(this.img, this.txt, this.addr, this.url);
+
+  Future<int> _launchWebView(String url) async {
+    int r = 1;
+    if (await canLaunch(url)) {
+      r = 1;
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: true,
+        enableJavaScript: true,
+        headers: <String, String>{'my_header_key': 'my_header_value'},
+      );
+    } else {
+      r = 0;
+    }
+    return r;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double sw = MediaQuery.of(context).size.width;
+    double wRow = sw * 0.8;
+    double normalFontSize = wRow * 0.07 * 1.5 * 0.60;
+    return InkWell(
+      onTap: () async {
+        if (await _launchWebView(this.url) == 0) {
+          //show err msg
+          showDialog<void>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text('Could not launch web view'),
+              actions: <Widget>[
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('OK')),
+              ],
+            ),
+          );
+        }
+      },
+      child: Container(
+        width: sw * 0.87,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(normalFontSize * 0.30),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 0.5,
+              blurRadius: 2,
+              offset: Offset(0, 0), // changes position of shadow
             ),
           ],
         ),
+        padding: EdgeInsets.all(sw * 0.87 * 0.07),
+        margin: EdgeInsets.only(left: 5),
+        child: Column(children: <Widget>[
+          Row(
+            children: <Widget>[
+              imgs(sw * 0.87 * 0.30, sw * 0.87 * 0.30, normalFontSize * 0.50,
+                  this.img),
+              SizedBox(width: sw * 0.87 * 0.05),
+              SizedBox(
+                width: sw * 0.87 * 0.50,
+                child: Text(
+                  this.txt,
+                  style: TextStyle(
+                    fontSize: normalFontSize,
+                    color: Color(0xff353335),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          //addr
+          SizedBox(height: normalFontSize),
+          SizedBox(
+            width: sw * 0.70,
+            child: Text(
+              this.addr,
+              style: TextStyle(
+                color: Color(0xff555555),
+                fontSize: normalFontSize * 0.70,
+              ),
+            ),
+          ),
+        ]),
       ),
-    );*/
+    );
   }
 }
