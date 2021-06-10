@@ -98,7 +98,7 @@ class _contactState extends State<contact> {
     double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
     return SafeArea(
       child: Scaffold(
-        drawer: drawerUI(),
+        drawer: DrawerUi(),
         body: Padding(
           padding: EdgeInsets.all(sw * 0.05),
           child: Column(

@@ -11,7 +11,7 @@ class disastersCatalog extends StatelessWidget {
     double normalFontSize = wRow * 0.07 * 1.5 * 0.50;
     return SafeArea(
       child: Scaffold(
-        drawer: drawerUI(),
+        drawer: DrawerUi(),
         body: Padding(
           padding: EdgeInsets.only(
               top: sw * 0.05, left: sw * 0.05, right: sw * 0.05),

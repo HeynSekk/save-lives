@@ -7,14 +7,14 @@ import 'package:flutter/foundation.dart' show SynchronousFuture;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:save_lives/common/theme.dart';
 import 'package:save_lives/screens/disastersCatalog.dart';
 import 'package:save_lives/screens/home.dart';
 import 'package:save_lives/screens/contact.dart';
 import 'package:save_lives/screens/purpose.dart';
 import 'package:save_lives/screens/catalog.dart';
-import 'package:save_lives/common/webViewer.dart';
 import 'package:save_lives/screens/refContent.dart';
+
+import 'models/themeManager.dart';
 
 //***INITIALIZE***
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -79,7 +79,7 @@ Future<void> main() async {
   //WRAP IT
   runApp(
     ChangeNotifierProvider(
-      create: (context) => LanguageChanger(),
+      create: (context) => ThemeManager(),
       child: MyApp(),
     ),
   );
@@ -91,14 +91,13 @@ class MyApp extends StatelessWidget {
     // Using MultiProvider is convenient when providing multiple objects.
     return MaterialApp(
       title: 'Save Lives',
-      theme: appTheme,
       initialRoute: '/',
       routes: {
         //SCREENS
         '/': (context) => home(),
         '/emergencies': (context) => catalog(),
         '/disasters': (context) => disastersCatalog(),
-        '/purpose': (context) => purpose('assets/texts/purpose.json'),
+        '/purpose': (context) => Purpose(),
         '/contact': (context) => contact(),
 
         // ***CONTENTS***

@@ -1,4 +1,238 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:save_lives/models/themeManager.dart';
+
+//desc txt
+class DescTxt extends StatelessWidget {
+  String txt;
+  bool center;
+  DescTxt(this.txt, this.center);
+  @override
+  Widget build(BuildContext context) {
+    double sw = MediaQuery.of(context).size.width;
+    return SizedBox(
+      width: sw * 0.90,
+      child: Text(
+        this.txt,
+        textAlign: this.center ? TextAlign.center : TextAlign.start,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 18,
+        ),
+      ),
+    );
+  }
+}
+
+//leading txt
+class LeadingTxt extends StatelessWidget {
+  String txt;
+  bool center;
+  LeadingTxt(this.txt, this.center);
+  @override
+  Widget build(BuildContext context) {
+    final double sw = MediaQuery.of(context).size.width;
+    return SizedBox(
+      width: sw * 0.90,
+      child: Text(
+        this.txt,
+        textAlign: this.center ? TextAlign.center : TextAlign.start,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 23,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
+
+class DrawerUi extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final double sw = MediaQuery.of(context).size.width;
+    final double drWid = sw * 0.80;
+    final double menuSpace = 12;
+    return SizedBox(
+      width: drWid,
+      child: Drawer(
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: drWid * 0.20,
+            left: drWid * 0.10,
+            right: drWid * 0.10,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SaveLivesLogo(drWid * 0.10),
+                SizedBox(
+                  height: drWid * 0.15,
+                ),
+                //lang
+                DrMenuWithSwitch(Icons.dark_mode, Colors.green, 'Dark mode'),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: menuSpace * 0.50, bottom: menuSpace * 0.70),
+                  child: Divider(),
+                ),
+                //first aids
+                InkWell(
+                  onTap: () => Navigator.pushNamed(context, '/emergencies'),
+                  child:
+                      DrMenu(Icons.label_important, Colors.green, 'First aids'),
+                ),
+                SizedBox(
+                  height: menuSpace,
+                ),
+                //survive
+                InkWell(
+                  onTap: () => Navigator.pushNamed(context, '/disasters'),
+                  child: DrMenu(Icons.nature, Colors.green, 'Survival tips'),
+                ),
+                SizedBox(
+                  height: menuSpace,
+                ),
+                //purpose
+                InkWell(
+                  onTap: () => Navigator.pushNamed(context, '/purpose'),
+                  child: DrMenu(
+                      Icons.favorite, Colors.green, 'Purpose of this app'),
+                ),
+                SizedBox(
+                  height: menuSpace,
+                ),
+                //contact
+                InkWell(
+                  onTap: () => Navigator.pushNamed(context, '/contact'),
+                  child: DrMenu(Icons.phone, Colors.green, 'Contact'),
+                ),
+                SizedBox(
+                  height: menuSpace,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class DrMenu extends StatelessWidget {
+  final IconData leadIcon;
+  final String menuName;
+  final Color iconBgColor;
+  DrMenu(this.leadIcon, this.iconBgColor, this.menuName);
+  @override
+  Widget build(BuildContext context) {
+    final double sw = MediaQuery.of(context).size.width;
+    final double drWid = sw * 0.50;
+    return Row(
+      children: <Widget>[
+        Container(
+          decoration:
+              BoxDecoration(shape: BoxShape.circle, color: this.iconBgColor),
+          child: Padding(
+            padding: EdgeInsets.all(drWid * 0.03),
+            child: Icon(
+              this.leadIcon,
+              color: Colors.white,
+              size: drWid * 0.10,
+            ),
+          ),
+        ),
+        SizedBox(width: drWid * 0.07),
+        //text
+        Text(
+          this.menuName,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: drWid * 0.09,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class DrMenuWithSwitch extends StatelessWidget {
+  final IconData leadIcon;
+  final String menuName;
+  final Color iconBgColor;
+  DrMenuWithSwitch(this.leadIcon, this.iconBgColor, this.menuName);
+  @override
+  Widget build(BuildContext context) {
+    final ThemeManager tm = context.watch<ThemeManager>();
+    final double sw = MediaQuery.of(context).size.width;
+    final double drWid = sw * 0.80;
+    return Row(
+      children: <Widget>[
+        Container(
+          decoration:
+              BoxDecoration(shape: BoxShape.circle, color: this.iconBgColor),
+          child: Padding(
+            padding: EdgeInsets.all(drWid * 0.03),
+            child: Icon(
+              this.leadIcon,
+              color: Colors.white,
+              size: drWid * 0.10,
+            ),
+          ),
+        ),
+        SizedBox(width: drWid * 0.07),
+        //text
+        Text(
+          '${this.menuName} ',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: drWid * 0.09,
+          ),
+        ),
+        //space
+        Flexible(
+          fit: FlexFit.tight,
+          child: SizedBox(),
+        ),
+        //switch
+        Switch(
+          value: tm.dark,
+          onChanged: (bool val) async {
+            await tm.changeTheme(val);
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class SaveLivesLogo extends StatelessWidget {
+  final double size;
+  SaveLivesLogo(this.size);
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Icon(
+          Icons.favorite,
+          size: size,
+          color: Color(0xff69ac37),
+        ),
+        SizedBox(width: size * 0.30),
+        Text(
+          'Save Lives',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: size,
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 class vspace extends StatelessWidget {
   double quant;
@@ -128,205 +362,5 @@ class ImageInApp extends StatelessWidget {
         image: DecorationImage(image: AssetImage(this.path), fit: BoxFit.fill),
       ),
     ));
-  }
-}
-
-//DRAWER
-class drawerUI extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    MediaQueryData media = MediaQuery.of(context);
-    double sw = media.size.width;
-    Orientation deviceOri = media.orientation;
-    if (deviceOri == Orientation.portrait) {
-      sw = media.size.width;
-    } else {
-      sw = media.size.height;
-    }
-    double drWid = sw * 0.95;
-    return SizedBox(
-      width: drWid,
-      child: Drawer(
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: drWid * 0.20,
-            left: drWid * 0.10,
-            right: drWid * 0.10,
-          ),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                drHeader(),
-                SizedBox(
-                  height: drWid * 0.15,
-                ),
-                //emergen
-                drMenuWithIcon(
-                    Icon(
-                      Icons.add,
-                      color: Colors.white,
-                      size: drWid * 0.063,
-                    ),
-                    0xffe60707,
-                    'First Aids',
-                    '/emergencies'),
-                SizedBox(height: drWid * 0.07),
-                //disasters
-                drMenuWithIcon(
-                    Icon(
-                      Icons.nature_people,
-                      color: Colors.white,
-                      size: drWid * 0.063,
-                    ),
-                    0xff44d449,
-                    'Survival Tips',
-                    '/disasters'),
-
-                Divider(
-                  height: drWid * 0.14,
-                  thickness: 1,
-                ),
-                //purpose
-                drMenu(
-                    'assets/images/qm.png', 'Purpose of this app', '/purpose'),
-
-                SizedBox(height: drWid * 0.07),
-                //contact
-                drMenu('assets/images/feedback.png', 'Contact & Credits',
-                    '/contact'),
-                SizedBox(height: drWid * 0.07),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class drMenuWithIcon extends StatelessWidget {
-  Icon leadIcon;
-
-  String menuName, destOnTap;
-  int iconBgColor;
-  drMenuWithIcon(
-      this.leadIcon, this.iconBgColor, this.menuName, this.destOnTap);
-  @override
-  Widget build(BuildContext context) {
-    MediaQueryData media = MediaQuery.of(context);
-    double sw = media.size.width;
-    Orientation deviceOri = media.orientation;
-    if (deviceOri == Orientation.portrait) {
-      sw = media.size.width;
-    } else {
-      sw = media.size.height;
-    }
-    double drWid = sw * 0.85;
-
-    return InkWell(
-      onTap: () {
-        Navigator.pop(context);
-        Navigator.pushNamed(context, this.destOnTap);
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            height: drWid * 0.08,
-            width: drWid * 0.08,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle, color: Color(this.iconBgColor)),
-            child: this
-                .leadIcon, /*Icon(
-              this.leadIcon,//Icons.book,
-              color: Colors.white,
-              size: drWid * 0.063,
-            ),*/
-          ),
-          SizedBox(width: drWid * 0.05),
-          //text
-          Text(
-            this.menuName,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: drWid * 0.06,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class drMenu extends StatelessWidget {
-  String menuIcon, menuName, destOnTap;
-  drMenu(this.menuIcon, this.menuName, this.destOnTap);
-  @override
-  Widget build(BuildContext context) {
-    MediaQueryData media = MediaQuery.of(context);
-    double sw = media.size.width;
-    Orientation deviceOri = media.orientation;
-    if (deviceOri == Orientation.portrait) {
-      sw = media.size.width;
-    } else {
-      sw = media.size.height;
-    }
-    double drWid = sw * 0.85;
-    return InkWell(
-      onTap: () {
-        Navigator.pop(context);
-        Navigator.pushNamed(context, this.destOnTap);
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          ImageInApp(drWid * 0.08, drWid * 0.08, this.menuIcon),
-          SizedBox(width: drWid * 0.05),
-          Text(
-            this.menuName,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: drWid * 0.06,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class drHeader extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    MediaQueryData media = MediaQuery.of(context);
-    double sw = media.size.width;
-    Orientation deviceOri = media.orientation;
-    if (deviceOri == Orientation.portrait) {
-      sw = media.size.width;
-    } else {
-      sw = media.size.height;
-    }
-    double drWid = sw * 0.85;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Icon(
-          Icons.favorite,
-          size: sw * 0.75 * 0.17,
-          color: Color(0xff69ac37),
-        ),
-        SizedBox(width: drWid * (1 / 6) * 0.20),
-        Text(
-          'Save Lives',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: drWid * 0.13,
-          ),
-        ),
-      ],
-    );
   }
 }
