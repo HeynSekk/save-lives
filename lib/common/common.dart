@@ -2,13 +2,301 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:save_lives/models/themeManager.dart';
 
+//TITLE
+class catalogTitle extends StatelessWidget {
+  String title;
+  catalogTitle(this.title);
+  @override
+  Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
+    double screenWidth = MediaQuery.of(context).size.width;
+    double wRow = screenWidth * 0.90;
+    //double hTitle=mwid*0.32;
+    return Row(
+      children: <Widget>[
+        //heart
+        Icon(
+          Icons.favorite,
+          size: wRow * 0.18,
+          color: Color(t.logoIcon),
+        ),
+        //ImageInApp(wRow * 0.15, wRow * 0.15, 'assets/images/heartIcon.png'),
+        //space
+        SizedBox(
+          width: wRow * 0.03,
+        ),
+        //text
+        SizedBox(
+          //height: 45,
+          width: wRow * 0.79,
+          child: Text(
+            this.title,
+            style: TextStyle(
+              fontSize: wRow * 0.07,
+              fontWeight: FontWeight.bold,
+              color: Color(t.listTitle),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class subTitle extends StatelessWidget {
+  String title;
+  subTitle(this.title);
+  @override
+  Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
+    double screenWidth = MediaQuery.of(context).size.width;
+    double wRow = screenWidth * 0.84;
+    double normalFontSize = wRow * 0.07 * 1.5 * 0.50;
+    //double hTitle=mwid*0.32;
+    return SizedBox(
+      width: screenWidth * 0.87,
+      child: Text(
+        this.title,
+        textAlign: TextAlign.start,
+        style: TextStyle(
+            color: Color(t.listTitle), fontSize: normalFontSize * 1.2),
+      ),
+    );
+  }
+}
+
+//ITEM
+class menuItemFirst extends StatelessWidget {
+  String iconPicPath;
+  String eName, destination, alphaData;
+
+  menuItemFirst(this.iconPicPath, this.eName, this.destination, this.alphaData);
+  @override
+  Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
+    MediaQueryData media = MediaQuery.of(context);
+    double sw = media.size.width;
+    return Padding(
+      padding: EdgeInsets.only(bottom: sw * 0.70 * 0.32 * 0.15),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          //tag
+          alphaTag(this.alphaData),
+          //space
+          SizedBox(
+            width: sw * 0.01,
+          ),
+          //menuCtnr
+          menuCtnr(this.iconPicPath, this.eName, this.destination),
+        ],
+      ),
+    );
+  }
+}
+
+class menuItemNormal extends StatelessWidget {
+  String iconPicPath;
+  String eName, destination;
+  menuItemNormal(this.iconPicPath, this.eName, this.destination);
+  @override
+  Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
+    MediaQueryData media = MediaQuery.of(context);
+    double screenWidth = media.size.width;
+    return Padding(
+      padding: EdgeInsets.only(bottom: screenWidth * 0.70 * 0.32 * 0.15),
+      child: menuCtnr(iconPicPath, eName, destination),
+    );
+  }
+}
+
+class menuCtnr extends StatelessWidget {
+  String iconPicPath;
+  String eName, destination;
+
+  menuCtnr(this.iconPicPath, this.eName, this.destination);
+  @override
+  Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
+    MediaQueryData media = MediaQuery.of(context);
+    double screenWidth = media.size.width;
+    double wRow = screenWidth * 0.83;
+    double hRow = wRow * 0.47;
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, this.destination);
+      },
+      child: Container(
+        height: hRow,
+        width: wRow,
+        padding: EdgeInsets.only(
+          top: hRow * 0.05,
+          bottom: hRow * 0.05,
+          left: hRow * 0.05,
+          right: hRow * 0.08,
+        ),
+        decoration: BoxDecoration(
+          color: Color(t.listItem),
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            //img h*.7
+            ListItemImage(hRow * 0.90, hRow * 0.90, this.iconPicPath),
+            //space 1/10
+            SizedBox(
+              width: hRow * 0.11,
+            ),
+            //text 9/10
+            SizedBox(
+              width: wRow * 0.45,
+              child: Text(
+                this.eName,
+                style: TextStyle(
+                  fontSize: wRow * 0.075, //screenWidth * 0.75 * 0.055
+                  color: Color(t.listItemTxt),
+                  height: 1.5,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class alphaTag extends StatelessWidget {
+  //attri
+  String alphabet;
+  //constructor
+  alphaTag(this.alphabet);
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
+    double sw = MediaQuery.of(context).size.width;
+    return SizedBox(
+      height: sw * 0.06,
+      width: sw * 0.06,
+      child: Center(
+        child: Text(
+          this.alphabet,
+          style: TextStyle(
+            fontSize: sw * 0.05,
+            color: Color(t.listTitle),
+            height: 1,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ListItemImage extends StatelessWidget {
+  //attri
+  final double height, width;
+  final String path;
+  //constructor
+  ListItemImage(this.height, this.width, this.path);
+
+  @override
+  Widget build(BuildContext context) {
+    return (new Container(
+      width: this.width,
+      height: this.height, //30.0
+      //alignment: Alignment.center,
+      decoration: new BoxDecoration(
+        //color: Colors.green,
+        borderRadius: BorderRadius.circular(10),
+        image: DecorationImage(image: AssetImage(this.path), fit: BoxFit.fill),
+      ),
+    ));
+  }
+}
+
+class Imgs extends StatelessWidget {
+  //attri
+  final double height, width, bRadi;
+  final String path;
+  //constructor
+  Imgs(this.height, this.width, this.bRadi, this.path);
+
+  @override
+  Widget build(BuildContext context) {
+    return (new Container(
+      width: this.width,
+      height: this.height, //30.0
+      //alignment: Alignment.center,
+      decoration: new BoxDecoration(
+        //color: Colors.green,
+        borderRadius: BorderRadius.circular(this.bRadi),
+        image: DecorationImage(image: AssetImage(this.path), fit: BoxFit.fill),
+      ),
+    ));
+  }
+}
+
+//button
+class ActionButton extends StatelessWidget {
+  final IconData btnIcon;
+  final String txt;
+  ActionButton(this.btnIcon, this.txt);
+  @override
+  Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
+    return Container(
+      padding: EdgeInsets.only(left: 18, right: 18, top: 9, bottom: 9),
+      decoration: BoxDecoration(
+        color: Color(t.card1),
+        borderRadius: BorderRadius.circular(9),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            this.btnIcon,
+            color: Color(t.cardTxt),
+            size: 18,
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Text(
+            this.txt,
+            style: TextStyle(color: Color(t.cardTxt), fontSize: 18),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+//txt button
+class TxtButton extends StatelessWidget {
+  final String txt;
+  TxtButton(this.txt);
+  @override
+  Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
+    return Text(
+      this.txt,
+      style: TextStyle(color: Color(t.card1), fontSize: 18),
+    );
+  }
+}
+
 //desc txt
 class DescTxt extends StatelessWidget {
-  String txt;
-  bool center;
+  final String txt;
+  final bool center;
   DescTxt(this.txt, this.center);
   @override
   Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
     double sw = MediaQuery.of(context).size.width;
     return SizedBox(
       width: sw * 0.90,
@@ -16,7 +304,7 @@ class DescTxt extends StatelessWidget {
         this.txt,
         textAlign: this.center ? TextAlign.center : TextAlign.start,
         style: TextStyle(
-          color: Colors.black,
+          color: Color(t.paraText),
           fontSize: 18,
         ),
       ),
@@ -26,11 +314,12 @@ class DescTxt extends StatelessWidget {
 
 //leading txt
 class LeadingTxt extends StatelessWidget {
-  String txt;
-  bool center;
+  final String txt;
+  final bool center;
   LeadingTxt(this.txt, this.center);
   @override
   Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
     final double sw = MediaQuery.of(context).size.width;
     return SizedBox(
       width: sw * 0.90,
@@ -38,7 +327,7 @@ class LeadingTxt extends StatelessWidget {
         this.txt,
         textAlign: this.center ? TextAlign.center : TextAlign.start,
         style: TextStyle(
-          color: Colors.black,
+          color: Color(t.listTitle),
           fontSize: 23,
           fontWeight: FontWeight.bold,
         ),
@@ -50,69 +339,74 @@ class LeadingTxt extends StatelessWidget {
 class DrawerUi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
     final double sw = MediaQuery.of(context).size.width;
     final double drWid = sw * 0.80;
     final double menuSpace = 12;
     return SizedBox(
       width: drWid,
       child: Drawer(
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: drWid * 0.20,
-            left: drWid * 0.10,
-            right: drWid * 0.10,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SaveLivesLogo(drWid * 0.10),
-                SizedBox(
-                  height: drWid * 0.15,
-                ),
-                //lang
-                DrMenuWithSwitch(Icons.dark_mode, Colors.green, 'Dark mode'),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: menuSpace * 0.50, bottom: menuSpace * 0.70),
-                  child: Divider(),
-                ),
-                //first aids
-                InkWell(
-                  onTap: () => Navigator.pushNamed(context, '/emergencies'),
-                  child:
-                      DrMenu(Icons.label_important, Colors.green, 'First aids'),
-                ),
-                SizedBox(
-                  height: menuSpace,
-                ),
-                //survive
-                InkWell(
-                  onTap: () => Navigator.pushNamed(context, '/disasters'),
-                  child: DrMenu(Icons.nature, Colors.green, 'Survival tips'),
-                ),
-                SizedBox(
-                  height: menuSpace,
-                ),
-                //purpose
-                InkWell(
-                  onTap: () => Navigator.pushNamed(context, '/purpose'),
-                  child: DrMenu(
-                      Icons.favorite, Colors.green, 'Purpose of this app'),
-                ),
-                SizedBox(
-                  height: menuSpace,
-                ),
-                //contact
-                InkWell(
-                  onTap: () => Navigator.pushNamed(context, '/contact'),
-                  child: DrMenu(Icons.phone, Colors.green, 'Contact'),
-                ),
-                SizedBox(
-                  height: menuSpace,
-                ),
-              ],
+        child: Flexible(
+          fit: FlexFit.tight,
+          child: Container(
+            color: Color(t.drBg),
+            padding: EdgeInsets.only(
+              top: drWid * 0.20,
+              left: drWid * 0.10,
+              right: drWid * 0.10,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SaveLivesLogo(drWid * 0.10),
+                  SizedBox(
+                    height: drWid * 0.15,
+                  ),
+                  //lang
+                  DrMenuWithSwitch(Icons.dark_mode, Colors.green, 'Dark mode'),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: menuSpace * 0.50, bottom: menuSpace * 0.70),
+                    child: Divider(),
+                  ),
+                  //first aids
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(context, '/emergencies'),
+                    child: DrMenu(
+                        Icons.label_important, Colors.green, 'First aids'),
+                  ),
+                  SizedBox(
+                    height: menuSpace,
+                  ),
+                  //survive
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(context, '/disasters'),
+                    child: DrMenu(Icons.nature, Colors.green, 'Survival tips'),
+                  ),
+                  SizedBox(
+                    height: menuSpace,
+                  ),
+                  //purpose
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(context, '/purpose'),
+                    child: DrMenu(
+                        Icons.favorite, Colors.green, 'Purpose of this app'),
+                  ),
+                  SizedBox(
+                    height: menuSpace,
+                  ),
+                  //contact
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(context, '/contact'),
+                    child: DrMenu(Icons.phone, Colors.green, 'Contact'),
+                  ),
+                  SizedBox(
+                    height: menuSpace,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -128,6 +422,7 @@ class DrMenu extends StatelessWidget {
   DrMenu(this.leadIcon, this.iconBgColor, this.menuName);
   @override
   Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
     final double sw = MediaQuery.of(context).size.width;
     final double drWid = sw * 0.50;
     return Row(
@@ -149,7 +444,7 @@ class DrMenu extends StatelessWidget {
         Text(
           this.menuName,
           style: TextStyle(
-            color: Colors.black,
+            color: Color(t.paraText),
             fontSize: drWid * 0.09,
           ),
         ),
@@ -165,7 +460,7 @@ class DrMenuWithSwitch extends StatelessWidget {
   DrMenuWithSwitch(this.leadIcon, this.iconBgColor, this.menuName);
   @override
   Widget build(BuildContext context) {
-    final ThemeManager tm = context.watch<ThemeManager>();
+    final ThemeManager t = context.watch<ThemeManager>();
     final double sw = MediaQuery.of(context).size.width;
     final double drWid = sw * 0.80;
     return Row(
@@ -187,7 +482,7 @@ class DrMenuWithSwitch extends StatelessWidget {
         Text(
           '${this.menuName} ',
           style: TextStyle(
-            color: Colors.black,
+            color: Color(t.paraText),
             fontSize: drWid * 0.09,
           ),
         ),
@@ -198,9 +493,9 @@ class DrMenuWithSwitch extends StatelessWidget {
         ),
         //switch
         Switch(
-          value: tm.dark,
+          value: t.dark,
           onChanged: (bool val) async {
-            await tm.changeTheme(val);
+            await t.changeTheme(val);
           },
         ),
       ],
@@ -213,19 +508,20 @@ class SaveLivesLogo extends StatelessWidget {
   SaveLivesLogo(this.size);
   @override
   Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Icon(
           Icons.favorite,
           size: size,
-          color: Color(0xff69ac37),
+          color: Color(t.logoIcon),
         ),
         SizedBox(width: size * 0.30),
         Text(
           'Save Lives',
           style: TextStyle(
-            color: Colors.black,
+            color: Color(t.logoTxt),
             fontSize: size,
           ),
         ),
@@ -235,7 +531,7 @@ class SaveLivesLogo extends StatelessWidget {
 }
 
 class vspace extends StatelessWidget {
-  double quant;
+  final double quant;
   vspace(this.quant);
   @override
   Widget build(BuildContext context) {
@@ -246,7 +542,7 @@ class vspace extends StatelessWidget {
 }
 
 class hspace extends StatelessWidget {
-  double quant;
+  final double quant;
   hspace(this.quant);
   @override
   Widget build(BuildContext context) {
@@ -256,9 +552,10 @@ class hspace extends StatelessWidget {
   }
 }
 
-class drawerButton extends StatelessWidget {
+class DrawerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
     double sw = MediaQuery.of(context).size.width;
     double wRow = sw * 0.8;
     double normalFontSize = wRow * 0.07 * 1.5 * 0.48;
@@ -268,13 +565,13 @@ class drawerButton extends StatelessWidget {
         height: sw * 0.90 * 0.15,
         width: sw * 0.90 * 0.15,
         decoration: BoxDecoration(
-          color: Color(0xffC4C4C4),
+          color: Color(t.drBtn),
           borderRadius: BorderRadius.circular(normalFontSize * 0.80),
         ),
         child: Center(
           child: Icon(
             Icons.menu,
-            color: Colors.white,
+            color: Color(t.drBtnIcon),
             size: sw * 0.90 * 0.10,
           ),
         ),
@@ -283,11 +580,10 @@ class drawerButton extends StatelessWidget {
   }
 }
 
-class appQuote extends StatelessWidget {
-  //attri
-
+class AppQuote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
     double sw = MediaQuery.of(context).size.width;
     double wRow = sw * 0.8;
     double normalFontSize = wRow * 0.07 * 1.5 * 0.48;
@@ -297,7 +593,7 @@ class appQuote extends StatelessWidget {
         SizedBox(height: normalFontSize),
         Icon(
           Icons.favorite,
-          color: Color(0xff69ac37),
+          color: Color(t.logoIcon),
           size: normalFontSize * 2,
         ),
         SizedBox(
@@ -309,7 +605,7 @@ class appQuote extends StatelessWidget {
             'Learn how to save lives.\nAnd share the knowledge to others',
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Color(0xffbf8c00),
+              color: Color(t.quote),
               fontSize: normalFontSize,
             ),
           ),
@@ -322,32 +618,10 @@ class appQuote extends StatelessWidget {
   }
 }
 
-class imgs extends StatelessWidget {
-  //attri
-  double height, width, bRadi;
-  String path;
-  //constructor
-  imgs(this.height, this.width, this.bRadi, this.path);
-
-  @override
-  Widget build(BuildContext context) {
-    return (new Container(
-      width: this.width,
-      height: this.height, //30.0
-      //alignment: Alignment.center,
-      decoration: new BoxDecoration(
-        //color: Colors.green,
-        borderRadius: BorderRadius.circular(this.bRadi),
-        image: DecorationImage(image: AssetImage(this.path), fit: BoxFit.fill),
-      ),
-    ));
-  }
-}
-
 class ImageInApp extends StatelessWidget {
   //attri
-  double height, width;
-  String path;
+  final double height, width;
+  final String path;
   //constructor
   ImageInApp(this.height, this.width, this.path);
 

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:save_lives/common/common.dart';
 import 'package:save_lives/common/youtubePlyr.dart';
+import 'package:save_lives/models/themeManager.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:provider/provider.dart';
 
 class refContent extends StatelessWidget {
   String contentTitle;
@@ -12,6 +14,7 @@ class refContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
     double sw = MediaQuery.of(context).size.width;
     double wRow = sw * 0.8;
     double normalFontSize = wRow * 0.07 * 1.5 * 0.50;
@@ -29,7 +32,7 @@ class refContent extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: normalFontSize * 2,
-            color: Colors.black,
+            color: Color(t.contentTitle),
             fontWeight: FontWeight.bold,
           ),
         )));
@@ -41,7 +44,7 @@ class refContent extends StatelessWidget {
       'Learn from videos:',
       style: TextStyle(
         fontSize: normalFontSize,
-        color: Color(0xff4c7031),
+        color: Color(t.contentTitle),
       ),
     ));
     wLst.add(SizedBox(height: normalFontSize));
@@ -61,7 +64,7 @@ class refContent extends StatelessWidget {
         'Learn from websites:',
         style: TextStyle(
           fontSize: normalFontSize,
-          color: Color(0xff4c7031),
+          color: Color(t.contentTitle),
         ),
       ));
       wLst.add(SizedBox(height: normalFontSize));
@@ -108,7 +111,7 @@ class refContent extends StatelessWidget {
       wLst.add(SizedBox(height: normalFontSize * 1.8));
     }
 
-    wLst.add(appQuote());
+    wLst.add(AppQuote());
 
     return SafeArea(
       child: Scaffold(
@@ -123,7 +126,7 @@ class refContent extends StatelessWidget {
                 width: sw * 0.90,
                 child: Padding(
                   padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
-                  child: drawerButton(),
+                  child: DrawerButton(),
                 ),
               ),
               SizedBox(
@@ -176,6 +179,7 @@ class WebsiteLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
     double sw = MediaQuery.of(context).size.width;
     double wRow = sw * 0.8;
     double normalFontSize = wRow * 0.07 * 1.5 * 0.60;
@@ -199,23 +203,15 @@ class WebsiteLink extends StatelessWidget {
       child: Container(
         width: sw * 0.87,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Color(t.linkBtn),
           borderRadius: BorderRadius.circular(normalFontSize * 0.30),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 0.5,
-              blurRadius: 2,
-              offset: Offset(0, 0), // changes position of shadow
-            ),
-          ],
         ),
         padding: EdgeInsets.all(sw * 0.87 * 0.07),
         margin: EdgeInsets.only(left: 5),
         child: Column(children: <Widget>[
           Row(
             children: <Widget>[
-              imgs(sw * 0.87 * 0.30, sw * 0.87 * 0.30, normalFontSize * 0.50,
+              Imgs(sw * 0.87 * 0.30, sw * 0.87 * 0.30, normalFontSize * 0.50,
                   this.img),
               SizedBox(width: sw * 0.87 * 0.05),
               SizedBox(
@@ -224,7 +220,7 @@ class WebsiteLink extends StatelessWidget {
                   this.txt,
                   style: TextStyle(
                     fontSize: normalFontSize,
-                    color: Color(0xff353335),
+                    color: Color(t.linkBtnTxt),
                   ),
                 ),
               ),
@@ -237,7 +233,7 @@ class WebsiteLink extends StatelessWidget {
             child: Text(
               this.addr,
               style: TextStyle(
-                color: Color(0xff555555),
+                color: Color(t.linkBtnTxt),
                 fontSize: normalFontSize * 0.70,
               ),
             ),

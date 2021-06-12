@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_youtube/flutter_youtube.dart';
+import 'package:save_lives/models/themeManager.dart';
 import 'common.dart';
 import 'sensitiveDatas.dart';
+import 'package:provider/provider.dart';
 
 class ytPlyr extends StatefulWidget {
   String vidUrl;
@@ -30,6 +32,7 @@ class _ytPlyrState extends State<ytPlyr> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
     double sw = MediaQuery.of(context).size.width;
     double wRow = sw * 0.8;
     double normalFontSize = wRow * 0.07 * 1.5 * 0.60;
@@ -38,23 +41,15 @@ class _ytPlyrState extends State<ytPlyr> {
       child: Container(
         width: sw * 0.87,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Color(t.linkBtn),
           borderRadius: BorderRadius.circular(normalFontSize * 0.30),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 0.3,
-              blurRadius: 2,
-              offset: Offset(0, 0), // changes position of shadow
-            ),
-          ],
         ),
         padding: EdgeInsets.all(sw * 0.87 * 0.07),
         margin: EdgeInsets.only(left: 5),
         child: Column(children: <Widget>[
           Row(
             children: <Widget>[
-              imgs(sw * 0.87 * 0.25, sw * 0.87 * 0.28 * 1.10, 0,
+              Imgs(sw * 0.87 * 0.25, sw * 0.87 * 0.28 * 1.10, 0,
                   'assets/images/ytLogo.png'),
               SizedBox(width: sw * 0.87 * 0.05),
               SizedBox(
@@ -63,7 +58,7 @@ class _ytPlyrState extends State<ytPlyr> {
                   this.txt,
                   style: TextStyle(
                     fontSize: normalFontSize,
-                    color: Color(0xff353335),
+                    color: Color(t.linkBtnTxt),
                   ),
                 ),
               ),
@@ -76,7 +71,7 @@ class _ytPlyrState extends State<ytPlyr> {
             child: Text(
               this.channelName,
               style: TextStyle(
-                color: Color(0xff555555),
+                color: Color(t.linkBtnTxt),
                 fontSize: normalFontSize * 0.70,
               ),
             ),
@@ -86,25 +81,3 @@ class _ytPlyrState extends State<ytPlyr> {
     );
   }
 }
-
-/*
-class ytLogo extends StatelessWidget {
-  double height, width;
-  ytLogo(this.height, this.width);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: this.height,
-      width: this.width,
-      decoration: BoxDecoration(
-        color: Colors.red,
-        borderRadius: BorderRadius.circular(this.height*0.25),
-      ),
-      child: Center(
-        child: ,
-      ),
-    );
-  }
-}
-*/

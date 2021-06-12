@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:save_lives/common/common.dart';
+import 'package:save_lives/models/themeManager.dart';
+import 'package:provider/provider.dart';
 
 class Purpose extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
     final double sw = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Color(t.bg),
       drawer: DrawerUi(),
       body: Padding(
         padding: EdgeInsets.all(sw * 0.05),
@@ -16,7 +20,7 @@ class Purpose extends StatelessWidget {
               width: sw * 0.90,
               child: Padding(
                 padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
-                child: drawerButton(),
+                child: DrawerButton(),
               ),
             ),
             SizedBox(

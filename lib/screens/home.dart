@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:save_lives/common/common.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:ota_update/ota_update.dart';
 import 'package:device_info/device_info.dart';
+import 'package:provider/provider.dart';
 
-import 'package:save_lives/common/common.dart';
 import 'package:save_lives/main.dart';
+import 'package:save_lives/models/themeManager.dart';
 
 class home extends StatefulWidget {
   @override
@@ -407,6 +409,7 @@ class _homeState extends State<home> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeManager t = context.read<ThemeManager>();
     double sw = MediaQuery.of(context).size.width;
     double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
     return IndexedStack(
@@ -414,105 +417,106 @@ class _homeState extends State<home> {
       children: [
         //home screen
         Scaffold(
+          backgroundColor: Color(t.bg),
           drawer: DrawerUi(), //from common.dart
-          body: SafeArea(
-            child: Scaffold(
-              drawer: DrawerUi(),
-              body: Padding(
-                padding: EdgeInsets.all(sw * 0.05),
-                child: Column(
-                  children: <Widget>[
-                    //drawer
-                    SizedBox(
-                      width: sw * 0.90,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
-                        child: drawerButton(),
-                      ),
-                    ),
-                    //scroll
-                    Flexible(
-                      fit: FlexFit.tight,
-                      flex: 1,
-                      child: SizedBox(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              //logo
-                              vspace(normalFontSize * 2),
-                              home_title(),
-                              vspace(normalFontSize * 2),
-
-                              //card1
-                              card(
-                                  'First Aids',
-                                  'Save lives in case of health emergencies',
-                                  '/emergencies'),
-                              vspace(normalFontSize * 1.8),
-                              //card2
-                              card(
-                                  'Survival Tips',
-                                  'Ways to survive natural disasters',
-                                  '/disasters'),
-                              vspace(normalFontSize * 1.5),
-                              //footer quote
-                              appQuote(),
-                              vspace(30),
-                              InkWell(
-                                onTap: () async {
-                                  setState(() {
-                                    forceCheckResult = Padding(
-                                      padding:
-                                          EdgeInsets.only(top: 30, bottom: 30),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          CircularProgressIndicator(),
-                                          SizedBox(
-                                            height: 15,
-                                          ),
-                                          Text('Checking for updates...'),
-                                        ],
-                                      ),
-                                    );
-                                  });
-                                  forceFetchCheckForUpd(context);
-                                },
-                                child:
-                                    actionBtn('Check for updates', 0xff69ac37),
-                              ),
-                              vspace(30),
-                              forceCheckResult,
-                              vspace(30),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+          body: Padding(
+            padding: EdgeInsets.all(sw * 0.05),
+            child: Column(
+              children: <Widget>[
+                //drawer
+                SizedBox(
+                  width: sw * 0.90,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
+                    child: DrawerButton(),
+                  ),
                 ),
-              ),
+                //scroll
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 1,
+                  child: SizedBox(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          //logo
+                          vspace(normalFontSize * 2),
+                          SaveLivesLogo(sw * 0.75 * 0.08 * 2.2),
+                          vspace(normalFontSize * 2),
+
+                          //card1
+                          card(
+                            'First Aids',
+                            'Save lives in case of health emergencies',
+                            '/emergencies',
+                            true,
+                          ),
+                          vspace(normalFontSize * 1.8),
+                          //card2
+                          card(
+                            'Survival Tips',
+                            'Ways to survive natural disasters',
+                            '/disasters',
+                            false,
+                          ),
+                          vspace(normalFontSize * 1.5),
+                          //footer quote
+                          AppQuote(),
+                          vspace(30),
+                          InkWell(
+                            onTap: () async {
+                              setState(() {
+                                forceCheckResult = Padding(
+                                  padding: EdgeInsets.only(top: 30, bottom: 30),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      CircularProgressIndicator(),
+                                      SizedBox(
+                                        height: 15,
+                                      ),
+                                      Text('Checking for updates...'),
+                                    ],
+                                  ),
+                                );
+                              });
+                              forceFetchCheckForUpd(context);
+                            },
+                            child:
+                                ActionButton(Icons.update, 'Check for updates'),
+                          ),
+                          vspace(30),
+                          forceCheckResult,
+                          vspace(30),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
         //update notify screen
         Scaffold(
+          backgroundColor: Color(t.bg),
           body: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //title
-                titleTxt('Software updates available!'),
+                LeadingTxt('Software updates available!', true),
                 SizedBox(
                   height: normalFontSize * 1.5,
                 ),
                 //desc
-                descText(
-                    'Please turn on mobile data or wifi. And update the app.'),
+                DescTxt(
+                    'Please turn on mobile data or wifi. And update the app.',
+                    true),
                 SizedBox(
                   height: normalFontSize * 2.9,
                 ),
@@ -521,7 +525,7 @@ class _homeState extends State<home> {
                   onTap: () async {
                     tryOtaUpdate();
                   },
-                  child: actionBtn('Update now', 0xff69ac37),
+                  child: ActionButton(Icons.update, 'Update now'),
                 ),
                 SizedBox(
                   height: normalFontSize * 1.7,
@@ -533,7 +537,7 @@ class _homeState extends State<home> {
                       forceCheckResult = Container();
                     });
                   },
-                  child: actionBtn('Cancel', 0xff69ac37),
+                  child: TxtButton('Cancel'),
                 ),
               ],
             ),
@@ -542,18 +546,19 @@ class _homeState extends State<home> {
         //update success
         SafeArea(
           child: Scaffold(
+            backgroundColor: Color(t.bg),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   //title
-                  titleTxt('Updating...'),
+                  LeadingTxt('Updating...', true),
                   SizedBox(
                     height: normalFontSize * 1.5,
                   ),
                   //desc
-                  descText('Please don\'t quit the app while updating'),
+                  DescTxt('Please don\'t quit the app while updating', true),
                   SizedBox(
                     height: normalFontSize * 2.9,
                   ),
@@ -562,9 +567,8 @@ class _homeState extends State<home> {
                     width: sw * 0.70,
                     child: LinearProgressIndicator(
                       value: downloadProgress * 0.01,
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(Color(0xff69ac37)),
-                      backgroundColor: Color(0xffd6d6d6),
+                      valueColor: AlwaysStoppedAnimation<Color>(Color(t.card1)),
+                      backgroundColor: Color(t.bg),
                     ),
                   ),
 
@@ -590,7 +594,7 @@ class _homeState extends State<home> {
                         forceCheckResult = Container();
                       });
                     },
-                    child: actionBtn('Run in background', 0xff69ac37),
+                    child: ActionButton(Icons.run_circle, 'Run in background'),
                   ),
                 ],
               ),
@@ -599,18 +603,20 @@ class _homeState extends State<home> {
         ),
         //no internet
         Scaffold(
+          backgroundColor: Color(t.bg),
           body: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //title
-                titleTxt('No internet connection!'),
+                LeadingTxt('No internet connection!', true),
                 SizedBox(
                   height: normalFontSize * 1.5,
                 ),
                 //desc
-                descText('Please turn on mobile data or wifi. And try again.'),
+                DescTxt(
+                    'Please turn on mobile data or wifi. And try again.', true),
                 SizedBox(
                   height: normalFontSize * 2.9,
                 ),
@@ -619,7 +625,7 @@ class _homeState extends State<home> {
                   onTap: () async {
                     tryOtaUpdate();
                   },
-                  child: actionBtn('Try Again', 0xff69ac37),
+                  child: ActionButton(Icons.repeat, 'Try Again'),
                 ),
               ],
             ),
@@ -627,6 +633,7 @@ class _homeState extends State<home> {
         ),
         //error updating
         Scaffold(
+          backgroundColor: Color(t.bg),
           body: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -649,7 +656,7 @@ class _homeState extends State<home> {
                   onTap: () async {
                     tryOtaUpdate();
                   },
-                  child: actionBtn('Try Again', 0xff69ac37),
+                  child: ActionButton(Icons.repeat, 'Try Again'),
                 ),
               ],
             ),
@@ -659,16 +666,17 @@ class _homeState extends State<home> {
     );
   }
 
-  Widget card(String titleTxt, String bodyTxt, String dest) {
-    double sw = MediaQuery.of(context).size.width;
-    double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
+  Widget card(String titleTxt, String bodyTxt, String dest, bool card1) {
+    final ThemeManager t = context.watch<ThemeManager>();
+    final double sw = MediaQuery.of(context).size.width;
+    final double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
     return InkWell(
       onTap: () => Navigator.pushNamed(context, dest),
       child: Container(
         width: sw * 0.85,
         height: sw * 0.42,
         decoration: BoxDecoration(
-          color: Color(0xff69ac37),
+          color: card1 ? Color(t.card1) : Color(t.card2),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
@@ -679,7 +687,7 @@ class _homeState extends State<home> {
             Text(
               titleTxt,
               style: TextStyle(
-                color: Colors.white,
+                color: Color(t.cardTxt),
                 fontWeight: FontWeight.bold,
                 fontSize: normalFontSize * 2.1,
               ),
@@ -815,108 +823,6 @@ class _homeState extends State<home> {
       eveningTime,
       platformChannelSpecifics,
       payload: routeList[screenId],
-    );
-  }
-}
-
-class home_title extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double wRow = screenWidth * 0.75;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        //heart
-        Icon(
-          Icons.favorite,
-          size: wRow * 0.21,
-          color: Color(0xff69ac37),
-        ),
-        SizedBox(
-          width: wRow * 0.02,
-        ),
-        Text(
-          'Save Lives',
-          style: TextStyle(
-            color: Colors.black, //Color(0xff6B6B6B),
-            fontSize: wRow * 0.08 * 2.2,
-            //fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-/*
-title green #4c7031
-desc yellow #bf8c00
-button green #69ac37
-
-*/
-//title text
-class titleTxt extends StatelessWidget {
-  String txt;
-  titleTxt(this.txt);
-  @override
-  Widget build(BuildContext context) {
-    double sw = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: sw * 0.95,
-      child: Text(
-        this.txt,
-        style: TextStyle(
-          color: Color(0xff4c7031),
-          fontWeight: FontWeight.bold,
-          fontSize: sw * 0.8 * 0.07 * 3 * 0.48,
-        ),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-}
-
-//descText
-class descText extends StatelessWidget {
-  String txt;
-  descText(this.txt);
-  @override
-  Widget build(BuildContext context) {
-    double sw = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: sw * 0.85,
-      child: Text(
-        this.txt,
-        style: TextStyle(
-          color: Color(0xffbf8c00),
-          fontSize: sw * 0.8 * 0.07 * 1.8 * 0.48,
-        ),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-}
-
-//actionBtn
-class actionBtn extends StatelessWidget {
-  String txt;
-  int color;
-  actionBtn(this.txt, this.color);
-  @override
-  Widget build(BuildContext context) {
-    double sw = MediaQuery.of(context).size.width;
-    double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
-    return Container(
-      padding: EdgeInsets.all(normalFontSize * 0.85),
-      decoration: BoxDecoration(
-        color: Color(this.color),
-        borderRadius: BorderRadius.circular(normalFontSize * 0.85),
-      ),
-      child: Text(
-        txt,
-        style: TextStyle(color: Colors.white, fontSize: normalFontSize * 1.1),
-      ),
     );
   }
 }
