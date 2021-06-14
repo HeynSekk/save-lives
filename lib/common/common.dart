@@ -156,7 +156,7 @@ class menuCtnr extends StatelessWidget {
               child: Text(
                 this.eName,
                 style: TextStyle(
-                  fontSize: wRow * 0.075, //screenWidth * 0.75 * 0.055
+                  fontSize: wRow * 0.06, //screenWidth * 0.75 * 0.055
                   color: Color(t.listItemTxt),
                   height: 1.5,
                 ),
@@ -299,11 +299,12 @@ class DescTxt extends StatelessWidget {
     final ThemeManager t = context.watch<ThemeManager>();
     double sw = MediaQuery.of(context).size.width;
     return SizedBox(
-      width: sw * 0.90,
+      width: sw * 0.87,
       child: Text(
         this.txt,
         textAlign: this.center ? TextAlign.center : TextAlign.start,
         style: TextStyle(
+          height: 1.5,
           color: Color(t.paraText),
           fontSize: 18,
         ),
@@ -342,7 +343,7 @@ class DrawerUi extends StatelessWidget {
     final ThemeManager t = context.watch<ThemeManager>();
     final double sw = MediaQuery.of(context).size.width;
     final double drWid = sw * 0.80;
-    final double menuSpace = 12;
+    final double menuSpace = 20;
     return SizedBox(
       width: drWid,
       child: Drawer(
@@ -360,7 +361,7 @@ class DrawerUi extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SaveLivesLogo(drWid * 0.10),
+                  SaveLivesLogo(drWid * 0.12),
                   SizedBox(
                     height: drWid * 0.15,
                   ),
@@ -369,13 +370,14 @@ class DrawerUi extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(
                         top: menuSpace * 0.50, bottom: menuSpace * 0.70),
-                    child: Divider(),
+                    child: Divider(
+                      color: Color(t.linkBtn),
+                    ),
                   ),
                   //first aids
                   InkWell(
                     onTap: () => Navigator.pushNamed(context, '/emergencies'),
-                    child: DrMenu(
-                        Icons.label_important, Colors.green, 'First aids'),
+                    child: DrMenu(Icons.medication, 'First aids'),
                   ),
                   SizedBox(
                     height: menuSpace,
@@ -383,7 +385,7 @@ class DrawerUi extends StatelessWidget {
                   //survive
                   InkWell(
                     onTap: () => Navigator.pushNamed(context, '/disasters'),
-                    child: DrMenu(Icons.nature, Colors.green, 'Survival tips'),
+                    child: DrMenu(Icons.nature, 'Survival tips'),
                   ),
                   SizedBox(
                     height: menuSpace,
@@ -391,8 +393,7 @@ class DrawerUi extends StatelessWidget {
                   //purpose
                   InkWell(
                     onTap: () => Navigator.pushNamed(context, '/purpose'),
-                    child: DrMenu(
-                        Icons.favorite, Colors.green, 'Purpose of this app'),
+                    child: DrMenu(Icons.favorite, 'Purpose of this app'),
                   ),
                   SizedBox(
                     height: menuSpace,
@@ -400,7 +401,7 @@ class DrawerUi extends StatelessWidget {
                   //contact
                   InkWell(
                     onTap: () => Navigator.pushNamed(context, '/contact'),
-                    child: DrMenu(Icons.phone, Colors.green, 'Contact'),
+                    child: DrMenu(Icons.phone, 'Contact'),
                   ),
                   SizedBox(
                     height: menuSpace,
@@ -418,8 +419,7 @@ class DrawerUi extends StatelessWidget {
 class DrMenu extends StatelessWidget {
   final IconData leadIcon;
   final String menuName;
-  final Color iconBgColor;
-  DrMenu(this.leadIcon, this.iconBgColor, this.menuName);
+  DrMenu(this.leadIcon, this.menuName);
   @override
   Widget build(BuildContext context) {
     final ThemeManager t = context.watch<ThemeManager>();
@@ -427,17 +427,10 @@ class DrMenu extends StatelessWidget {
     final double drWid = sw * 0.50;
     return Row(
       children: <Widget>[
-        Container(
-          decoration:
-              BoxDecoration(shape: BoxShape.circle, color: this.iconBgColor),
-          child: Padding(
-            padding: EdgeInsets.all(drWid * 0.03),
-            child: Icon(
-              this.leadIcon,
-              color: Colors.white,
-              size: drWid * 0.10,
-            ),
-          ),
+        Icon(
+          this.leadIcon,
+          color: Color(t.quote),
+          size: drWid * 0.14,
         ),
         SizedBox(width: drWid * 0.07),
         //text
@@ -445,7 +438,7 @@ class DrMenu extends StatelessWidget {
           this.menuName,
           style: TextStyle(
             color: Color(t.paraText),
-            fontSize: drWid * 0.09,
+            fontSize: drWid * 0.095,
           ),
         ),
       ],
@@ -462,28 +455,21 @@ class DrMenuWithSwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeManager t = context.watch<ThemeManager>();
     final double sw = MediaQuery.of(context).size.width;
-    final double drWid = sw * 0.80;
+    final double drWid = sw * 0.50;
     return Row(
       children: <Widget>[
-        Container(
-          decoration:
-              BoxDecoration(shape: BoxShape.circle, color: this.iconBgColor),
-          child: Padding(
-            padding: EdgeInsets.all(drWid * 0.03),
-            child: Icon(
-              this.leadIcon,
-              color: Colors.white,
-              size: drWid * 0.10,
-            ),
-          ),
+        Icon(
+          this.leadIcon,
+          color: Color(t.quote),
+          size: drWid * 0.14,
         ),
         SizedBox(width: drWid * 0.07),
         //text
         Text(
-          '${this.menuName} ',
+          this.menuName,
           style: TextStyle(
             color: Color(t.paraText),
-            fontSize: drWid * 0.09,
+            fontSize: drWid * 0.095,
           ),
         ),
         //space
@@ -514,10 +500,10 @@ class SaveLivesLogo extends StatelessWidget {
       children: <Widget>[
         Icon(
           Icons.favorite,
-          size: size,
+          size: size * 1.10,
           color: Color(t.logoIcon),
         ),
-        SizedBox(width: size * 0.30),
+        SizedBox(width: size * 0.25),
         Text(
           'Save Lives',
           style: TextStyle(
@@ -572,7 +558,7 @@ class DrawerButton extends StatelessWidget {
           child: Icon(
             Icons.menu,
             color: Color(t.drBtnIcon),
-            size: sw * 0.90 * 0.10,
+            size: sw * 0.90 * 0.085,
           ),
         ),
       ),

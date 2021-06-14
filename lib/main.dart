@@ -114,7 +114,7 @@ class MyApp extends StatelessWidget {
             ],
             [
               [
-                'assets/images/chokMayo.png',
+                'assets/images/nose.jpeg',
                 'First aid advice for nose bleed',
                 'www.sja.org.uk',
                 'https://www.sja.org.uk/get-advice/first-aid-advice/bleeding/nosebleeds/'
@@ -134,13 +134,13 @@ class MyApp extends StatelessWidget {
               ],
               [
                 [
-                  'assets/images/elec.jpeg',
+                  'assets/images/asthma.jpg',
                   'Performing first aid for asthma attack',
                   'www.sja.org.uk',
                   'https://www.sja.org.uk/get-advice/first-aid-advice/breathing-difficulties/asthma-attack/'
                 ],
                 [
-                  'assets/images/elec.jpeg',
+                  'assets/images/asthma.jpg',
                   'First aids for asthma attacks',
                   'www.cprcertified.com',
                   'https://www.cprcertified.com/blog/first-aid-for-asthma-attacks'
@@ -242,7 +242,7 @@ How to help an asthma victim use an inhaler?)
               ]
             ], [
               [
-                'assets/images/chokBaby.png',
+                'assets/images/fra.jpeg',
                 'Fractures (broken bones)',
                 'www.emergencyphysicians.org',
                 'https://www.mayoclinic.org/first-aid/first-aid-fractures/basics/art-20056641'
@@ -266,7 +266,7 @@ How to help an asthma victim use an inhaler?)
             ],
             [
               [
-                'assets/images/cprAd.jpg',
+                'assets/images/poi.png',
                 'Poisoning : First Aid',
                 'www.mayoclinic.org',
                 'https://www.mayoclinic.org/first-aid/first-aid-poisoning/basics/art-20056657'
@@ -284,13 +284,13 @@ How to help an asthma victim use an inhaler?)
               ],
             ], [
               [
-                'assets/images/cprAd.jpg',
+                'assets/images/foreign.jpeg',
                 'Foreign object in the nose: First aid',
                 'www.mayoclinic.org',
                 'https://www.mayoclinic.org/first-aid/first-aid/basics/art-20056610'
               ],
               [
-                'assets/images/cprAd.jpg',
+                'assets/images/foreign.jpeg',
                 'Foreign object in the ear: First aid',
                 'www.mayoclinic.org',
                 'https://www.mayoclinic.org/first-aid/first-aid/basics/art-20056709'
@@ -321,7 +321,7 @@ For foreign object in the ear,
             ],
             [
               [
-                'assets/images/cprAd.jpg',
+                'assets/images/stro.jpeg',
                 'Stroke: First aid',
                 'www.mayoclinic.org',
                 'https://www.mayoclinic.org/first-aid/first-aid-stroke/basics/art-20056602'
@@ -522,13 +522,13 @@ For minor burns,
               ],
             ], [
               [
-                'assets/images/burn.png',
+                'assets/images/chemBurn.jpeg',
                 'How to perform first aid for chemical burns',
                 'www.sja.org.uk',
                 'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/chemical-burns/'
               ],
               [
-                'assets/images/burn.png',
+                'assets/images/chemBurn.jpeg',
                 'First aids for chemical burns in eye',
                 'www.sja.org.uk',
                 'https://www.sja.org.uk/get-advice/first-aid-advice/effects-of-heat-and-cold/eye-injuries---chemical-burns/'

@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeManager extends ChangeNotifier {
+  //light
   bool dark = false;
   int bg = 0xffffffff;
   int drBg = 0xffffffff;
   int drBtn = 0xffD4EDE3;
-  int drBtnIcon = 0xff38B72D;
+  int drBtnIcon = 0xff135E35;
   int logoIcon = 0xff38B72D;
   int logoTxt = 0xff000000;
-  int card1 = 0xff38B72D;
-  int card2 = 0xff38B72D;
-  int quote = 0xffbf8c00;
+  int card1 = 0xff69ac37;
+  int card2 = 0xff69ac37;
+  int quote = 0xffbf8c00; //0xffbf8c00;
   int cardTxt = 0xffffffff;
   int listTitle = 0xff135E35;
   int listItem = 0xffD4EDE3;
@@ -42,7 +43,7 @@ class ThemeManager extends ChangeNotifier {
     //change var
     //dark mode
     if (dark) {
-      dark = true;
+      this.dark = true;
       bg = 0xff000000; //ffffff
       drBg = 0xff072540; //ffffff
       drBtn = 0xff1D4B5F; //D4EDE3
@@ -51,7 +52,7 @@ class ThemeManager extends ChangeNotifier {
       logoTxt = 0xff93BED2; //000000
       card1 = 0xff12564A; //38B72D
       card2 = 0xff072540; //38B72D
-      quote = 0xff708672; //0xffbf8c00
+      quote = 0xff12564A; //0xffbf8c00
       cardTxt = 0xffB1E6FF; //ffffff
       listTitle = 0xff93BED2; //135E35
       listItem = 0xff072540; //D4EDE3
@@ -64,15 +65,15 @@ class ThemeManager extends ChangeNotifier {
     }
     //light mode
     else {
-      dark = false;
+      this.dark = false;
       bg = 0xffffffff;
       drBg = 0xffffffff;
       drBtn = 0xffD4EDE3;
-      drBtnIcon = 0xff38B72D;
+      drBtnIcon = 0xff135E35;
       logoIcon = 0xff38B72D;
       logoTxt = 0xff000000;
-      card1 = 0xff38B72D;
-      card2 = 0xff38B72D;
+      card1 = 0xff69ac37;
+      card2 = 0xff69ac37;
       quote = 0xffbf8c00;
       cardTxt = 0xffffffff;
       listTitle = 0xff135E35;

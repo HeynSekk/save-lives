@@ -81,11 +81,11 @@ class catalog extends StatelessWidget {
                         SizedBox(
                           height: normalFontSize * 1.2,
                         ),
-                        menuItemFirst('assets/images/burn.png', 'Asthma attack',
-                            '/asthma', 'A'),
+                        menuItemFirst('assets/images/asthma.jpg',
+                            'Asthma attack', '/asthma', 'A'),
                         menuItemFirst('assets/images/burn.png',
                             'Burn and scalds', '/burn', 'B'),
-                        menuItemNormal('assets/images/burn.png',
+                        menuItemNormal('assets/images/chemBurn.jpeg',
                             'Burn (chemical burns)', '/burnCh'),
                         menuItemFirst('assets/images/chokAl.png',
                             'Choking when you\'re alone', '/chokAl', 'C'),
@@ -101,10 +101,10 @@ class catalog extends StatelessWidget {
                             'assets/images/eye.jpg', 'Eye injuries', '/eye'),
                         menuItemFirst(
                             'assets/images/faint.png', 'Fainting', '/fai', 'F'),
-                        menuItemNormal('assets/images/faint.png',
+                        menuItemNormal('assets/images/foreign.jpeg',
                             'Foreign object in the body', '/foreign'),
                         menuItemNormal(
-                            'assets/images/faint.png', 'Fracture', '/fra'),
+                            'assets/images/fra.jpeg', 'Fracture', '/fra'),
                         menuItemFirst(
                             'assets/images/heaInj.png',
                             'Head injuries in children, babies',
@@ -112,10 +112,10 @@ class catalog extends StatelessWidget {
                             'H'),
                         menuItemNormal('assets/images/heaAtt.png',
                             'Heart attack', '/heaAtt'),
-                        menuItemFirst('assets/images/heaInj.png',
+                        menuItemFirst('assets/images/nose.jpeg',
                             'Nose bleeding', '/nose', 'N'),
-                        menuItemFirst('assets/images/heaInj.png', 'Poisoning',
-                            '/poi', 'P'),
+                        menuItemFirst(
+                            'assets/images/poi.png', 'Poisoning', '/poi', 'P'),
                         menuItemFirst('assets/images/seiAd.png',
                             'Seizure (adults)', '/seiAd', 'S'),
                         menuItemNormal('assets/images/seiBa.png',
@@ -133,7 +133,7 @@ class catalog extends StatelessWidget {
                         menuItemNormal(
                             'assets/images/snak.png', 'Snake Bite', '/snak'),
                         menuItemNormal(
-                            'assets/images/snak.png', 'Stroke', '/stro'),
+                            'assets/images/stro.jpeg', 'Stroke', '/stro'),
                       ],
                     ),
                   ),

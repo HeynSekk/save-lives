@@ -44,7 +44,7 @@ class refContent extends StatelessWidget {
       'Learn from videos:',
       style: TextStyle(
         fontSize: normalFontSize,
-        color: Color(t.contentTitle),
+        color: Color(t.listTitle),
       ),
     ));
     wLst.add(SizedBox(height: normalFontSize));
@@ -64,7 +64,7 @@ class refContent extends StatelessWidget {
         'Learn from websites:',
         style: TextStyle(
           fontSize: normalFontSize,
-          color: Color(t.contentTitle),
+          color: Color(t.listTitle),
         ),
       ));
       wLst.add(SizedBox(height: normalFontSize));
@@ -89,25 +89,11 @@ class refContent extends StatelessWidget {
         'Summary',
         style: TextStyle(
           fontSize: normalFontSize,
-          color: Color(0xff4c7031),
+          color: Color(t.listTitle),
         ),
       ));
       wLst.add(SizedBox(height: normalFontSize));
-      wLst.add(Container(
-        width: sw * 0.85,
-        padding: EdgeInsets.all(normalFontSize),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(normalFontSize),
-          color: Colors.green,
-        ),
-        child: SizedBox(
-            width: sw * 0.70,
-            child: Text(
-              this.remember,
-              style: TextStyle(
-                  color: Colors.white, fontSize: normalFontSize, height: 1.9),
-            )),
-      ));
+      wLst.add(DescTxt(this.remember, false));
       wLst.add(SizedBox(height: normalFontSize * 1.8));
     }
 
@@ -115,6 +101,7 @@ class refContent extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Color(t.bg),
         drawer: DrawerUi(),
         body: Padding(
           padding: EdgeInsets.only(
@@ -130,7 +117,7 @@ class refContent extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: sw * 0.05,
+                height: sw * 0.02,
               ),
               //scroll
               Flexible(
@@ -201,7 +188,7 @@ class WebsiteLink extends StatelessWidget {
         }
       },
       child: Container(
-        width: sw * 0.87,
+        width: sw * 0.90,
         decoration: BoxDecoration(
           color: Color(t.linkBtn),
           borderRadius: BorderRadius.circular(normalFontSize * 0.30),

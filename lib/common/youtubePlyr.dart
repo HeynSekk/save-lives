@@ -39,7 +39,7 @@ class _ytPlyrState extends State<ytPlyr> {
     return InkWell(
       onTap: playYoutubeVideo,
       child: Container(
-        width: sw * 0.87,
+        width: sw * 0.90,
         decoration: BoxDecoration(
           color: Color(t.linkBtn),
           borderRadius: BorderRadius.circular(normalFontSize * 0.30),

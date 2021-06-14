@@ -22,22 +22,6 @@ class contact extends StatelessWidget {
     }
   }
 
-  Widget actionBtn(BuildContext context, String txt) {
-    double sw = MediaQuery.of(context).size.width;
-    double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
-    return Container(
-      padding: EdgeInsets.all(normalFontSize * 0.85),
-      decoration: BoxDecoration(
-        color: Color(0xff69ac37),
-        borderRadius: BorderRadius.circular(normalFontSize * 0.85),
-      ),
-      child: Text(
-        txt,
-        style: TextStyle(color: Colors.white, fontSize: normalFontSize * 1.1),
-      ),
-    );
-  }
-
   Widget linkImg(BuildContext context, String path) {
     double sw = MediaQuery.of(context).size.width;
     double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
@@ -52,29 +36,6 @@ class contact extends StatelessWidget {
     ));
   }
 
-  Widget secTitle(BuildContext context, String txt) {
-    double sw = MediaQuery.of(context).size.width;
-    double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
-    return Text(
-      txt,
-      style: TextStyle(color: Color(0xff4c7031), fontSize: normalFontSize * 3),
-    );
-  }
-
-  Widget description(BuildContext context, String txt) {
-    double sw = MediaQuery.of(context).size.width;
-    double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
-    return SizedBox(
-      width: sw * 0.90,
-      child: Text(
-        txt,
-        style:
-            TextStyle(color: Color(0xff494949), fontSize: normalFontSize * 1.1),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final ThemeManager t = context.watch<ThemeManager>();
@@ -82,6 +43,7 @@ class contact extends StatelessWidget {
     double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Color(t.bg),
         drawer: DrawerUi(),
         body: Padding(
           padding: EdgeInsets.all(sw * 0.05),
@@ -110,11 +72,12 @@ class contact extends StatelessWidget {
                       children: <Widget>[
                         vspace(normalFontSize),
                         //title
-                        secTitle(context, 'Contact'),
+                        LeadingTxt('Contact', true),
                         vspace(normalFontSize * 2),
                         //actions
-                        description(context,
-                            'You can\nSuggest improvements\nReport bugs\nRequest new features\nDiscuss new project ideas to work with me'),
+                        DescTxt(
+                            'To suggest improvements,\nReport bugs,\nRequest new features,\nDiscuss about application development,',
+                            true),
 
                         vspace(normalFontSize * 2),
                         //description
@@ -131,37 +94,39 @@ class contact extends StatelessWidget {
                                 await _makePhoneCall(
                                     'mailto:heinsek@protonmail.com?subject=Contacting from the user of Save Lives&body=Hello Hein Sek,');
                               },
-                              child: actionBtn(context, 'Email'),
+                              child: ActionButton(Icons.email, 'Email'),
                             ),
                             InkWell(
                               onTap: () async {
                                 await _makePhoneCall('tel:09256832552');
                               },
-                              child: actionBtn(context, 'Phone call'),
+                              child: ActionButton(Icons.phone, 'Phone'),
                             ),
                             InkWell(
                               onTap: () async {
                                 await _launchInBrowser(
                                     'https://www.facebook.com/HeynSekk');
                               },
-                              child: actionBtn(context, 'Facebook'),
+                              child: ActionButton(Icons.face, 'Facebook'),
                             ),
                             InkWell(
                               onTap: () async {
                                 await _launchInBrowser(
                                     'https://github.com/HeynSekk');
                               },
-                              child: actionBtn(context, 'GitHub link'),
+                              child: ActionButton(Icons.cloud, 'GitHub'),
                             ),
                           ],
                         ),
                         vspace(normalFontSize * 3.3),
                         //section 2
-                        secTitle(context, 'Contribution'),
+                        LeadingTxt('Contribution', true),
+
                         vspace(normalFontSize * 2),
                         //desc
-                        description(context,
-                            'You can also contribute this project by\n\nMaking UI improvements, code refactoring, technical improvements, if you are a Flutter developer, and\n\nDrawing illustrations for first aids items and survival tips, if you are an artist\n\nEvery PR is warmly appreciated.'),
+                        DescTxt(
+                            'This porject is opensource. You can contribute to improve this project.',
+                            true),
                         vspace(normalFontSize * 2),
                         //action
                         InkWell(
@@ -169,15 +134,16 @@ class contact extends StatelessWidget {
                             await _launchInBrowser(
                                 'https://github.com/HeynSekk/save-lives');
                           },
-                          child: actionBtn(context, 'Contribute this project'),
+                          child: ActionButton(Icons.favorite, 'Contribute'),
                         ),
                         vspace(normalFontSize * 3.3),
                         //section 3
-                        secTitle(context, 'Credits'),
+                        LeadingTxt('Credits', true),
                         vspace(normalFontSize * 2),
                         //desc
-                        description(context,
-                            'Images used in this app and its owners. Click the image to go to its source'),
+                        DescTxt(
+                            'Images used in this app and its owners. Click the image to go to its source',
+                            true),
                         vspace(normalFontSize * 2),
                         //actions
                         Wrap(

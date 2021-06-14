@@ -40,11 +40,16 @@ class _homeState extends State<home> {
   @override
   void initState() {
     super.initState();
+    normalProcess();
     _requestIOSPermissions();
     _configureDidReceiveLocalNotificationSubject();
     _configureSelectNotificationSubject();
     _showDailyAtTime();
     checkForUpd();
+  }
+
+  Future<void> normalProcess() async {
+    await context.read<ThemeManager>().openSetup();
   }
 
   //get version info
@@ -409,97 +414,101 @@ class _homeState extends State<home> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeManager t = context.read<ThemeManager>();
+    final ThemeManager t = context.watch<ThemeManager>();
     double sw = MediaQuery.of(context).size.width;
     double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
     return IndexedStack(
       index: _stackToShow,
       children: [
         //home screen
-        Scaffold(
-          backgroundColor: Color(t.bg),
-          drawer: DrawerUi(), //from common.dart
-          body: Padding(
-            padding: EdgeInsets.all(sw * 0.05),
-            child: Column(
-              children: <Widget>[
-                //drawer
-                SizedBox(
-                  width: sw * 0.90,
-                  child: Padding(
-                    padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
-                    child: DrawerButton(),
+        SafeArea(
+          child: Scaffold(
+            backgroundColor: Color(t.bg),
+            drawer: DrawerUi(), //from common.dart
+            body: Padding(
+              padding: EdgeInsets.all(sw * 0.05),
+              child: Column(
+                children: <Widget>[
+                  //drawer
+                  SizedBox(
+                    width: sw * 0.90,
+                    child: Padding(
+                      padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
+                      child: DrawerButton(),
+                    ),
                   ),
-                ),
-                //scroll
-                Flexible(
-                  fit: FlexFit.tight,
-                  flex: 1,
-                  child: SizedBox(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          //logo
-                          vspace(normalFontSize * 2),
-                          SaveLivesLogo(sw * 0.75 * 0.08 * 2.2),
-                          vspace(normalFontSize * 2),
+                  //scroll
+                  Flexible(
+                    fit: FlexFit.tight,
+                    flex: 1,
+                    child: SizedBox(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            //logo
+                            vspace(normalFontSize * 2),
+                            SaveLivesLogo(sw * 0.75 * 0.08 * 2.2),
+                            vspace(normalFontSize * 2),
 
-                          //card1
-                          card(
-                            'First Aids',
-                            'Save lives in case of health emergencies',
-                            '/emergencies',
-                            true,
-                          ),
-                          vspace(normalFontSize * 1.8),
-                          //card2
-                          card(
-                            'Survival Tips',
-                            'Ways to survive natural disasters',
-                            '/disasters',
-                            false,
-                          ),
-                          vspace(normalFontSize * 1.5),
-                          //footer quote
-                          AppQuote(),
-                          vspace(30),
-                          InkWell(
-                            onTap: () async {
-                              setState(() {
-                                forceCheckResult = Padding(
-                                  padding: EdgeInsets.only(top: 30, bottom: 30),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      CircularProgressIndicator(),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      Text('Checking for updates...'),
-                                    ],
-                                  ),
-                                );
-                              });
-                              forceFetchCheckForUpd(context);
-                            },
-                            child:
-                                ActionButton(Icons.update, 'Check for updates'),
-                          ),
-                          vspace(30),
-                          forceCheckResult,
-                          vspace(30),
-                        ],
+                            //card1
+                            card(
+                              'First Aids',
+                              'Save lives in case of health emergencies',
+                              '/emergencies',
+                              true,
+                            ),
+                            vspace(normalFontSize * 1.8),
+                            //card2
+                            card(
+                              'Survival Tips',
+                              'Ways to survive natural disasters',
+                              '/disasters',
+                              false,
+                            ),
+                            vspace(normalFontSize * 1.5),
+                            //footer quote
+                            AppQuote(),
+                            vspace(30),
+                            InkWell(
+                              onTap: () async {
+                                setState(() {
+                                  forceCheckResult = Padding(
+                                    padding:
+                                        EdgeInsets.only(top: 30, bottom: 30),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        CircularProgressIndicator(),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text('Checking for updates...'),
+                                      ],
+                                    ),
+                                  );
+                                });
+                                forceFetchCheckForUpd(context);
+                              },
+                              child: ActionButton(
+                                  Icons.update, 'Check for updates'),
+                            ),
+                            vspace(30),
+                            forceCheckResult,
+                            vspace(30),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
+
         //update notify screen
         Scaffold(
           backgroundColor: Color(t.bg),
@@ -703,7 +712,7 @@ class _homeState extends State<home> {
               child: Text(
                 bodyTxt,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Color(t.cardTxt),
                   fontSize: normalFontSize * 1.3,
                 ),
                 textAlign: TextAlign.center,
