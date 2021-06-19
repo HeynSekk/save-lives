@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:save_lives/common/common.dart';
 import 'package:save_lives/common/youtubePlyr.dart';
+import 'package:save_lives/models/themeManager.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:provider/provider.dart';
 
 class refContent extends StatelessWidget {
   String contentTitle;
@@ -8,16 +11,15 @@ class refContent extends StatelessWidget {
   String remember;
 
   refContent(this.contentTitle, this.ytVids, this.webPages, this.remember);
-  //String title,vidTitle,vidUrl,webDest,remember;
-  //refContent(this.title,this.vidTitle,this.vidUrl,this.webDest,this.remember);
+
   @override
   Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
     double sw = MediaQuery.of(context).size.width;
     double wRow = sw * 0.8;
-    double sHeight = MediaQuery.of(context).size.height;
     double normalFontSize = wRow * 0.07 * 1.5 * 0.50;
     //build widget list
-    var wLst = new List<Widget>();
+    List<Widget> wLst = [];
     int countWidget = 0;
     //title
     wLst.add(SizedBox(
@@ -30,7 +32,7 @@ class refContent extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: normalFontSize * 2,
-            color: Colors.black,
+            color: Color(t.contentTitle),
             fontWeight: FontWeight.bold,
           ),
         )));
@@ -42,7 +44,7 @@ class refContent extends StatelessWidget {
       'Learn from videos:',
       style: TextStyle(
         fontSize: normalFontSize,
-        color: Color(0xff4c7031),
+        color: Color(t.listTitle),
       ),
     ));
     wLst.add(SizedBox(height: normalFontSize));
@@ -62,14 +64,14 @@ class refContent extends StatelessWidget {
         'Learn from websites:',
         style: TextStyle(
           fontSize: normalFontSize,
-          color: Color(0xff4c7031),
+          color: Color(t.listTitle),
         ),
       ));
       wLst.add(SizedBox(height: normalFontSize));
 
       countWidget = this.webPages.length;
       for (int i = 0; i < countWidget; i++) {
-        wLst.add(contLink(
+        wLst.add(WebsiteLink(
           this.webPages[i][0],
           this.webPages[i][1],
           this.webPages[i][2],
@@ -82,38 +84,20 @@ class refContent extends StatelessWidget {
     //remember
     if (this.remember.compareTo('no') != 0) {
       //not equal to no
-      wLst.add(SizedBox(height: normalFontSize * 0.80));
-      wLst.add(Text(
-        'Summary',
-        style: TextStyle(
-          fontSize: normalFontSize,
-          color: Color(0xff4c7031),
-        ),
-      ));
-      wLst.add(SizedBox(height: normalFontSize));
-      wLst.add(Container(
-        width: sw * 0.85,
-        padding: EdgeInsets.all(normalFontSize),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(normalFontSize),
-          color: Colors.green,
-        ),
-        child: SizedBox(
-            width: sw * 0.70,
-            child: Text(
-              this.remember,
-              style: TextStyle(
-                  color: Colors.white, fontSize: normalFontSize, height: 1.9),
-            )),
-      ));
+      wLst.add(SizedBox(height: normalFontSize * 1.8));
+
+      wLst.add(LeadingTxt('Quick summary', true));
+      wLst.add(SizedBox(height: normalFontSize * 1.8));
+      wLst.add(DescTxt(this.remember, false));
       wLst.add(SizedBox(height: normalFontSize * 1.8));
     }
 
-    wLst.add(appQuote());
+    wLst.add(AppQuote());
 
     return SafeArea(
       child: Scaffold(
-        drawer: drawerUI(),
+        backgroundColor: Color(t.bg),
+        drawer: DrawerUi(),
         body: Padding(
           padding: EdgeInsets.only(
               top: sw * 0.05, left: sw * 0.05, right: sw * 0.05),
@@ -124,11 +108,11 @@ class refContent extends StatelessWidget {
                 width: sw * 0.90,
                 child: Padding(
                   padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
-                  child: drawerButton(),
+                  child: DrawerButton(),
                 ),
               ),
               SizedBox(
-                height: sw * 0.05,
+                height: sw * 0.02,
               ),
               //scroll
               Flexible(
@@ -149,30 +133,95 @@ class refContent extends StatelessWidget {
         ),
       ),
     );
+  }
+}
 
-    /*Scaffold(
-      drawer: drawerUI(),
-      body: SafeArea(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            sideStick(),
-            Padding(
-              padding: EdgeInsets.only(
-                //top: sHeight * 0.07*0.10,
-                left: sHeight * 0.11 * 0.20,
-                right: 0,
+class WebsiteLink extends StatelessWidget {
+  //attri
+  final String img, txt, addr, url;
+  //constructor
+  WebsiteLink(this.img, this.txt, this.addr, this.url);
+
+  Future<int> _launchWebView(String url) async {
+    int r = 1;
+    if (await canLaunch(url)) {
+      r = 1;
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: true,
+        enableJavaScript: true,
+        headers: <String, String>{'my_header_key': 'my_header_value'},
+      );
+    } else {
+      r = 0;
+    }
+    return r;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeManager t = context.watch<ThemeManager>();
+    double sw = MediaQuery.of(context).size.width;
+    double wRow = sw * 0.8;
+    double normalFontSize = wRow * 0.07 * 1.5 * 0.60;
+    return InkWell(
+      onTap: () async {
+        if (await _launchWebView(this.url) == 0) {
+          //show err msg
+          showDialog<void>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text('Could not launch web view'),
+              actions: <Widget>[
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('OK')),
+              ],
+            ),
+          );
+        }
+      },
+      child: Container(
+        width: sw * 0.90,
+        decoration: BoxDecoration(
+          color: Color(t.linkBtn),
+          borderRadius: BorderRadius.circular(normalFontSize * 0.30),
+        ),
+        padding: EdgeInsets.all(sw * 0.87 * 0.07),
+        margin: EdgeInsets.only(left: 5),
+        child: Column(children: <Widget>[
+          Row(
+            children: <Widget>[
+              Imgs(sw * 0.87 * 0.30, sw * 0.87 * 0.30, normalFontSize * 0.50,
+                  this.img),
+              SizedBox(width: sw * 0.87 * 0.05),
+              SizedBox(
+                width: sw * 0.87 * 0.50,
+                child: Text(
+                  this.txt,
+                  style: TextStyle(
+                    fontSize: normalFontSize,
+                    color: Color(t.linkBtnTxt),
+                  ),
+                ),
               ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: wLst),
+            ],
+          ),
+          //addr
+          SizedBox(height: normalFontSize),
+          SizedBox(
+            width: sw * 0.70,
+            child: Text(
+              this.addr,
+              style: TextStyle(
+                color: Color(t.linkBtnTxt),
+                fontSize: normalFontSize * 0.70,
               ),
             ),
-          ],
-        ),
+          ),
+        ]),
       ),
-    );*/
+    );
   }
 }

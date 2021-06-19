@@ -1,165 +1,67 @@
-import 'dart:async';
-import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:save_lives/common/common.dart';
-//load assest
-//parse
-//build with parsed data
+import 'package:save_lives/models/themeManager.dart';
+import 'package:provider/provider.dart';
 
-class purpose extends StatelessWidget {
-  String addr;
-  purpose(this.addr);
-
+class Purpose extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //double sw = MediaQuery.of(context).size.width;
-    return Scaffold(
-      body: SafeArea(
-        child: FutureBuilder<List<String>>(
-          future: loadData(this.addr),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) print(snapshot.error);
-
-            return snapshot.hasData
-                ? actualUI(snapshot.data)
-                : Center(child: CircularProgressIndicator());
-          },
-        ),
-      ),
-    );
-  }
-}
-
-//LOAD
-Future<List<String>> loadData(String jsonAddr) async {
-  String data = await rootBundle.loadString(jsonAddr);
-
-  // Use the compute function to run parsePhotos in a separate isolate.
-  return compute(parseData, data);
-}
-
-// parse
-List<String> parseData(String data) {
-  var dl = new List<String>();
-  final int lineNum = 5;
-  int lineCtr = 0;
-  Map<String, dynamic> parsed = jsonDecode(data) as Map<String, dynamic>;
-  String str;
-  //adding
-  //Rhythmic flow
-  while (lineCtr <= lineNum) {
-    str = parsed['$lineCtr'] as String;
-    dl.add(str);
-    lineCtr++;
-  }
-  return dl;
-}
-
-// MAIN UI
-class actualUI extends StatelessWidget {
-  List<String> dl;
-  actualUI(this.dl);
-  Widget secTitle(BuildContext context, String txt) {
-    double sw = MediaQuery.of(context).size.width;
-    double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.35;
-    return Text(
-      txt,
-      style: TextStyle(
-          color: Color(0xff4c7031),
-          fontSize: normalFontSize * 3,
-          fontWeight: FontWeight.bold),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    double sw = MediaQuery.of(context).size.width;
-    //double normalFontSize = sw * 0.8 * 0.07 * 1.5 * 0.48;
-    return Scaffold(
-      drawer: drawerUI(),
-      body: Padding(
-        padding: EdgeInsets.all(sw * 0.05),
-        child: Column(
-          children: <Widget>[
-            //dr button
-            SizedBox(
-              width: sw * 0.90,
-              child: Padding(
-                padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
-                child: drawerButton(),
+    final ThemeManager t = context.watch<ThemeManager>();
+    final double sw = MediaQuery.of(context).size.width;
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Color(t.bg),
+        drawer: DrawerUi(),
+        body: Padding(
+          padding: EdgeInsets.only(
+              left: sw * 0.05, right: sw * 0.05, top: sw * 0.05),
+          child: Column(
+            children: <Widget>[
+              //dr button
+              SizedBox(
+                width: sw * 0.90,
+                child: Padding(
+                  padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
+                  child: DrawerButton(),
+                ),
               ),
-            ),
-            SizedBox(
-              height: sw * 0.1,
-            ),
-            //scroll view
-            Flexible(
-              flex: 1,
-              fit: FlexFit.tight,
-              child: SizedBox(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      //title
-                      secTitle(context, 'Purpose of this app'),
-                      SizedBox(
-                        height: sw * 0.089,
-                      ),
-                      normalPara(this.dl[0]),
-                      normalPara(this.dl[1]),
-                      normalPara(this.dl[2]),
-                      normalPara(this.dl[3]),
-                      normalPara(this.dl[4]),
-                      normalPara(this.dl[5]),
-                      //to olen
-                    ],
+              SizedBox(
+                height: sw * 0.02,
+              ),
+              //scroll view
+              Flexible(
+                flex: 1,
+                fit: FlexFit.tight,
+                child: SizedBox(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: <Widget>[
+                        //title
+                        LeadingTxt('\nPurpose of this app', true),
+                        SizedBox(
+                          height: sw * 0.089,
+                        ),
+                        DescTxt(
+                            'Save Lives was born with the purpose of giving people valuable health knowledge. It is an Android app that contains a collection of essential health knowledge that everyone should know. You can get valuable health knowledge just by spending a few minutes a day in this app.\n\nHealth knowledge are very useful in our life. Some knowledge are so powerful that they can even save a live.\n\nA few months ago, a sixteen years old boy who lives near my house died from an electric shock. Although his family transported him to the nearest hospital, his heart stopped beating when they arrived the hospital.\n\nWhen someone gets a severe electric shock, his heart stop beating. We must perform a task that resuscitates his heart, called CPR, immediately. Only if so, he has the chance to get his life back.',
+                            false),
+                        DescTxt(
+                            '\nIn his case, no one performed CPR for immediate resuscitation, and he lost his life although there was an obvious possibility to get back his life. If someone performed the CPR immediately, he will not die. But now, he didn\'t get CPR at the time he needed, and he lost his life.\n\nWe can say that such knowledge are crucial because they can even save the lives. They are called "First Aids". Giving first aids when one really needs it, can surely save his life.',
+                            false),
+                        DescTxt(
+                            '\nWhat is First Aid?\n\nFirst aid is the first and immediate assistance given to any person suffering from either a minor or serious illness or injury.\n\nWe must give the casualty the first aids immediately in some illnesses or injuries such as choking, snake bite, electric shock, severe bleeding etc.\n\nWhen a baby is choking and his mom don\'t know how to make him get relief, he will stop breathing within a few minutes if the thing that is choked didn\'t come out. Even if he can get to the hospital within 5 minutes, he might even die because no babies can\'t live for 5 minutes without breathing.\n\nIn those cases, immediate first aid is a must. Otherwise, the casualty has a very little chance to get his life back.\n\nA Red Cross survey showed a staggering 59% of deaths from injuries would have been preventable had first aid been given before the emergency services arrived. So having First aid knowledge can save many lives. It is worth learning.\n\nWe might encounter some illnesses or injuries in our life. We can\'t definitely say we will not do so. According to a survey, commissioned by the British Red Cross, one in five teenagers have had to help someone who is choking.\n\nOurselves, our family members, or other people around us might encounter a health emergency conditions in life. When encountered, we must have First aids knowledge in order to be able to save the lives.\n\nSurely, we don\'t want that we were panicked and didn\'t know what to do when our loved ones were in an injury. And we won\'t want to see our loved ones losing their lives just because of small accidental injuries like choking. Therefore, we should have essential first aids knowledge, at least for our loved ones.',
+                            false),
+                        DescTxt(
+                            '\nSo where can we learn first aid?\n\nIt is the best to join an offline course with practical lessons and trainings. But, if you can\'t make time for joining a course, you can learn from videos and websites on the internet.\n\nThere are mobile apps that can help you in learning first aids like this app called \'Save Lives\'. This app has a collection of common first aids that everyone should know. And you can learn the first aids by watching YouTube videos or reading articles from websites.\n\nLately most people on the internet don\'t pay much attention to health knowledge. So this app will show you something to learn from notification, every day. Having this app installed, will trigger you to make commitments on getting health knowledge.\n\nFirst aids are easily forgotten when we are away from them for a while. So we need to revise when we forget. You can easily revise the first aids information without needing to type and search again, if you have a mobile app like Save Lives installed on your phone.\n\nAnd, we need to share the first aids that we have learned, to other people. It is better that many people have the knowledge of first aid. So people can help each other when they know how to give first aids. Sharing directly to our family members in leisure times, or if we want our sharing to reach to more people, sharing on social media will help it.\n\nAs summary, we might encounter health emergency conditions in our life. And in some case, the casualty would die if he didn\'t get the first aid immediately. Only if he gets the first aid immediately, he would not lose his life.\n\nHaving first aids knowledge can save many lives. They can be useful one day. Therefore, we all should learn first aids.',
+                            false),
+                        DescTxt('\n', false),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class normalPara extends StatelessWidget {
-  String data;
-  normalPara(this.data);
-  @override
-  Widget build(BuildContext context) {
-    double sw = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: sw * 0.05 * 2,
-      ),
-      child: para(this.data, 0xff000000),
-    );
-  }
-}
-
-class para extends StatelessWidget {
-  String data;
-  int txtColor;
-  para(this.data, this.txtColor);
-  @override
-  Widget build(BuildContext context) {
-    double sw = MediaQuery.of(context).size.width;
-    double paraFontSize = sw * 0.85 * 0.055; //screenWidth * 0.85 * 0.055
-    return SizedBox(
-      width: sw * 0.80,
-      child: Text(
-        this.data,
-        style: TextStyle(
-          fontSize: paraFontSize,
-          color: Color(this.txtColor),
-          height: 1.9,
+            ],
+          ),
         ),
       ),
     );
