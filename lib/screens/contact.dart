@@ -46,7 +46,8 @@ class contact extends StatelessWidget {
         backgroundColor: Color(t.bg),
         drawer: DrawerUi(),
         body: Padding(
-          padding: EdgeInsets.all(sw * 0.05),
+          padding: EdgeInsets.only(
+              top: sw * 0.05, left: sw * 0.05, right: sw * 0.05),
           child: Column(
             children: <Widget>[
               //drawer
@@ -58,7 +59,7 @@ class contact extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: sw * 0.05,
+                height: sw * 0.01,
               ),
               //scroll
               Flexible(
@@ -76,7 +77,7 @@ class contact extends StatelessWidget {
                         vspace(normalFontSize * 2),
                         //actions
                         DescTxt(
-                            'To suggest improvements,\nReport bugs,\nRequest new features,\nDiscuss about application development,',
+                            'If you found mistakes in content or want to provide a better content, I will be very glad to see you contact me. You can also suggest for improvements, request new features, report bugs, and discuss the software development by contacting me.',
                             true),
 
                         vspace(normalFontSize * 2),
@@ -95,12 +96,6 @@ class contact extends StatelessWidget {
                                     'mailto:heinsek@protonmail.com?subject=Contacting from the user of Save Lives&body=Hello Hein Sek,');
                               },
                               child: ActionButton(Icons.email, 'Email'),
-                            ),
-                            InkWell(
-                              onTap: () async {
-                                await _makePhoneCall('tel:09256832552');
-                              },
-                              child: ActionButton(Icons.phone, 'Phone'),
                             ),
                             InkWell(
                               onTap: () async {
@@ -367,7 +362,7 @@ class contact extends StatelessWidget {
                         vspace(normalFontSize * 2),
                         //DONT FORGET TO UPDATE VERSION NUMBER
                         Text(
-                          'Version 1.1',
+                          'Version 1.2 (1.2.0+2)',
                           textAlign: TextAlign.center,
                         ),
                         vspace(normalFontSize * 0.70),

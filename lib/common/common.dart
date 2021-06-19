@@ -88,7 +88,7 @@ class menuItemFirst extends StatelessWidget {
             width: sw * 0.01,
           ),
           //menuCtnr
-          menuCtnr(this.iconPicPath, this.eName, this.destination),
+          MenuCtnr(this.iconPicPath, this.eName, this.destination),
         ],
       ),
     );
@@ -106,16 +106,16 @@ class menuItemNormal extends StatelessWidget {
     double screenWidth = media.size.width;
     return Padding(
       padding: EdgeInsets.only(bottom: screenWidth * 0.70 * 0.32 * 0.15),
-      child: menuCtnr(iconPicPath, eName, destination),
+      child: MenuCtnr(iconPicPath, eName, destination),
     );
   }
 }
 
-class menuCtnr extends StatelessWidget {
-  String iconPicPath;
-  String eName, destination;
+class MenuCtnr extends StatelessWidget {
+  final String iconPicPath;
+  final String eName, destination;
 
-  menuCtnr(this.iconPicPath, this.eName, this.destination);
+  MenuCtnr(this.iconPicPath, this.eName, this.destination);
   @override
   Widget build(BuildContext context) {
     final ThemeManager t = context.watch<ThemeManager>();
@@ -343,71 +343,68 @@ class DrawerUi extends StatelessWidget {
     final ThemeManager t = context.watch<ThemeManager>();
     final double sw = MediaQuery.of(context).size.width;
     final double drWid = sw * 0.80;
-    final double menuSpace = 20;
+    final double menuSpace = 21;
     return SizedBox(
       width: drWid,
       child: Drawer(
-        child: Flexible(
-          fit: FlexFit.tight,
-          child: Container(
-            color: Color(t.drBg),
-            padding: EdgeInsets.only(
-              top: drWid * 0.20,
-              left: drWid * 0.10,
-              right: drWid * 0.10,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SaveLivesLogo(drWid * 0.12),
-                  SizedBox(
-                    height: drWid * 0.15,
+        child: Container(
+          color: Color(t.drBg),
+          padding: EdgeInsets.only(
+            top: drWid * 0.20,
+            left: drWid * 0.10,
+            right: drWid * 0.10,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SaveLivesLogo(drWid * 0.12),
+                SizedBox(
+                  height: drWid * 0.15,
+                ),
+                //lang
+                DrMenuWithSwitch(Icons.dark_mode, Colors.green, 'Dark mode'),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: menuSpace * 0.50, bottom: menuSpace * 0.70),
+                  child: Divider(
+                    color: Color(t.linkBtn),
                   ),
-                  //lang
-                  DrMenuWithSwitch(Icons.dark_mode, Colors.green, 'Dark mode'),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: menuSpace * 0.50, bottom: menuSpace * 0.70),
-                    child: Divider(
-                      color: Color(t.linkBtn),
-                    ),
-                  ),
-                  //first aids
-                  InkWell(
-                    onTap: () => Navigator.pushNamed(context, '/emergencies'),
-                    child: DrMenu(Icons.medication, 'First aids'),
-                  ),
-                  SizedBox(
-                    height: menuSpace,
-                  ),
-                  //survive
-                  InkWell(
-                    onTap: () => Navigator.pushNamed(context, '/disasters'),
-                    child: DrMenu(Icons.nature, 'Survival tips'),
-                  ),
-                  SizedBox(
-                    height: menuSpace,
-                  ),
-                  //purpose
-                  InkWell(
-                    onTap: () => Navigator.pushNamed(context, '/purpose'),
-                    child: DrMenu(Icons.favorite, 'Purpose of this app'),
-                  ),
-                  SizedBox(
-                    height: menuSpace,
-                  ),
-                  //contact
-                  InkWell(
-                    onTap: () => Navigator.pushNamed(context, '/contact'),
-                    child: DrMenu(Icons.phone, 'Contact'),
-                  ),
-                  SizedBox(
-                    height: menuSpace,
-                  ),
-                ],
-              ),
+                ),
+                //first aids
+                InkWell(
+                  onTap: () => Navigator.pushNamed(context, '/emergencies'),
+                  child: DrMenu(Icons.medication, 'First aids'),
+                ),
+                SizedBox(
+                  height: menuSpace,
+                ),
+                //survive
+                InkWell(
+                  onTap: () => Navigator.pushNamed(context, '/disasters'),
+                  child: DrMenu(Icons.nature, 'Survival tips'),
+                ),
+                SizedBox(
+                  height: menuSpace,
+                ),
+                //purpose
+                InkWell(
+                  onTap: () => Navigator.pushNamed(context, '/purpose'),
+                  child: DrMenu(Icons.favorite, 'Purpose of this app'),
+                ),
+                SizedBox(
+                  height: menuSpace,
+                ),
+                //contact
+                InkWell(
+                  onTap: () => Navigator.pushNamed(context, '/contact'),
+                  child: DrMenu(Icons.phone, 'Contact'),
+                ),
+                SizedBox(
+                  height: menuSpace,
+                ),
+              ],
             ),
           ),
         ),

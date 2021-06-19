@@ -84,15 +84,10 @@ class refContent extends StatelessWidget {
     //remember
     if (this.remember.compareTo('no') != 0) {
       //not equal to no
-      wLst.add(SizedBox(height: normalFontSize * 0.80));
-      wLst.add(Text(
-        'Summary',
-        style: TextStyle(
-          fontSize: normalFontSize,
-          color: Color(t.listTitle),
-        ),
-      ));
-      wLst.add(SizedBox(height: normalFontSize));
+      wLst.add(SizedBox(height: normalFontSize * 1.8));
+
+      wLst.add(LeadingTxt('Quick summary', true));
+      wLst.add(SizedBox(height: normalFontSize * 1.8));
       wLst.add(DescTxt(this.remember, false));
       wLst.add(SizedBox(height: normalFontSize * 1.8));
     }

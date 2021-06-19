@@ -330,46 +330,58 @@ For foreign object in the ear,
             'no'),
 
         //CPR ADULT
-        '/adCpr': (context) => refContent(
-            'CPR for adults',
-            [
+        '/adCpr': (context) => refContent('CPR for adults', [
               [
                 'https://youtu.be/f4ZI1PAsmks',
                 'assets/images/cpr.png',
                 'How to do CPR on an adult - YouTube',
                 'St John Ambulance'
               ],
-            ],
-            [
+            ], [
               [
                 'assets/images/cprAd.jpg',
                 'How to do CPR on an adult - first aid',
                 'www.sja.org.uk',
                 'https://www.sja.org.uk/get-advice/first-aid-advice/unresponsive-casualty/how-to-do-cpr-on-an-adult/'
               ]
-            ],
-            '-30 chest compression\n-2 resuce breathe'),
+            ], '''
+Do CPR when someone is unresponsive or not breathing.
+Perform primary survey first.
+Call for emergency help.
+
+- Put the heel of your hand on the middle of their chest.
+- Keep your arms straight and lean over the casualty.
+- Press down hard, to a depth of about 5-6cm as shown in the video.
+- If you become tired, ask someone else to do.
+- Do this until they become responsive.
+- When they become responsive, put them in recovery position.
+'''),
 
         //CPR BABY
-        '/babyCpr': (context) => refContent(
-            'CPR for babies',
-            [
+        '/babyCpr': (context) => refContent('CPR for babies', [
               [
                 'https://youtu.be/avYRvVHAvfM',
                 'assets/images/cpr.png',
                 'How to do CPR on a baby - YouTube',
                 'St John Ambulance'
               ],
-            ],
-            [
+            ], [
               [
                 'assets/images/cprBaby.png',
                 'How to do CPR on a baby - first aid',
                 'www.sja.org.uk',
                 'https://www.sja.org.uk/get-advice/first-aid-advice/paediatric-first-aid/how-to-do-cpr-on-a-baby/'
               ]
-            ],
-            'no'),
+            ], '''
+If a baby is not responding to you and not breathing normally, you will need to call for emergency help and start CPR straight away.
+
+- Open their airway
+- 5 initial puffs: Take a breath and put your mouth around the baby’s mouth and nose to make a seal, and blow gently and steadily for up to one second. The chest should rise.
+- 30 pumps: Put two fingers in the centre of the baby’s chest and push down a third of the depth of the chest
+- 2 puffs: open the airway again and give 2 puffs
+- Keep alternating 30 pumps with two puffs
+- If the baby shows signs of becoming responsive, such as, coughing, opening their eyes, making a noise, or starts to breathe normally, put them in the recovery position.
+'''),
 
         //CPR CHILD
         '/childCpr': (context) => refContent(

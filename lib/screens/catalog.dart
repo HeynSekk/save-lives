@@ -30,7 +30,7 @@ class catalog extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: sw * 0.05,
+                height: sw * 0.01,
               ),
               //scroll
               Flexible(

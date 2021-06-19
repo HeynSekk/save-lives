@@ -22,7 +22,7 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   //DON'T FORGET TO UPDATE THE curVer WHEN ROLL OUT UPDATES
-  final double curVer = 1.1;
+  final double curVer = 1.2;
   int _stackToShow = 0;
   bool upd = false;
   double verCode = 0;
@@ -55,7 +55,7 @@ class _homeState extends State<home> {
   //get version info
   Future<Map<String, dynamic>> getVersionInfo() async {
     DocumentReference dr =
-        FirebaseFirestore.instance.collection('versions2').doc('version2');
+        FirebaseFirestore.instance.collection('versions').doc('version');
     print('created an instance');
     return dr.get().then((ds) {
       String apkUrlArm = ds['apkUrlArm'] as String;
@@ -426,7 +426,8 @@ class _homeState extends State<home> {
             backgroundColor: Color(t.bg),
             drawer: DrawerUi(), //from common.dart
             body: Padding(
-              padding: EdgeInsets.all(sw * 0.05),
+              padding: EdgeInsets.only(
+                  top: sw * 0.05, left: sw * 0.05, right: sw * 0.05),
               child: Column(
                 children: <Widget>[
                   //drawer
@@ -436,6 +437,9 @@ class _homeState extends State<home> {
                       padding: EdgeInsets.only(right: sw * 0.90 * 0.85),
                       child: DrawerButton(),
                     ),
+                  ),
+                  SizedBox(
+                    height: sw * 0.01,
                   ),
                   //scroll
                   Flexible(

@@ -30,7 +30,7 @@ class disastersCatalog extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: sw * 0.05,
+                height: sw * 0.01,
               ),
               //scroll
               Flexible(
@@ -54,11 +54,8 @@ class disastersCatalog extends StatelessWidget {
                           height: normalFontSize * 1.2,
                         ),
                         //items
-                        menuItemFirst(
-                            'assets/images/drowning.jpg',
-                            'Drowning (For those who can\'t swim)',
-                            '/dro',
-                            'D'),
+                        menuItemFirst('assets/images/drowning.jpg', 'Drowning',
+                            '/dro', 'D'),
                         menuItemFirst('assets/images/natural.jpg',
                             'Natural disasters', '/natdis', 'N'),
                         menuItemFirst('assets/images/ship.png',
