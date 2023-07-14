@@ -34,7 +34,7 @@ apply plugin: 'com.google.gms.google-services'
    
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 31
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -68,9 +68,7 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
             minifyEnabled false
-            useProguard false
             shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
             
         }
     }

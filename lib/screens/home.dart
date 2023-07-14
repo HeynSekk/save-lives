@@ -1,15 +1,10 @@
 import 'dart:math';
-import 'dart:async';
 import 'package:flutter/cupertino.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:save_lives/common/common.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:connectivity/connectivity.dart';
-import 'package:ota_update/ota_update.dart';
-import 'package:device_info/device_info.dart';
 import 'package:provider/provider.dart';
 
 import 'package:save_lives/main.dart';
@@ -21,18 +16,7 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
-  //DON'T FORGET TO UPDATE THE curVer WHEN ROLL OUT UPDATES
-  final double curVer = 1.2;
   int _stackToShow = 0;
-  bool upd = false;
-  double verCode = 0;
-  String apkUrlArm = 'https://internal1.4q.sk/flutter_hello_world.apk';
-  String apkUrlArme = 'https://internal1.4q.sk/flutter_hello_world.apk';
-  String apkUrlArmx = 'https://internal1.4q.sk/flutter_hello_world.apk';
-  Widget forceCheckResult = new Container();
-  Widget updatingStatus = new Container();
-  OtaEvent currentEvent = new OtaEvent();
-  double downloadProgress = 0.0;
 
   final MethodChannel platform =
       MethodChannel('crossingthestreams.io/resourceResolver');
@@ -45,316 +29,10 @@ class _homeState extends State<home> {
     _configureDidReceiveLocalNotificationSubject();
     _configureSelectNotificationSubject();
     _showDailyAtTime();
-    checkForUpd();
   }
 
   Future<void> normalProcess() async {
     await context.read<ThemeManager>().openSetup();
-  }
-
-  //get version info
-  Future<Map<String, dynamic>> getVersionInfo() async {
-    DocumentReference dr =
-        FirebaseFirestore.instance.collection('versions').doc('version');
-    print('created an instance');
-    return dr.get().then((ds) {
-      String apkUrlArm = ds['apkUrlArm'] as String;
-      String apkUrlArme = ds['apkUrlArme'] as String;
-      String apkUrlArmx = ds['apkUrlArmx'] as String;
-      double verCode = ds['verCode'] as double;
-      int forceUpd = ds['forceUpd'] as int;
-      Map<String, dynamic> versionInfo = {
-        'apkUrlArm': apkUrlArm,
-        'apkUrlArme': apkUrlArme,
-        'apkUrlArmx': apkUrlArmx,
-        'verCode': verCode,
-        'forceUpd': forceUpd
-      };
-      return versionInfo;
-    }).catchError((e) {
-      print('err in db read= $e');
-      return null;
-    });
-  }
-
-  //check for update
-  Future<void> checkForUpd() async {
-    double fetchedVerCode;
-    String fetchedUrlArm, fetchedUrlArme, fetchedUrlArmx;
-    //create pref instance
-    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    final SharedPreferences prefs = await _prefs.catchError((e) {
-      print('error= $e');
-      return null;
-    });
-
-    //decide whether to fetch fs or not
-    bool shouldFetch = await shouldFetchFromFS();
-    print('shouldFetch=$shouldFetch');
-
-    //yes decided to fetch
-    if (shouldFetch) {
-      print('yes should fetch');
-      //fetch version info from fs
-      Map<String, dynamic> versionInfo = await getVersionInfo();
-      print('db has data? = ${versionInfo != null}');
-      if (versionInfo != null) {
-        print('success db read');
-        fetchedVerCode = versionInfo['verCode'] as double;
-        fetchedUrlArm = versionInfo['apkUrlArm'] as String;
-        fetchedUrlArme = versionInfo['apkUrlArme'] as String;
-        fetchedUrlArmx = versionInfo['apkUrlArmx'] as String;
-        print('fetchedVerCode= $fetchedVerCode');
-
-        //write updated verCode and apkUrl to SP
-        await prefs
-            .setDouble('verCode', fetchedVerCode)
-            .catchError((e) => print('error in setDouble= $e'));
-        await prefs
-            .setString('apkUrlArm', fetchedUrlArm)
-            .catchError((e) => print('error in setString= $e'));
-        await prefs
-            .setString('apkUrlArme', fetchedUrlArme)
-            .catchError((e) => print('error in setString= $e'));
-        await prefs
-            .setString('apkUrlArmx', fetchedUrlArmx)
-            .catchError((e) => print('error in setString= $e'));
-      }
-    }
-    //not to fetch
-    else {
-      print('should not fetch db\n fetchedVerCode=$fetchedVerCode');
-      //get verCode and apkUrl from SP
-      try {
-        fetchedVerCode = prefs.getDouble('verCode');
-        fetchedUrlArm = prefs.getString('apkUrlArm');
-        fetchedUrlArme = prefs.getString('apkUrlArme');
-        fetchedUrlArmx = prefs.getString('apkUrlArmx');
-      } catch (e) {
-        print('error fetching from SP= $e');
-      }
-    }
-    //compare. if cur ver is smaller, show noti
-    if (fetchedVerCode != null) {
-      print('got data from db');
-      if (curVer < fetchedVerCode) {
-        setState(() {
-          _stackToShow = 1;
-          verCode = fetchedVerCode;
-          apkUrlArm = fetchedUrlArm;
-          apkUrlArme = fetchedUrlArme;
-          apkUrlArmx = fetchedUrlArmx;
-        });
-      }
-    }
-  }
-
-  //force check update
-  Future<void> forceFetchCheckForUpd(BuildContext context) async {
-    double fetchedVerCode;
-    String fetchedUrlArm, fetchedUrlArme, fetchedUrlArmx;
-    var curTime = new DateTime.now();
-    //create pref instance
-    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    final SharedPreferences prefs = await _prefs.catchError((e) {
-      print('error= $e');
-      return null;
-    });
-    //check internet connected
-    var connResult = await (Connectivity().checkConnectivity().catchError((e) {
-      print(e);
-      return null;
-    }));
-
-    if (connResult == ConnectivityResult.mobile ||
-        connResult == ConnectivityResult.wifi) {
-      //fetch from fs
-      Map<String, dynamic> versionInfo = await getVersionInfo();
-      print('db has data? = ${versionInfo != null}');
-      if (versionInfo != null) {
-        print('success db read');
-        fetchedVerCode = versionInfo['verCode'] as double;
-        fetchedUrlArm = versionInfo['apkUrlArm'] as String;
-        fetchedUrlArme = versionInfo['apkUrlArme'] as String;
-        fetchedUrlArmx = versionInfo['apkUrlArmx'] as String;
-        //set new expire date to SP
-        await prefs
-            .setString('expDate', curTime.add(new Duration(days: 3)).toString())
-            .catchError((e) => print('error= $e'));
-
-        //write fetched data to sp
-        await prefs
-            .setDouble('verCode', fetchedVerCode)
-            .catchError((e) => print('error in setDouble= $e'));
-        await prefs
-            .setString('apkUrlArm', fetchedUrlArm)
-            .catchError((e) => print('error in setString= $e'));
-        await prefs
-            .setString('apkUrlArme', fetchedUrlArme)
-            .catchError((e) => print('error in setString= $e'));
-        await prefs
-            .setString('apkUrlArmx', fetchedUrlArmx)
-            .catchError((e) => print('error in setString= $e'));
-
-        //compare cur ver and fetched ver code
-        if (curVer < fetchedVerCode) {
-          //updates
-          setState(() {
-            _stackToShow = 1;
-            verCode = fetchedVerCode;
-            apkUrlArm = fetchedUrlArm;
-            apkUrlArme = fetchedUrlArme;
-            apkUrlArmx = fetchedUrlArmx;
-          });
-        } else {
-          //no updates
-          setState(() {
-            forceCheckResult = Text(
-              'The app is up to date',
-              textAlign: TextAlign.center,
-            );
-          });
-        }
-      }
-    } else {
-      setState(() {
-        forceCheckResult = SizedBox(
-          width: MediaQuery.of(context).size.width * 0.85,
-          child: Text(
-            'Please turn on mobile data or wifi. And try Checking again',
-            textAlign: TextAlign.center,
-          ),
-        );
-      });
-    }
-  }
-
-  //should fetch
-  Future<bool> shouldFetchFromFS() async {
-    var curTime = new DateTime.now();
-    var expDate = new DateTime.now();
-    bool intConn = false;
-    //check internet connected
-    var connResult = await (Connectivity().checkConnectivity().catchError((e) {
-      print(e);
-      return null;
-    }));
-    if (connResult == ConnectivityResult.mobile ||
-        connResult == ConnectivityResult.wifi) intConn = true;
-
-    //create pref instance
-    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    final SharedPreferences prefs = await _prefs.catchError((e) {
-      print('error= $e');
-      return null;
-    });
-
-    print('created an SP instance');
-
-    //get expDate from sp
-    String expDateStr = prefs.getString('expDate');
-    if (expDateStr != null) {
-      expDate = DateTime.parse(expDateStr);
-      if (curTime.isAfter(expDate) && intConn) {
-        //calculate new expire date
-        expDateStr = curTime.add(new Duration(days: 3)).toString();
-
-        //write exp date to SP
-        await prefs
-            .setString('expDate', expDateStr)
-            .catchError((e) => print('error in setString= $e'));
-        //tell to check
-        return true;
-      } else {
-        //dont check
-        return false;
-      }
-    } else {
-      //first time
-      if (intConn) {
-        //calculate new expire date
-        expDateStr = curTime.add(new Duration(days: 3)).toString();
-
-        //write exp date to SP
-        await prefs
-            .setString('expDate', expDateStr)
-            .catchError((e) => print('error in setString= $e'));
-
-        //tell to check
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
-
-  //choose apk
-  Future<String> chooseApk() async {
-    //initialize plugin
-    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-    AndroidDeviceInfo build = await deviceInfoPlugin.androidInfo
-        .catchError((e) => print('error= $e'));
-    //device's supported abis
-    List<String> supportedAbis = build.supportedAbis;
-
-    //return the right apkUrl
-    if (supportedAbis[0].compareTo('arm64-v8a') == 0) {
-      return apkUrlArm;
-    } else if (supportedAbis[0].compareTo('armeabi-v7a') == 0) {
-      return apkUrlArme;
-    } else if (supportedAbis[0].compareTo('x86_64') == 0) {
-      return apkUrlArmx;
-    } else
-      return null;
-  }
-
-  //ota update
-  Future<void> tryOtaUpdate() async {
-    //choose the right apk
-    String apkUrl = await chooseApk();
-    //check internet connected
-    var connResult = await (Connectivity().checkConnectivity().catchError((e) {
-      print(e);
-      return null;
-    }));
-    if (connResult == ConnectivityResult.mobile ||
-        connResult == ConnectivityResult.wifi) {
-      //connected
-      setState(() {
-        //show downloading screen
-        _stackToShow = 2;
-      });
-      try {
-        OtaUpdate()
-            .execute(
-          apkUrl,
-          destinationFilename: 'SaveLives.apk',
-        )
-            .listen(
-          (OtaEvent event) {
-            setState(() {
-              currentEvent = event;
-              downloadProgress = double.parse(currentEvent.value);
-            });
-            print('currentEvent.value = ${currentEvent.value}');
-            //print('downloadProgress = $downloadProgress');
-          },
-        );
-        // ignore: avoid_catches_without_on_clauses
-      } catch (e) {
-        print('Failed to make OTA update. Details: $e');
-        setState(() {
-          //show error updating screen
-          _stackToShow = 4;
-        });
-      }
-    } else {
-      //not connected
-      setState(() {
-        //no internet screen
-        _stackToShow = 3;
-      });
-    }
   }
 
   void _requestIOSPermissions() {
@@ -475,33 +153,6 @@ class _homeState extends State<home> {
                             //footer quote
                             AppQuote(),
                             vspace(30),
-                            InkWell(
-                              onTap: () async {
-                                setState(() {
-                                  forceCheckResult = Padding(
-                                    padding:
-                                        EdgeInsets.only(top: 30, bottom: 30),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        CircularProgressIndicator(),
-                                        SizedBox(
-                                          height: 15,
-                                        ),
-                                        Text('Checking for updates...'),
-                                      ],
-                                    ),
-                                  );
-                                });
-                                forceFetchCheckForUpd(context);
-                              },
-                              child: ActionButton(
-                                  Icons.update, 'Check for updates'),
-                            ),
-                            vspace(30),
-                            forceCheckResult,
-                            vspace(30),
                           ],
                         ),
                       ),
@@ -509,169 +160,6 @@ class _homeState extends State<home> {
                   ),
                 ],
               ),
-            ),
-          ),
-        ),
-
-        //update notify screen
-        Scaffold(
-          backgroundColor: Color(t.bg),
-          body: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //title
-                LeadingTxt('Software updates available!', true),
-                SizedBox(
-                  height: normalFontSize * 1.5,
-                ),
-                //desc
-                DescTxt(
-                    'Please turn on mobile data or wifi. And update the app.',
-                    true),
-                SizedBox(
-                  height: normalFontSize * 2.9,
-                ),
-                //btn
-                InkWell(
-                  onTap: () async {
-                    tryOtaUpdate();
-                  },
-                  child: ActionButton(Icons.update, 'Update now'),
-                ),
-                SizedBox(
-                  height: normalFontSize * 1.7,
-                ),
-                InkWell(
-                  onTap: () async {
-                    setState(() {
-                      _stackToShow = 0;
-                      forceCheckResult = Container();
-                    });
-                  },
-                  child: TxtButton('Cancel'),
-                ),
-              ],
-            ),
-          ),
-        ),
-        //update success
-        SafeArea(
-          child: Scaffold(
-            backgroundColor: Color(t.bg),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  //title
-                  LeadingTxt('Updating...', true),
-                  SizedBox(
-                    height: normalFontSize * 1.5,
-                  ),
-                  //desc
-                  DescTxt('Please don\'t quit the app while updating', true),
-                  SizedBox(
-                    height: normalFontSize * 2.9,
-                  ),
-                  //progress
-                  SizedBox(
-                    width: sw * 0.70,
-                    child: LinearProgressIndicator(
-                      value: downloadProgress * 0.01,
-                      valueColor: AlwaysStoppedAnimation<Color>(Color(t.card1)),
-                      backgroundColor: Color(t.bg),
-                    ),
-                  ),
-
-                  SizedBox(
-                    height: normalFontSize * 1.5,
-                  ),
-                  //percent
-                  Text(
-                    '$downloadProgress%',
-                    style: TextStyle(
-                      color: Color(0xffbf8c00),
-                      fontSize: normalFontSize * 2,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    height: normalFontSize * 1.5,
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      setState(() {
-                        _stackToShow = 0;
-                        forceCheckResult = Container();
-                      });
-                    },
-                    child: ActionButton(Icons.run_circle, 'Run in background'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        //no internet
-        Scaffold(
-          backgroundColor: Color(t.bg),
-          body: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //title
-                LeadingTxt('No internet connection!', true),
-                SizedBox(
-                  height: normalFontSize * 1.5,
-                ),
-                //desc
-                DescTxt(
-                    'Please turn on mobile data or wifi. And try again.', true),
-                SizedBox(
-                  height: normalFontSize * 2.9,
-                ),
-                //btn
-                InkWell(
-                  onTap: () async {
-                    tryOtaUpdate();
-                  },
-                  child: ActionButton(Icons.repeat, 'Try Again'),
-                ),
-              ],
-            ),
-          ),
-        ),
-        //error updating
-        Scaffold(
-          backgroundColor: Color(t.bg),
-          body: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //desc
-                Text(
-                  'Couldn\'t download updates',
-                  style: TextStyle(
-                    fontSize: normalFontSize * 1.2,
-                    color: Color(0xff4c7031),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: normalFontSize * 1.5,
-                ),
-                //btn
-                InkWell(
-                  onTap: () async {
-                    tryOtaUpdate();
-                  },
-                  child: ActionButton(Icons.repeat, 'Try Again'),
-                ),
-              ],
             ),
           ),
         ),
@@ -828,14 +316,14 @@ class _homeState extends State<home> {
       payload: routeList[screenId],
     );
     //evening
-    screenId = rdm.nextInt(24);
-    await flutterLocalNotificationsPlugin.showDailyAtTime(
-      1,
-      titleList[screenId],
-      bodyList[screenId],
-      eveningTime,
-      platformChannelSpecifics,
-      payload: routeList[screenId],
-    );
+    // screenId = rdm.nextInt(24);
+    // await flutterLocalNotificationsPlugin.showDailyAtTime(
+    //   1,
+    //   titleList[screenId],
+    //   bodyList[screenId],
+    //   eveningTime,
+    //   platformChannelSpecifics,
+    //   payload: routeList[screenId],
+    // );
   }
 }

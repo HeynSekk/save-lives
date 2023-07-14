@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/subjects.dart';
@@ -939,12 +938,7 @@ For chemical burns in eyes)
               ]
             ],
             [
-              [
-                'assets/images/ship.png',
-                'Save yourself from drowning in a shipwreck',
-                'www.wikihow.com',
-                'https://www.wikihow.com/Save-Yourself-from-Drowning-in-a-Shipwreck'
-              ]
+              ['no']
             ],
             'no'),
         //TORNADO
