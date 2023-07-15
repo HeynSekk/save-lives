@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:save_lives/common/common.dart';
-import 'package:save_lives/common/youtubePlyr.dart';
+import 'package:save_lives/common/yt_video_info_ui.dart';
 import 'package:save_lives/models/themeManager.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
@@ -51,8 +51,8 @@ class refContent extends StatelessWidget {
 
     countWidget = this.ytVids.length;
     for (int i = 0; i < countWidget; i++) {
-      wLst.add(ytPlyr(this.ytVids[i][0], this.ytVids[i][1], this.ytVids[i][2],
-          this.ytVids[i][3]));
+      wLst.add(YtVideoInfoUi(this.ytVids[i][0], this.ytVids[i][1],
+          this.ytVids[i][2], this.ytVids[i][3]));
       wLst.add(SizedBox(height: sw * 0.05));
     }
     //webpages

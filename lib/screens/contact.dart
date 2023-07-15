@@ -360,11 +360,6 @@ class contact extends StatelessWidget {
                           ],
                         ),
                         vspace(normalFontSize * 2),
-                        //DONT FORGET TO UPDATE VERSION NUMBER
-                        Text(
-                          'Version 1.2 (1.2.0+2)',
-                          textAlign: TextAlign.center,
-                        ),
                         vspace(normalFontSize * 0.70),
                       ],
                     ),

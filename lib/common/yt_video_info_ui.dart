@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_youtube/flutter_youtube.dart';
+import 'package:save_lives/common/yt_player.dart';
 import 'package:save_lives/models/themeManager.dart';
 import 'common.dart';
-import 'sensitiveDatas.dart';
 import 'package:provider/provider.dart';
 
-class ytPlyr extends StatefulWidget {
+class YtVideoInfoUi extends StatefulWidget {
   String vidUrl;
   String img, txt, channelName;
-  ytPlyr(this.vidUrl, this.img, this.txt, this.channelName);
+  YtVideoInfoUi(this.vidUrl, this.img, this.txt, this.channelName);
   @override
-  _ytPlyrState createState() =>
-      new _ytPlyrState(this.vidUrl, this.img, this.txt, this.channelName);
+  _YtVideoInfoUiState createState() => new _YtVideoInfoUiState(
+      this.vidUrl, this.img, this.txt, this.channelName);
 }
 
-class _ytPlyrState extends State<ytPlyr> {
+class _YtVideoInfoUiState extends State<YtVideoInfoUi> {
   String vidUrl, img, txt, channelName;
-  _ytPlyrState(this.vidUrl, this.img, this.txt, this.channelName);
+  _YtVideoInfoUiState(this.vidUrl, this.img, this.txt, this.channelName);
 
   @override
   initState() {
@@ -24,9 +23,13 @@ class _ytPlyrState extends State<ytPlyr> {
   }
 
   void playYoutubeVideo() {
-    FlutterYoutube.playYoutubeVideoByUrl(
-      apiKey: "$ytApiKey", //from save_lives/common/sensitiveDatas.dart
-      videoUrl: this.vidUrl,
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => YtPlayer(
+          vdUrl: vidUrl,
+        ),
+      ),
     );
   }
 
