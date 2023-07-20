@@ -136,7 +136,7 @@ class MyApp extends StatelessWidget {
                   'assets/images/asthma.jpg',
                   'Performing first aid for asthma attack',
                   'www.sja.org.uk',
-                  'https://www.sja.org.uk/get-advice/first-aid-advice/breathing-difficulties/asthma-attack/'
+                  'https://www.sja.org.uk/get-advice/first-aid-advice/asthma-attack/'
                 ],
                 [
                   'assets/images/asthma.jpg',
@@ -217,12 +217,6 @@ How to help an asthma victim use an inhaler?)
                 'www.mayoclinic.org',
                 'https://www.mayoclinic.org/first-aid/first-aid-choking/basics/art-20056637'
               ],
-              [
-                'assets/images/chokAl.png',
-                'Choking alone | Heimlinch Manuever | First aid',
-                'www.emergencyphysicians.org',
-                'https://www.emergencyphysicians.org/article/know-when-to-go/choking--heimlich-manuever'
-              ]
             ],
             'no'),
         //FRACTURE
@@ -495,7 +489,13 @@ If a baby is not responding to you and not breathing normally, you will need to 
         //BURN AND SCALDS
         '/burn': (context) => refContent('How to treat burn and scalds', [
               [
-                'https://youtu.be/EaJmzB8YgS0',
+                'https://youtu.be/JwlSXhSg69A',
+                'assets/images/cpr.png',
+                'How to treat and manage burn and scalds - Doctor explains',
+                'Doctor O\'Donovan'
+              ],
+              [
+                'https://youtu.be/TLr2qsEhpC8',
                 'assets/images/cpr.png',
                 'How to treat burn and scalds - First aid training',
                 'St John Ambulance'
@@ -966,18 +966,15 @@ For chemical burns in eyes)
             'How to survive wild animal attacks',
             [
               [
-                'https://youtu.be/kkFFq11j6dQ',
+                'https://youtu.be/dL-Mj1hp9sc',
                 'img',
-                '13 tips on how to survive wild animal attacks',
-                'Bright Side'
+                'Scientific tips on how to survive wild animal attacks',
+                'Jaw-Dropping Facts'
               ]
             ],
             [
               [
-                'assets/images/wild.jpg',
-                '12 Techniques That Will Help You Survive a Deadly Battle With an Animal',
-                'www.brightside.me',
-                'https://brightside.me/inspiration-tips-and-tricks/12-techniques-that-will-help-you-survive-a-deadly-battle-with-an-animal-387910/'
+                'no',
               ]
             ],
             'no'),
