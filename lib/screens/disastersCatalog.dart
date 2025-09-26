@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide DrawerButton;
 import 'package:save_lives/common/common.dart';
 import 'package:provider/provider.dart';
 import 'package:save_lives/models/themeManager.dart';

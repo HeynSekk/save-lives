@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:rxdart/subjects.dart';
 import 'package:flutter/foundation.dart' show SynchronousFuture;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,66 +13,11 @@ import 'package:save_lives/screens/refContent.dart';
 
 import 'models/themeManager.dart';
 
-//***INITIALIZE***
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
 
-// Streams are created so that app can respond to notification-related events since the plugin is initialised in the `main` function
-final BehaviorSubject<ReceivedNotification> didReceiveLocalNotificationSubject =
-    BehaviorSubject<ReceivedNotification>();
 
-final BehaviorSubject<String> selectNotificationSubject =
-    BehaviorSubject<String>();
-
-NotificationAppLaunchDetails notificationAppLaunchDetails;
-
-class ReceivedNotification {
-  final int id;
-  final String title;
-  final String body;
-  final String payload;
-
-  ReceivedNotification({
-    @required this.id,
-    @required this.title,
-    @required this.body,
-    @required this.payload,
-  });
-}
-
-// *** MAIN ***
 Future<void> main() async {
-  // *** VARIABLE CREATING ***
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
-  notificationAppLaunchDetails =
-      await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
-
-  var initializationSettingsAndroid =
-      AndroidInitializationSettings('@mipmap/ic_launcher');
-  var initializationSettingsIOS = IOSInitializationSettings(
-      requestAlertPermission: false,
-      requestBadgePermission: false,
-      requestSoundPermission: false,
-      onDidReceiveLocalNotification:
-          (int id, String title, String body, String payload) async {
-        didReceiveLocalNotificationSubject.add(ReceivedNotification(
-            id: id, title: title, body: body, payload: payload));
-      });
-  var initializationSettings = InitializationSettings(
-      initializationSettingsAndroid, initializationSettingsIOS);
-
-  // *** ACTUAL INITIALIZE ***
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-      onSelectNotification: (String payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: ' + payload);
-    }
-    selectNotificationSubject.add(payload);
-    debugPrint('payload added to selectNotificationSubject');
-  });
-
   //WRAP IT
   runApp(
     ChangeNotifierProvider(
@@ -1040,9 +983,9 @@ class DemoLocalizations {
 
   final Locale locale;
 
-  static DemoLocalizations of(BuildContext context) {
-    return Localizations.of<DemoLocalizations>(context, DemoLocalizations);
-  }
+  // static DemoLocalizations of(BuildContext context) {
+  //   return Localizations.of<DemoLocalizations>(context, DemoLocalizations);
+  // }
 
   static Map<String, Map<String, String>> _localizedValues = {
     'en': {
@@ -1090,12 +1033,8 @@ class DemoLocalizations {
     },
   };
 
-  /*String get menu1 {
-    return _localizedValues[locale.languageCode]['menu1'];
-  }*/
-
   String getValue(String val) {
-    return _localizedValues[locale.languageCode][val];
+    return _localizedValues[locale.languageCode]?[val] ?? '';
   }
 }
 

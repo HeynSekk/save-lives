@@ -3,7 +3,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YtPlayer extends StatelessWidget {
   final String vdUrl;
-  const YtPlayer({Key key, this.vdUrl}) : super(key: key);
+  const YtPlayer({required this.vdUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class YtPlayer extends StatelessWidget {
         child: Center(
           child: YoutubePlayer(
             controller: YoutubePlayerController(
-              initialVideoId: YoutubePlayer.convertUrlToId(vdUrl),
+              initialVideoId: YoutubePlayer.convertUrlToId(vdUrl) ?? '',
               flags: YoutubePlayerFlags(
                 autoPlay: true,
                 mute: false,

@@ -26,11 +26,9 @@ class ThemeManager extends ChangeNotifier {
   Future<void> openSetup() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     //get user pref
-    final bool themePref = sp.getBool('darkTheme');
-    if (themePref != null) {
-      this.dark = themePref;
-    }
-    //if user pref was dark, change theme
+    final bool themePref = sp.getBool('darkTheme') ?? true;
+    this.dark = themePref;
+      //if user pref was dark, change theme
     if (dark == true) {
       await changeTheme(dark);
     }
